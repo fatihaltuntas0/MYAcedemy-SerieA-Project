@@ -1,0 +1,6 @@
+@SerieA.API_HostAddress = http://localhost:5123
+
+GET {{SerieA.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
