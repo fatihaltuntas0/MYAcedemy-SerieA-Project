@@ -10,7 +10,7 @@ using SerieA.API.Context;
 
 namespace SerieA.API.Migrations
 {
-    [DbContext(typeof(AppDbContext))]
+    [DbContext(typeof(ApiContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -166,6 +166,21 @@ namespace SerieA.API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ColorOne")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ColorTwo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("FoundedYear")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("LogoUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -174,9 +189,19 @@ namespace SerieA.API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Region")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Stadium")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StadiumCapacity")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -205,7 +230,7 @@ namespace SerieA.API.Migrations
             modelBuilder.Entity("SerieA.API.Entities.MatchCard", b =>
                 {
                     b.HasOne("SerieA.API.Entities.Match", "Match")
-                        .WithMany()
+                        .WithMany("MatchCards")
                         .HasForeignKey("MatchId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -213,7 +238,7 @@ namespace SerieA.API.Migrations
                     b.HasOne("SerieA.API.Entities.Team", "Team")
                         .WithMany()
                         .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Match");
@@ -232,7 +257,7 @@ namespace SerieA.API.Migrations
                     b.HasOne("SerieA.API.Entities.Team", "Team")
                         .WithMany("MatchGoals")
                         .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Match");
@@ -243,7 +268,7 @@ namespace SerieA.API.Migrations
             modelBuilder.Entity("SerieA.API.Entities.Substitution", b =>
                 {
                     b.HasOne("SerieA.API.Entities.Match", "Match")
-                        .WithMany()
+                        .WithMany("Substitutions")
                         .HasForeignKey("MatchId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -251,7 +276,7 @@ namespace SerieA.API.Migrations
                     b.HasOne("SerieA.API.Entities.Team", "Team")
                         .WithMany()
                         .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Match");
@@ -261,7 +286,11 @@ namespace SerieA.API.Migrations
 
             modelBuilder.Entity("SerieA.API.Entities.Match", b =>
                 {
+                    b.Navigation("MatchCards");
+
                     b.Navigation("MatchGoals");
+
+                    b.Navigation("Substitutions");
                 });
 
             modelBuilder.Entity("SerieA.API.Entities.Team", b =>

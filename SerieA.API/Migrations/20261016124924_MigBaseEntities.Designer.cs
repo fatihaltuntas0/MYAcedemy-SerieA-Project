@@ -11,7 +11,7 @@ using SerieA.API.Context;
 
 namespace SerieA.API.Migrations
 {
-    [DbContext(typeof(AppDbContext))]
+    [DbContext(typeof(ApiContext))]
     [Migration("20261016124924_MigBaseEntities")]
     partial class MigBaseEntities
     {

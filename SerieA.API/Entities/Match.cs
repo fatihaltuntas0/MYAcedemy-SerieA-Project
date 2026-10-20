@@ -16,5 +16,7 @@
 
         // A game can have more than one goal
         public ICollection<MatchGoal> MatchGoals { get; set; }
+        public ICollection<MatchCard> MatchCards { get; set; }
+        public ICollection<Substitution> Substitutions { get; set; }
     }
 }
