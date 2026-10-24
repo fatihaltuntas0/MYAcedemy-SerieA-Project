@@ -1,4 +1,4 @@
-﻿namespace SerieA.API.DTOs
+﻿namespace SerieA.API.DTOs.Teams
 {
     public class ResultTeamDto
     {
@@ -13,6 +13,6 @@
         public DateTime FoundedYear { get; set; }
         public string ColorOne { get; set; }
         public string ColorTwo { get; set; }
-        public string Status { get; set; }
+        public bool Status { get; set; }
     }
 }

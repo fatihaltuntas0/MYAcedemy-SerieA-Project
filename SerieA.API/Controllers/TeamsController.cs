@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SerieA.API.Common;
 using SerieA.API.Context;
-using SerieA.API.DTOs;
+using SerieA.API.DTOs.Teams;
 using SerieA.API.Entities;
 
 namespace SerieA.API.Controllers

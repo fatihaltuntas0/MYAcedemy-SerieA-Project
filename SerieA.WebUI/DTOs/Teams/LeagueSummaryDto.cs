@@ -1,4 +1,4 @@
-﻿namespace SerieA.API.DTOs
+﻿namespace SerieA.WebUI.DTOs.Teams
 {
     public class LeagueSummaryDto
     {
@@ -6,7 +6,7 @@
         public int MaxTeamLimit { get; set; } = 20;
         public int CityCount { get; set; }
         public int TotalStadiumCapacity { get; set; }
-        public string OldestClubName { get; set; }
+        public string OldestClubName { get; set; } = string.Empty;
         public int OldestClubFoundedYear { get; set; }
     }
 }

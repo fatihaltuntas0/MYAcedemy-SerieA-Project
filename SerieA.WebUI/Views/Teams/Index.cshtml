@@ -1,0 +1,32 @@
+﻿@model TeamIndexViewModel
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Takım Yönetimi";
+}
+
+<div class="page-head">
+    <div>
+        <h1 class="page-title">Takım Yönetimi</h1>
+        <p class="page-desc">Serie A kulüplerini görüntüleyebilir, ekleyebilir, düzenleyebilir ve silebilirsiniz.</p>
+    </div>
+    <button type="button" class="btn-a btn-a--primary" data-open-create>
+        <svg class="icon" aria-hidden="true"><use href="#i-plus" /></svg>Yeni Takım Ekle
+    </button>
+</div>
+
+<!-- 1. League Highlights Reel (Partial) -->
+<partial name="_LeagueStrip" model="Model.Summary" />
+
+<!-- 2. Filter and Set Table Partial -->
+<partial name="_TeamTable" model="Model" />
+
+<!-- 3. Add/Update Modal Partial -->
+<partial name="_TeamModal" />
+
+<!-- 4. Delete “Partial” with Confirmation Prompt -->
+<partial name="_DeleteModal" />
+
+@section Scripts {
+    <script src="~/js/teams.js" asp-append-version="true"></script>
+}

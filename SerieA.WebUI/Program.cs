@@ -1,9 +1,21 @@
+using SerieA.WebUI.Handlers;
+using SerieA.WebUI.Services;
 using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddTransient<ApiExceptionHandler>();
+
+
+builder.Services.AddHttpClient<ITeamApiService, TeamApiService>(client =>
+{
+    var baseUrl = builder.Configuration["ApiSettings:BaseUrl"] ?? "https://localhost:7283/api/";
+    client.BaseAddress = new Uri(baseUrl);
+})
+    .AddHttpMessageHandler<ApiExceptionHandler>();
 
 var app = builder.Build();
 
@@ -24,6 +36,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Teams}/{action=Index}/{id?}");
 
 app.Run();

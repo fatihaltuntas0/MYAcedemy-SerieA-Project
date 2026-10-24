@@ -1,0 +1,16 @@
+﻿<dialog class="modal-a modal-a--sm" id="delete-modal" aria-labelledby="delete-modal-title">
+    <form id="delete-form">
+        <input type="hidden" id="delete-id">
+        <div class="modal-head">
+            <h2 class="modal-title" id="delete-modal-title">Takımı Sil</h2>
+            <button type="button" class="icon-btn" data-modal-close aria-label="Kapat"><svg class="icon" aria-hidden="true"><use href="#i-x" /></svg></button>
+        </div>
+        <div class="modal-body">
+            <p class="confirm-text" id="delete-text"></p>
+        </div>
+        <div class="modal-foot">
+            <button type="button" class="btn-a btn-a--secondary" data-modal-close>Vazgeç</button>
+            <button type="submit" class="btn-a btn-a--danger" id="btn-confirm-delete">Evet, Sil</button>
+        </div>
+    </form>
+</dialog>

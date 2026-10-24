@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using SerieA.API.DTOs;
+using SerieA.API.DTOs.Teams;
 
 namespace SerieA.API.Validators
 {

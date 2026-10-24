@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using SerieA.API.DTOs;
+using SerieA.API.DTOs.Teams;
 using SerieA.API.Entities;
 
 namespace SerieA.API.Mapping
@@ -9,6 +9,7 @@ namespace SerieA.API.Mapping
         public TeamProfile()
         {
             CreateMap<Team, ResultTeamDto>().ReverseMap();
+            CreateMap<TeamUpsertDto, Team>().ReverseMap();
         }
     }
 }

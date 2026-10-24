@@ -1,0 +1,73 @@
+﻿<dialog class="modal-a" id="team-modal" aria-labelledby="team-modal-title">
+    <form id="team-form" novalidate>
+        <div class="modal-head">
+            <h2 class="modal-title" id="team-modal-title">Yeni Takım Ekle</h2>
+            <button type="button" class="icon-btn" data-modal-close aria-label="Kapat"><svg class="icon" aria-hidden="true"><use href="#i-x" /></svg></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-alert" id="form-alert" role="alert"></div>
+
+            <input type="hidden" name="id" id="t-id">
+            <div class="form-grid">
+                <div class="form-field">
+                    <label class="field-label" for="t-name">Takım Adı <span class="req">*</span></label>
+                    <input class="input-a" id="t-name" name="name" type="text" required placeholder="Örn. Milan">
+                </div>
+                <div class="form-field">
+                    <label class="field-label" for="t-code">Kısa Ad (3 Harf) <span class="req">*</span></label>
+                    <input class="input-a code-input" id="t-code" name="code" type="text" maxlength="3" required placeholder="MIL">
+                </div>
+                <div class="form-field">
+                    <label class="field-label" for="t-city">Şehir <span class="req">*</span></label>
+                    <input class="input-a" id="t-city" name="city" type="text" required placeholder="Örn. Milano">
+                </div>
+                <div class="form-field">
+                    <label class="field-label" for="t-region">Bölge <span class="req">*</span></label>
+                    <select class="select-a" id="t-region" name="region" required>
+                        <option value="">Bölge seçin</option>
+                        <option value="north">Kuzey İtalya</option>
+                        <option value="center">Orta İtalya</option>
+                        <option value="south">Güney İtalya</option>
+                        <option value="island">Adalar</option>
+                    </select>
+                </div>
+                <div class="form-field span-2">
+                    <label class="field-label" for="t-stadium">Stadyum <span class="req">*</span></label>
+                    <input class="input-a" id="t-stadium" name="stadium" type="text" required placeholder="Örn. San Siro">
+                </div>
+                <div class="form-field">
+                    <label class="field-label" for="t-capacity">Stadyum Kapasitesi <span class="req">*</span></label>
+                    <input class="input-a" id="t-capacity" name="stadiumCapacity" type="number" required placeholder="Örn. 75817">
+                </div>
+                <div class="form-field">
+                    <label class="field-label" for="t-founded">Kuruluş Yılı <span class="req">*</span></label>
+                    <input class="input-a" id="t-founded" name="foundedYear" type="number" min="1850" max="2026" required placeholder="Örn. 1899">
+                </div>
+                <div class="form-field span-2">
+                    <span class="field-label">Kulüp Renkleri</span>
+                    <div class="color-row">
+                        <label class="color-input">
+                            <input type="color" id="t-colorA" name="colorOne" value="#C8141E">
+                            <span>Ana Renk</span>
+                        </label>
+                        <label class="color-input">
+                            <input type="color" id="t-colorB" name="colorTwo" value="#111111">
+                            <span>İkinci Renk</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-field span-2">
+                    <label class="field-label" for="t-status">Durum</label>
+                    <select class="select-a" id="t-status" name="status">
+                        <option value="true">Aktif (Serie A)</option>
+                        <option value="false">Pasif</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="modal-foot">
+            <button type="button" class="btn-a btn-a--secondary" data-modal-close>Vazgeç</button>
+            <button type="submit" class="btn-a btn-a--primary" id="btn-save">Kaydet</button>
+        </div>
+    </form>
+</dialog>

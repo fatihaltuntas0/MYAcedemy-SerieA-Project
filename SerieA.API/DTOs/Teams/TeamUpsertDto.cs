@@ -1,4 +1,4 @@
-﻿namespace SerieA.API.DTOs
+﻿namespace SerieA.API.DTOs.Teams
 {
     public class TeamUpsertDto
     {
