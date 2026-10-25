@@ -1,0 +1,131 @@
+@model MatchIndexViewModel
+
+<section class="card-a" aria-label="Maç listesi">
+    <form class="filter-bar" method="get" asp-action="Index" role="search">
+        <div class="filter-search">
+            <label class="field-label" for="f-team">Takım Ara</label>
+            <div class="input-icon">
+                <svg class="icon" aria-hidden="true"><use href="#i-search" /></svg>
+                <input class="input-a" id="f-team" name="team" type="search" value="@Model.SearchTeam" placeholder="Takım adı yazın" autocomplete="off">
+            </div>
+        </div>
+        <div>
+            <label class="field-label" for="f-week">Hafta Seç</label>
+            <select class="select-a" id="f-week" name="week">
+                <option value="">Tüm Haftalar</option>
+                @for (int w = 1; w <= 38; w++)
+                {
+                    <option value="@w" selected="@(Model.SelectedWeek == w)">@w. Hafta</option>
+                }
+            </select>
+        </div>
+        <div>
+            <label class="field-label" for="f-status">Durum</label>
+            <select class="select-a" id="f-status" name="status">
+                <option value="">Tümü</option>
+                <option value="Oynanmadı" selected="@(Model.SelectedStatus == "Oynanmadı")">Oynanmadı</option>
+                <option value="Canlı" selected="@(Model.SelectedStatus == "Canlı")">Canlı</option>
+                <option value="Tamamlandı" selected="@(Model.SelectedStatus == "Tamamlandı")">Tamamlandı</option>
+                <option value="Ertelendi" selected="@(Model.SelectedStatus == "Ertelendi")">Ertelendi</option>
+            </select>
+        </div>
+        <div class="filter-actions">
+            <a href="/Matches" class="btn-a btn-a--ghost">Temizle</a>
+            <button type="submit" class="btn-a btn-a--secondary">Filtrele</button>
+        </div>
+    </form>
+
+    <div class="table-scroll">
+        <table class="team-table match-table">
+            <thead>
+                <tr>
+                    <th scope="col" class="col-id">#</th>
+                    <th scope="col">Hafta</th>
+                    <th scope="col">Tarih & Saat</th>
+                    <th scope="col">Ev Sahibi</th>
+                    <th scope="col" class="col-score" style="text-align:center;">Skor</th>
+                    <th scope="col">Deplasman</th>
+                    <th scope="col">Stadyum</th>
+                    <th scope="col">Durum</th>
+                    <th scope="col" class="col-actions">İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Matches.Any())
+                {
+                    <tr class="table-empty">
+                        <td colspan="9" style="text-align:center; padding:32px;">
+                            <strong>Maç bulunamadı</strong>
+                            <p style="margin:4px 0 0; color:var(--muted)">Filtreleri değiştirin veya yeni maç ekleyin.</p>
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    var index = 1;
+                    @foreach (var m in Model.Matches)
+                    {
+                        <tr data-id="@m.Id">
+                            <td class="col-id">@(index++)</td>
+                            <td><strong>@m.Week. Hafta</strong></td>
+                            <td>
+                                <div>@m.MatchDate.ToString("dd.MM.yyyy")</div>
+                                <small style="color:var(--muted)">@m.MatchDate.ToString("HH:mm")</small>
+                            </td>
+                            <td>
+                                <div class="team-cell">
+                                    @if (!string.IsNullOrEmpty(m.HomeTeamLogoUrl))
+                                    {
+                                        <img class="team-crest" src="@m.HomeTeamLogoUrl" alt="@m.HomeTeamName" onerror="this.style.display='none';" />
+                                    }
+                                    <span class="team-name">@m.HomeTeamName</span>
+                                </div>
+                            </td>
+                            <td style="text-align:center; font-weight:700; font-size:16px;">
+                                @if (m.HomeScore.HasValue && m.AwayScore.HasValue)
+                                {
+                                    <span>@m.HomeScore - @m.AwayScore</span>
+                                }
+                                else
+                                {
+                                    <span style="color:var(--muted)">- : -</span>
+                                }
+                            </td>
+                            <td>
+                                <div class="team-cell">
+                                    @if (!string.IsNullOrEmpty(m.AwayTeamLogoUrl))
+                                    {
+                                        <img class="team-crest" src="@m.AwayTeamLogoUrl" alt="@m.AwayTeamName" onerror="this.style.display='none';" />
+                                    }
+                                    <span class="team-name">@m.AwayTeamName</span>
+                                </div>
+                            </td>
+                            <td><small>@m.Stadium</small></td>
+                            <td>
+                                <span class="badge-a badge-a--@m.Status.ToBadgeClass()">
+                                    @m.Status.ToDisplayStatus()
+                                </span>
+                            </td>
+                            <td class="col-actions">
+                                <div class="row-actions">
+                                    <button type="button" class="act-btn" data-edit="@m.Id"
+                                            data-match='@Json.Serialize(m)' title="Düzenle">
+                                        <svg class="icon" aria-hidden="true"><use href="#i-edit" /></svg>
+                                    </button>
+                                    <button type="button" class="act-btn act-btn--danger" data-delete="@m.Id" 
+                                            data-name="@m.HomeTeamName vs @m.AwayTeamName" title="Sil">
+                                        <svg class="icon" aria-hidden="true"><use href="#i-trash" /></svg>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="table-foot">
+        <span>Toplam @Model.Matches.Count karşılaşma listelendi</span>
+        <span>Serie A 2026/27 Sezonu</span>
+    </div>
+</section>

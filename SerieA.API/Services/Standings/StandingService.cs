@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using SerieA.API.Common;
 using SerieA.API.Context;
@@ -25,9 +25,10 @@ namespace SerieA.API.Services.Standings
             var standingsMap = _mapper.Map<List<StandingRowDto>>(activeTeams)
                                   .ToDictionary(x => x.TeamId);
 
-            // Get the complated matches
+            // Get the completed matches
             var complatedMatches = await _context.Matches
-                .Where(m => m.Status == "Tamamlandı" && m.HomeScore.HasValue && m.AwayScore.HasValue).ToListAsync();
+                .Where(m => m.Status.StartsWith("Tamamland") && m.HomeScore.HasValue && m.AwayScore.HasValue)
+                .ToListAsync();
 
             // Calculate matches
             foreach(var match in complatedMatches)

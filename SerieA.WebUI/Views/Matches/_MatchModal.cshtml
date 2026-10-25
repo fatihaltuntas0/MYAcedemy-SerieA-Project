@@ -1,0 +1,82 @@
+@model List<ResultTeamDto>
+
+<dialog class="modal-a" id="match-modal" aria-labelledby="match-modal-title">
+    <form id="match-form" novalidate>
+        <div class="modal-head">
+            <h2 class="modal-title" id="match-modal-title">Yeni Maç Ekle</h2>
+            <button type="button" class="icon-btn" data-modal-close aria-label="Kapat"><svg class="icon" aria-hidden="true"><use href="#i-x" /></svg></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-alert" id="form-alert" role="alert"></div>
+
+            <input type="hidden" name="id" id="m-id">
+            <div class="form-grid">
+                <div class="form-field">
+                    <label class="field-label" for="m-week">Hafta <span class="req">*</span></label>
+                    <select class="select-a" id="m-week" name="week" required>
+                        @for (int w = 1; w <= 38; w++)
+                        {
+                            <option value="@w">@w. Hafta</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label class="field-label" for="m-status">Maç Durumu</label>
+                    <select class="select-a" id="m-status" name="status">
+                        <option value="Oynanmadı" selected>Oynanmadı</option>
+                        <option value="Canlı">Canlı</option>
+                        <option value="Tamamlandı">Tamamlandı</option>
+                        <option value="Ertelendi">Ertelendi</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label class="field-label" for="m-home">Ev Sahibi Takım <span class="req">*</span></label>
+                    <select class="select-a" id="m-home" name="homeTeamId" required>
+                        <option value="">Ev Sahibi Seçin</option>
+                        @foreach (var t in Model)
+                        {
+                            <option value="@t.Id" data-stadium="@t.Stadium">@t.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label class="field-label" for="m-away">Deplasman Takımı <span class="req">*</span></label>
+                    <select class="select-a" id="m-away" name="awayTeamId" required>
+                        <option value="">Deplasman Seçin</option>
+                        @foreach (var t in Model)
+                        {
+                            <option value="@t.Id">@t.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label class="field-label" for="m-date">Maç Tarihi <span class="req">*</span></label>
+                    <input class="input-a" id="m-date" name="matchDate" type="date" required>
+                </div>
+                <div class="form-field">
+                    <label class="field-label" for="m-time">Maç Saati <span class="req">*</span></label>
+                    <input class="input-a" id="m-time" name="matchTime" type="time" required value="20:45">
+                </div>
+                <div class="form-field span-2">
+                    <label class="field-label" for="m-stadium">Stadyum <span class="req">*</span></label>
+                    <input class="input-a" id="m-stadium" name="stadium" type="text" placeholder="Ev sahibi seçilince otomatik dolar" required>
+                </div>
+                <div class="score-fields span-2" id="score-fields" style="display:none; gap:16px;">
+                    <div class="form-field" style="flex:1;">
+                        <label class="field-label" for="m-hs">Ev Sahibi Skoru</label>
+                        <input class="input-a" id="m-hs" name="homeScore" type="number" min="0" max="20" placeholder="0">
+                    </div>
+                    <div class="form-field" style="flex:1;">
+                        <label class="field-label" for="m-as">Deplasman Skoru</label>
+                        <input class="input-a" id="m-as" name="awayScore" type="number" min="0" max="20" placeholder="0">
+                    </div>
+                </div>
+            </div>
+            <p class="field-hint" style="margin:14px 0 0; color:var(--muted); font-size:13px;">* Canlı veya Tamamlandı seçildiğinde skor alanları açılır.</p>
+        </div>
+        <div class="modal-foot">
+            <button type="button" class="btn-a btn-a--secondary" data-modal-close>Vazgeç</button>
+            <button type="submit" class="btn-a btn-a--primary" id="btn-save-match">Kaydet</button>
+        </div>
+    </form>
+</dialog>

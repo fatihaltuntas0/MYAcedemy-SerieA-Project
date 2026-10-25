@@ -1,4 +1,4 @@
-﻿<aside class="admin-sidebar" id="admin-sidebar" aria-label="Yönetim menüsü">
+<aside class="admin-sidebar" id="admin-sidebar" aria-label="Yönetim menüsü">
     <a class="sidebar-brand" href="/Admin" data-demo-nav>
         <span class="brand-mark" aria-hidden="true">SA</span>
         <span class="brand-text">Serie A Admin</span>
@@ -6,8 +6,8 @@
     <p class="sidebar-label">Yönetim</p>
     <ul class="sidebar-nav">
         <li><a class="sidebar-link" href="/Admin" data-demo-nav><svg class="icon" aria-hidden="true"><use href="#i-home" /></svg>Ana Sayfa</a></li>
-        <li><a class="sidebar-link" href="/Admin/Matches" data-demo-nav><svg class="icon" aria-hidden="true"><use href="#i-ball" /></svg>Maçlar</a></li>
-        <li><a class="sidebar-link is-active" href="/Admin/Teams" aria-current="page"><svg class="icon" aria-hidden="true"><use href="#i-shield" /></svg>Takımlar</a></li>
+        <li><a class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Matches" ? "is-active" : "")" href="/Matches"><svg class="icon" aria-hidden="true"><use href="#i-ball" /></svg>Maçlar</a></li>
+        <li><a class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Teams" ? "is-active" : "")" href="/Teams"><svg class="icon" aria-hidden="true"><use href="#i-shield" /></svg>Takımlar</a></li>
         <li><a class="sidebar-link" href="/Admin/Weeks" data-demo-nav><svg class="icon" aria-hidden="true"><use href="#i-calendar" /></svg>Haftalar</a></li>
         <li><a class="sidebar-link" href="/Admin/Standings" data-demo-nav><svg class="icon" aria-hidden="true"><use href="#i-table" /></svg>Puan Durumu</a></li>
         <li><a class="sidebar-link" href="/Admin/Users" data-demo-nav><svg class="icon" aria-hidden="true"><use href="#i-users" /></svg>Kullanıcılar</a></li>

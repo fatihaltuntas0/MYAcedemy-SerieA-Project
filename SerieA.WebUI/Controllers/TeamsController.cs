@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SerieA.WebUI.DTOs.Teams;
-using SerieA.WebUI.Services;
+using SerieA.WebUI.Services.Teams;
 using SerieA.WebUI.ViewModels;
-using System.Threading.Tasks;
 
 namespace SerieA.WebUI.Controllers
 {

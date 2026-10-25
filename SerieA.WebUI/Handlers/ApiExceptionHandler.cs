@@ -40,7 +40,7 @@ namespace SerieA.WebUI.Handlers
                 var connectionError = ApiResponse.Fail($"API sunucusuna ulaşılamadı: {ex.Message}");
                 return new HttpResponseMessage(HttpStatusCode.ServiceUnavailable)
                 {
-                    Content = new StringContent(JsonSerializer.Serialize(connectionError), System.Text.Encoding.UTF8, "application/json")
+                    Content = new StringContent(JsonSerializer.Serialize(connectionError), Encoding.UTF8, "application/json")
                 };
             }
 
