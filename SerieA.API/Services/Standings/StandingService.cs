@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SerieA.API.Common;
 using SerieA.API.Context;
 using SerieA.API.DTOs.Standings;
+using SerieA.API.Enums;
 
 namespace SerieA.API.Services.Standings
 {
@@ -26,12 +27,13 @@ namespace SerieA.API.Services.Standings
                                   .ToDictionary(x => x.TeamId);
 
             // Get the completed matches
-            var complatedMatches = await _context.Matches
-                .Where(m => m.Status.StartsWith("Tamamland") && m.HomeScore.HasValue && m.AwayScore.HasValue)
+            var completedMatches = await _context.Matches
+                .Where(m => m.Status == MatchStatus.Finished && m.HomeScore.HasValue && m.AwayScore.HasValue)
                 .ToListAsync();
 
+
             // Calculate matches
-            foreach(var match in complatedMatches)
+            foreach (var match in completedMatches)
             {
                 // Skip match processing if either the home or away team is missing from standings
                 if (!standingsMap.TryGetValue(match.HomeTeamId, out var homeTeamRow) || !standingsMap.TryGetValue(match.AwayTeamId, out var awayTeamRow))

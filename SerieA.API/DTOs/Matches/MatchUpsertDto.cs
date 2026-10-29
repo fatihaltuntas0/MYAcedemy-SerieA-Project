@@ -1,4 +1,5 @@
 ﻿using SerieA.API.Entities;
+using SerieA.API.Enums;
 
 namespace SerieA.API.DTOs.Matches
 {
@@ -10,7 +11,7 @@ namespace SerieA.API.DTOs.Matches
         public DateTime MatchDate { get; set; } // Value that specifies the calendar day and time the game will be played
         public int? HomeScore { get; set; }
         public int? AwayScore { get; set; }
-        public string Status { get; set; } = "Oynanmadı";
+        public MatchStatus Status { get; set; } = MatchStatus.NotStarted;
         public string Stadium { get; set; }
     }
 }

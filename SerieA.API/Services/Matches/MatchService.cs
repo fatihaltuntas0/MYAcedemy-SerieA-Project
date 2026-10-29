@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using SerieA.API.Common;
 using SerieA.API.Context;
@@ -27,18 +27,67 @@ namespace SerieA.API.Services.Matches
             var dtoList = _mapper.Map<List<ResultMatchDto>>(list);
             return ApiResponse<List<ResultMatchDto>>.Success(dtoList, "Maçlar başarıyla listelendi.");
         }
-        public async Task<ApiResponse<ResultMatchDto>> GetMatchByIdAsync(Guid id)
+        public async Task<ApiResponse<ResultMatchDetailDto>> GetMatchByIdAsync(Guid id)
         {
             var match = await _context.Matches
                 .Include(m => m.HomeTeam)
                 .Include(m => m.AwayTeam)
+                .Include(m => m.MatchGoals)
+                .Include(m => m.MatchCards)
+                .Include(m => m.Substitutions)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (match is null)
             {
-                return ApiResponse<ResultMatchDto>.Fail("Aradığınız maç bulunamadı.");
+                return ApiResponse<ResultMatchDetailDto>.Fail("Aradığınız maç bulunamadı.");
             }
-            var dtoMatch = _mapper.Map<ResultMatchDto>(match);
-            return ApiResponse<ResultMatchDto>.Success(dtoMatch, "Maç başarıyla getirildi.");
+
+            var detail = new ResultMatchDetailDto
+            {
+                Id = match.Id,
+                Week = match.Week,
+                MatchDate = match.MatchDate,
+                Stadium = match.Stadium,
+                Status = match.Status,
+                HomeScore = match.HomeScore,
+                AwayScore = match.AwayScore,
+                HomeTeamId = match.HomeTeamId,
+                HomeTeamName = match.HomeTeam?.Name ?? string.Empty,
+                HomeTeamCode = match.HomeTeam?.Code ?? string.Empty,
+                HomeTeamLogoUrl = match.HomeTeam?.LogoUrl ?? string.Empty,
+                AwayTeamId = match.AwayTeamId,
+                AwayTeamName = match.AwayTeam?.Name ?? string.Empty,
+                AwayTeamCode = match.AwayTeam?.Code ?? string.Empty,
+                AwayTeamLogoUrl = match.AwayTeam?.LogoUrl ?? string.Empty,
+                Goals = match.MatchGoals?.Select(g => new MatchGoalDto
+                {
+                    Id = g.Id,
+                    TeamId = g.TeamId,
+                    TeamName = g.TeamId == match.HomeTeamId ? match.HomeTeam?.Name ?? "" : match.AwayTeam?.Name ?? "",
+                    PlayerName = g.PlayerName,
+                    Minute = g.Minute
+                }).ToList() ?? new List<MatchGoalDto>(),
+                Cards = match.MatchCards?.Select(c => new MatchCardDto
+                {
+                    Id = c.Id,
+                    TeamId = c.TeamId,
+                    TeamName = c.TeamId == match.HomeTeamId ? match.HomeTeam?.Name ?? "" : match.AwayTeam?.Name ?? "",
+                    PlayerName = c.PlayerName,
+                    Minute = c.Minute,
+                    CardType = c.CardType
+                }).ToList() ?? new List<MatchCardDto>(),
+                Substitutions = match.Substitutions?.Select(s => new SubstitutionDto
+                {
+                    Id = s.Id,
+                    TeamId = s.TeamId,
+                    TeamName = s.TeamId == match.HomeTeamId ? match.HomeTeam?.Name ?? "" : match.AwayTeam?.Name ?? "",
+                    PlayerIn = s.PlayerIn,
+                    PlayerOut = s.PlayerOut,
+                    Minute = s.Minute
+                }).ToList() ?? new List<SubstitutionDto>()
+            };
+
+            return ApiResponse<ResultMatchDetailDto>.Success(detail, "Maç başarıyla getirildi.");
         }
         public async Task<ApiResponse<ResultMatchDto>> CreateMatchAsync(MatchUpsertDto createDto)
         {

@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using SerieA.API.Entities;
 
 namespace SerieA.API.Context
@@ -71,6 +71,10 @@ namespace SerieA.API.Context
                 .HasForeignKey(s => s.TeamId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            // Storing match statuses, which are held as enums, in the database as strings
+            modelBuilder.Entity<Match>()
+                .Property(m => m.Status)
+                .HasConversion<string>();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using SerieA.API.Entities;
+using SerieA.API.Entities;
+using SerieA.API.Enums;
 
 namespace SerieA.API.DTOs.Matches
 {
@@ -8,7 +9,7 @@ namespace SerieA.API.DTOs.Matches
         public int Week { get; set; }
         public DateTime MatchDate { get; set; }
         public string Stadium { get; set; } = string.Empty;
-        public string Status { get; set; } = "Oynanmadı";
+        public MatchStatus Status { get; set; } = MatchStatus.NotStarted;
 
         // Scores (Should be null if the game wasn't played)
         public int? HomeScore { get; set; }
