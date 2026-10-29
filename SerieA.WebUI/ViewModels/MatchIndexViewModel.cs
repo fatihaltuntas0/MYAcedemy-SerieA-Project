@@ -8,7 +8,7 @@ namespace SerieA.WebUI.ViewModels
         public List<ResultMatchDto> Matches { get; set; } = new();
         public List<ResultTeamDto> Teams { get; set; } = new();
 
-        // Filtre durumları
+        // Filter states
         public int? SelectedWeek { get; set; }
         public string? SearchTeam { get; set; }
         public string? SelectedStatus { get; set; }

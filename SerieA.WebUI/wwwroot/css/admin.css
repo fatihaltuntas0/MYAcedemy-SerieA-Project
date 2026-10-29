@@ -661,6 +661,8 @@ body.admin {
 }
 
 .modal-a[open] {
+    display: flex;
+    flex-direction: column;
     animation: modal-in .16s ease-out;
 }
 
@@ -680,9 +682,12 @@ body.admin {
     display: flex;
     flex-direction: column;
     max-height: calc(100vh - 48px);
+    flex: 1 1 auto;
+    min-height: 0;
 }
 
 .modal-head {
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -698,11 +703,25 @@ body.admin {
 }
 
 .modal-body {
+    flex: 1 1 auto;
+    min-height: 0;
     padding: 18px 20px 16px;
     overflow-y: auto;
+    scrollbar-color: var(--line-strong) transparent;
+    scrollbar-width: thin;
+}
+
+.modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+    background-color: var(--line-strong);
+    border-radius: 999px;
 }
 
 .modal-foot {
+    flex-shrink: 0;
     display: flex;
     justify-content: flex-end;
     gap: 8px;
@@ -1249,4 +1268,86 @@ img.team-crest {
         padding: 10px 12px;
     }
 }
+
+/* ===== Maç olay akışı (timeline) ===== */
+.tl {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 4px 0;
+}
+
+/* ortadaki dikey çizgi */
+.tl::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    transform: translateX(-1px);
+    background: var(--line);
+}
+
+/* sol takım | dakika | sağ takım */
+.tl-row {
+    display: grid;
+    grid-template-columns: 1fr 60px 1fr;
+    align-items: center;
+}
+
+.tl-min {
+    grid-column: 2;
+    justify-self: center;
+    position: relative;
+    z-index: 1;
+    min-width: 40px;
+    padding: 2px 8px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-2);
+    background: var(--white, #fff);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+}
+
+.tl-side {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    font-size: 13px;
+}
+.tl-side--home { grid-column: 1; grid-row: 1; justify-content: flex-end; text-align: right; padding-right: 6px; }
+.tl-side--away { grid-column: 3; grid-row: 1; justify-content: flex-start; text-align: left;  padding-left: 6px; }
+
+.tl-text { display: flex; flex-direction: column; min-width: 0; }
+.tl-player { font-weight: 600; overflow-wrap: anywhere; }
+.tl-sub-in  { color: #16a34a; font-weight: 600; }
+.tl-sub-out { color: #dc2626; }
+.tl-sub-in, .tl-sub-out { font-size: 12px; }
+
+.tl-icon { flex: none; font-size: 16px; line-height: 1; }
+.tl-card { display: inline-block; width: 12px; height: 16px; border-radius: 2px; }
+.tl-card--yellow { background: #facc15; }
+.tl-card--red    { background: #dc2626; }
+
+/* devre arası ayracı */
+.tl-ht {
+    position: relative;
+    z-index: 1;
+    justify-self: center;
+    padding: 2px 14px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: var(--white, #fff);
+    border: 1px dashed var(--line);
+    border-radius: 999px;
+}
+
 

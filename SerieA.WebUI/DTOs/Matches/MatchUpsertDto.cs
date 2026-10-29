@@ -1,4 +1,6 @@
-﻿namespace SerieA.WebUI.DTOs.Matches
+﻿using SerieA.WebUI.Enums;
+
+namespace SerieA.WebUI.DTOs.Matches
 {
     public class MatchUpsertDto
     {
@@ -8,7 +10,7 @@
         public DateTime MatchDate { get; set; }
         public int? HomeScore { get; set; }
         public int? AwayScore { get; set; }
-        public string Status { get; set; } = "Oynanmadı";
+        public MatchStatus Status { get; set; } = MatchStatus.NotStarted;
         public string Stadium { get; set; } = string.Empty;
     }
 }

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SerieA.WebUI.DTOs.Matches;
 using SerieA.WebUI.DTOs.Teams;
+using SerieA.WebUI.Enums;
 using SerieA.WebUI.Services.Matches;
 using SerieA.WebUI.Services.Teams;
 using SerieA.WebUI.ViewModels;
@@ -12,7 +13,9 @@ namespace SerieA.WebUI.Controllers
         private readonly IMatchApiService _matchApiService;
         private readonly ITeamApiService _teamApiService;
 
-        public MatchesController(IMatchApiService matchApiService, ITeamApiService teamApiService)
+        public MatchesController(
+            IMatchApiService matchApiService,
+            ITeamApiService teamApiService)
         {
             _matchApiService = matchApiService;
             _teamApiService = teamApiService;
@@ -31,10 +34,10 @@ namespace SerieA.WebUI.Controllers
 
             var matches = matchesResult.Data ?? new List<ResultMatchDto>();
 
-            // Statü filtresi WebUI tarafında da desteklensin
-            if (!string.IsNullOrWhiteSpace(status))
+            // Support status filter on the WebUI layer as well
+            if (!string.IsNullOrWhiteSpace(status) && Enum.TryParse<MatchStatus>(status, true, out var parsedStatus))
             {
-                matches = matches.Where(m => m.Status.Equals(status, StringComparison.OrdinalIgnoreCase)).ToList();
+                matches = matches.Where(m => m.Status == parsedStatus).ToList();
             }
 
             var viewModel = new MatchIndexViewModel
@@ -47,6 +50,13 @@ namespace SerieA.WebUI.Controllers
             };
 
             return View(viewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetDetails(Guid id, CancellationToken cancellationToken)
+        {
+            var result = await _matchApiService.GetMatchByIdAsync(id, cancellationToken);
+            return Json(result);
         }
 
         [HttpPost]

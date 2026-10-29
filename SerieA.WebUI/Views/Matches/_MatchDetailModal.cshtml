@@ -1,0 +1,51 @@
+<dialog class="modal-a" id="match-detail-modal" aria-labelledby="detail-modal-title" style="max-width: 680px; width: 90%;">
+    <div class="modal-head">
+        <h2 class="modal-title" id="detail-modal-title">Maç Detayı</h2>
+        <button type="button" class="icon-btn" data-modal-close aria-label="Kapat"><svg class="icon" aria-hidden="true"><use href="#i-x" /></svg></button>
+    </div>
+    <div class="modal-body" style="padding: 24px;">
+        <!-- Match Header Info Card -->
+        <div style="background: var(--head-bg); border: 1px solid var(--line); border-radius: 8px; padding: 20px; text-align: center; margin-bottom: 24px;">
+            <div style="font-size: 12px; font-weight: 600; text-transform: uppercase; color: var(--muted); margin-bottom: 8px;">
+                <span id="detail-week"></span> &middot; <span id="detail-date"></span> &middot; <span id="detail-stadium"></span>
+            </div>
+            
+            <div style="display: flex; align-items: center; justify-content: center; gap: 24px; margin: 12px 0;">
+                <div style="flex: 1; text-align: right; display: flex; align-items: center; justify-content: flex-end; gap: 12px;">
+                    <span id="detail-home-name" style="font-size: 18px; font-weight: 700;"></span>
+                    <img id="detail-home-logo" src="" alt="" style="width: 36px; height: 36px; object-fit: contain; display: none;" />
+                </div>
+
+                <div style="background: var(--ink-900); color: #fff; padding: 8px 18px; border-radius: 6px; font-size: 22px; font-weight: 800; letter-spacing: 2px;">
+                    <span id="detail-score">- : -</span>
+                </div>
+
+                <div style="flex: 1; text-align: left; display: flex; align-items: center; justify-content: flex-start; gap: 12px;">
+                    <img id="detail-away-logo" src="" alt="" style="width: 36px; height: 36px; object-fit: contain; display: none;" />
+                    <span id="detail-away-name" style="font-size: 18px; font-weight: 700;"></span>
+                </div>
+            </div>
+
+            <div style="margin-top: 8px;">
+                <span id="detail-status-badge" class="badge-a"></span>
+            </div>
+        </div>
+
+        <!-- Events Container -->
+        <div id="detail-events-wrapper">
+            <h3 style="font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-2); margin-bottom: 16px; text-align: center;">
+                Maç İçi Olaylar
+            </h3>
+
+            <!-- JS ile dolar -->
+            <div id="detail-events-list" class="tl"></div>
+
+            <div id="detail-no-events" style="display: none; text-align: center; padding: 24px; color: var(--muted); font-size: 13px;">
+                Bu karşılaşmada henüz kaydedilmiş bir olay (gol, kart, oyuncu değişikliği) bulunmuyor.
+            </div>
+        </div>
+    </div>
+    <div class="modal-foot">
+        <button type="button" class="btn-a btn-a--secondary" data-modal-close>Kapat</button>
+    </div>
+</dialog>

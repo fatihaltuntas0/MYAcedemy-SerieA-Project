@@ -1,31 +1,27 @@
+using SerieA.WebUI.Enums;
+
 namespace SerieA.WebUI.Extensions
 {
     public static class MatchStatusExtensions
     {
-        public static string ToBadgeClass(this string? status)
+        public static string ToBadgeClass(this MatchStatus status)
         {
-            if (string.IsNullOrWhiteSpace(status))
-                return "secondary";
-
-            return status.Trim().ToLowerInvariant() switch
+            return status switch
             {
-                "tamamlandı" or "finished" or "1" => "active",
-                "canlı" or "live" => "danger",
-                "ertelendi" or "postponed" => "inactive",
-                _  => "secondary" // NotStarted
+                MatchStatus.Finished => "active",
+                MatchStatus.Live => "danger",
+                MatchStatus.Postponed => "inactive",
+                _ => "secondary" // NotStarted
             };
         }
 
-        public static string ToDisplayStatus(this string? status)
+        public static string ToDisplayStatus(this MatchStatus status)
         {
-            if (string.IsNullOrWhiteSpace(status))
-                return "Oynanmadı";
-
-            return status.Trim().ToLowerInvariant() switch
+            return status switch
             {
-                "tamamlandı" or "finished" or "1" => "Tamamlandı",
-                "canlı" or "live" => "Canlı",
-                "ertelendi" or "postponed" => "Ertelendi",
+                MatchStatus.Finished => "Tamamlandı",
+                MatchStatus.Live => "Canlı",
+                MatchStatus.Postponed => "Ertelendi",
                 _ => "Oynanmadı"
             };
         }

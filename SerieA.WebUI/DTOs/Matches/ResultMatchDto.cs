@@ -1,4 +1,6 @@
-﻿namespace SerieA.WebUI.DTOs.Matches
+using SerieA.WebUI.Enums;
+
+namespace SerieA.WebUI.DTOs.Matches
 {
     public class ResultMatchDto
     {
@@ -6,7 +8,7 @@
         public int Week { get; set; }
         public DateTime MatchDate { get; set; }
         public string Stadium { get; set; } = string.Empty;
-        public string Status { get; set; } = "Oynanmadı";
+        public MatchStatus Status { get; set; } = MatchStatus.NotStarted;
         public int? HomeScore { get; set; }
         public int? AwayScore { get; set; }
         public Guid HomeTeamId { get; set; }
