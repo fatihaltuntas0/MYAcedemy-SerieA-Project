@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Maç Detayı | Serie A Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css">
+  <!-- ASP.NET: wwwroot/css/admin.css (Takımlar + Maçlar sayfalarındaki ortak CSS + ek sayfa stilleri) -->
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v8.5a1.5 1.5 0 0 1-1.5 1.5H15v-6H9v6H5.5A1.5 1.5 0 0 1 4 19.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="i-ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7.6l3.3 2.4-1.3 3.8h-4l-1.3-3.8z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 10h17M8 3v4M16 3v4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-table" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16M9 4v16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 19.5c.7-3 3.1-4.8 6-4.8s5.3 1.8 6 4.8M16 5.2a3.4 3.4 0 0 1 0 6.6M17.5 14.9c1.8.6 3 2.2 3.5 4.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-logout" viewBox="0 0 24 24"><path d="M14 4h4.5A1.5 1.5 0 0 1 20 5.5v13a1.5 1.5 0 0 1-1.5 1.5H14M10 16l-4-4 4-4M6 12h10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15zM10 20.5a2.2 2.2 0 0 0 4 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.8" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4.5 20c.9-3.6 3.9-5.6 7.5-5.6s6.6 2 7.5 5.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9a2.1 2.1 0 0 0-4-4L4 16z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M13.5 6.5l4 4" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9.5 7V4.5h5V7M6.5 7l1 13h9l1-13M10 11v5.5M14 11v5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 12.5l2.7 2.7L16 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 11v5M12 8h.01" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-stadium" viewBox="0 0 24 24"><ellipse cx="12" cy="9" rx="9" ry="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9v6c0 1.9 4 3.5 9 3.5s9-1.6 9-3.5V9" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.3" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  </svg>
+
+  <!-- ===== Partial: _AdminSidebar ===== -->
+  <aside class="admin-sidebar" id="admin-sidebar" aria-label="Yönetim menüsü">
+    <a class="sidebar-brand" href="/Admin">
+      <span class="brand-mark" aria-hidden="true">SA</span>
+      <span class="brand-text">Serie A Admin</span>
+    </a>
+    <p class="sidebar-label">Yönetim</p>
+    <ul class="sidebar-nav">
+      <li><a class="sidebar-link" href="/Admin"><svg class="icon" aria-hidden="true"><use href="#i-home"/></svg>Ana Sayfa</a></li>
+      <li><a class="sidebar-link is-active" href="/Admin/Matches" aria-current="page"><svg class="icon" aria-hidden="true"><use href="#i-ball"/></svg>Maçlar</a></li>
+      <li><a class="sidebar-link" href="/Admin/Teams"><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg>Takımlar</a></li>
+      <li><a class="sidebar-link" href="/Admin/Weeks"><svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg>Haftalar</a></li>
+      <li><a class="sidebar-link" href="/Admin/Standings"><svg class="icon" aria-hidden="true"><use href="#i-table"/></svg>Puan Durumu</a></li>
+      <li><a class="sidebar-link" href="/Admin/Users"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg>Kullanıcılar</a></li>
+    </ul>
+    <div class="sidebar-foot">
+      <span class="sidebar-season">Sezon 2026/27</span>
+      <a class="sidebar-link sidebar-link--logout" href="/Account/Logout"><svg class="icon" aria-hidden="true"><use href="#i-logout"/></svg>Çıkış Yap</a>
+    </div>
+  </aside>
+  <div class="sidebar-backdrop" data-sidebar-close></div>
+
+  
+  <div class="admin-main">
+    <!-- ===== Partial: _AdminTopbar ===== -->
+    <header class="admin-topbar">
+      <div class="topbar-left">
+        <button type="button" class="icon-btn menu-toggle" data-sidebar-toggle aria-controls="admin-sidebar" aria-expanded="false" aria-label="Menüyü aç">
+          <svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg>
+        </button>
+        <p class="topbar-title">Maç Detayı</p>
+        <span class="topbar-crumb">Yönetim / Maçlar / Detay</span>
+      </div>
+      <div class="topbar-right">
+        <button type="button" class="icon-btn" aria-label="Bildirimler, 3 okunmamış">
+          <svg class="icon" aria-hidden="true"><use href="#i-bell"/></svg><span class="notif-dot"></span>
+        </button>
+        <div class="topbar-user">
+          <span class="avatar"><svg class="icon" aria-hidden="true"><use href="#i-user"/></svg></span>
+          <span class="topbar-user__text"><span class="topbar-user__name">Yönetici</span><span class="topbar-user__role">Tam yetkili</span></span>
+        </div>
+      </div>
+    </header>
+
+    <main class="admin-content">
+      <div class="page-head">
+        <div>
+          <h1 class="page-title">Maç Detayı</h1>
+          <p class="page-desc">Skor, gol, kart ve oyuncu değişikliği kayıtlarını görüntüleyin ve yönetin.</p>
+        </div>
+        <div class="filter-actions"><a class="btn-a btn-a--secondary" href="/Admin/Matches">Maçlara Dön</a><button type="button" class="btn-a btn-a--primary" data-open><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Olay Ekle</button></div>
+      </div>
+      <section class="card-a scoreboard" aria-label="Skor" data-board></section>
+      <p class="note" data-mismatch hidden></p>
+      <div class="detail-grid">
+        <section class="card-a" aria-label="Olay akışı"><div class="card-head"><h2 class="card-title">Olay Akışı</h2></div><div class="tl" data-tl></div></section>
+        <section class="card-a" aria-label="Olay listesi"><div class="card-head"><h2 class="card-title">Olay Kayıtları</h2></div>
+          <div class="table-scroll"><table class="match-table" style="min-width:520px"><thead><tr><th scope="col">Dk.</th><th scope="col">Tür</th><th scope="col">Takım</th><th scope="col">Detay</th><th scope="col" class="col-actions">İşlem</th></tr></thead><tbody data-ev></tbody></table></div>
+          <div class="table-foot"><span data-evcount></span><span>Kayıtlar geçerli bir maça bağlıdır</span></div></section>
+      </div>
+    </main>
+  </div>
+
+  <dialog class="modal-a" id="ev-modal" aria-labelledby="ev-title">
+    <form data-form novalidate>
+      <div class="modal-head"><h2 class="modal-title" id="ev-title">Olay Ekle</h2><button type="button" class="icon-btn" data-modal-close aria-label="Kapat"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button></div>
+      <div class="modal-body">
+        <div class="form-alert" data-alert role="alert">Lütfen işaretli alanları kontrol edin.</div>
+        <div class="form-grid">
+          <div class="form-field"><label class="field-label" for="e-type">Olay Türü</label><select class="select-a" id="e-type" name="type"><option value="g">Gol</option><option value="c">Kart</option><option value="s">Oyuncu Değişikliği</option></select></div>
+          <div class="form-field" data-field="team"><label class="field-label" for="e-team">Takım <span class="req">*</span></label><select class="select-a" id="e-team" name="team"></select><p class="field-error"></p></div>
+          <div class="form-field" data-field="player"><label class="field-label" for="e-player" data-plabel>Oyuncu <span class="req">*</span></label><input class="input-a" id="e-player" name="player" type="text"><p class="field-error"></p></div>
+          <div class="form-field" data-field="out" data-only="s" hidden><label class="field-label" for="e-out">Çıkan Oyuncu <span class="req">*</span></label><input class="input-a" id="e-out" name="out" type="text"><p class="field-error"></p></div>
+          <div class="form-field" data-only="c" hidden><label class="field-label" for="e-card">Kart Türü</label><select class="select-a" id="e-card" name="card"><option value="1">Sarı kart</option><option value="2">Kırmızı kart</option></select></div>
+          <div class="form-field" data-field="minute"><label class="field-label" for="e-min">Dakika <span class="req">*</span></label><input class="input-a" id="e-min" name="minute" type="text" inputmode="numeric" placeholder="örn. 67 veya 90+2"><p class="field-error"></p></div>
+        </div>
+      </div>
+      <div class="modal-foot"><button type="button" class="btn-a btn-a--secondary" data-modal-close>Vazgeç</button><button type="submit" class="btn-a btn-a--primary">Kaydet</button></div>
+    </form>
+  </dialog>
+  <div class="toast-stack" data-toasts aria-live="polite"></div>
+  <script src="admin-data.js"></script>
+  <script src="admin-common.js"></script>
+  <script>
+    (function(){
+      const id=+(new URLSearchParams(location.search).get('id')||location.pathname.split('/').pop())||1;
+      const m=MATCHES.find(x=>x.id===id)||MATCHES[0], src=EVENTS[m.id]||{g:[],c:[],s:[]};
+      let ev=[...src.g.map(([t,p,mn])=>({k:'g',t,p,mn})),...src.c.map(([t,p,mn,ty])=>({k:'c',t,p,mn,ty})),...src.s.map(([t,i,o,mn])=>({k:'s',t,i,o,mn}))].map((e,n)=>({...e,n}));
+      const key=s=>{const [b,x]=String(s).split('+').map(Number);return b*100+(x||0)}, el={form:$('[data-form]'),modal:$('#ev-modal'),alert:$('[data-alert]')}, f=el.form.elements;
+      const team=(e)=>TEAMS[e.t].name, label={g:'Gol',c:'Kart',s:'Değişiklik'};
+      const detail=e=>e.k==='s'?`<span class="tl-in">↑ ${esc(e.i)}</span> <span class="tl-out">↓ ${esc(e.o)}</span>`:e.k==='c'?`<span class="cd cd--${e.ty}"></span>${esc(e.p)}`:`⚽ ${esc(e.p)}`;
+      function render(){
+        const sorted=[...ev].sort((a,b)=>key(a.mn)-key(b.mn)||a.n-b.n);
+        $('[data-board]').innerHTML=`<div class="sb-team"><span class="team-crest team-crest--lg" style="--crest-a:${TEAMS[m.home].a};--crest-b:${TEAMS[m.home].b}"></span>${esc(TEAMS[m.home].name)}</div><div><div class="sb-score">${m.status==='Finished'?m.hs+' : '+m.as:'- : -'}</div><span class="badge-a badge-a--${m.status}">${STATUS[m.status]}</span></div><div class="sb-team"><span class="team-crest team-crest--lg" style="--crest-a:${TEAMS[m.away].a};--crest-b:${TEAMS[m.away].b}"></span>${esc(TEAMS[m.away].name)}</div><div class="sb-meta">${m.week}. Hafta · ${fmtDate(m.date)} ${m.time} · ${esc(TEAMS[m.home].stadium)}</div>`;
+        const gh=ev.filter(e=>e.k==='g'&&e.t===m.home).length, ga=ev.filter(e=>e.k==='g'&&e.t===m.away).length, mm=$('[data-mismatch]');
+        mm.hidden=!(m.status==='Finished'&&(gh!==m.hs||ga!==m.as)); mm.textContent=`Dikkat: maç skoru ${m.hs}-${m.as}, gol kayıtları ${gh}-${ga}. Skor ile gol sayıları aynı olmalıdır.`;
+        $('[data-tl]').innerHTML=sorted.length?sorted.map(e=>`<div class="tl-row"><span class="tl-min">${esc(e.mn)}'</span><div class="${e.t===m.home?'tl-h':'tl-a'}">${detail(e)}</div></div>`).join(''):'<p style="text-align:center;color:var(--muted);margin:0;grid-column:1/-1">Henüz kayıtlı olay yok.</p>';
+        $('[data-ev]').innerHTML=sorted.length?sorted.map(e=>`<tr><td><strong>${esc(e.mn)}'</strong></td><td>${label[e.k]}</td><td>${esc(team(e))}</td><td>${detail(e)}</td><td class="col-actions"><button type="button" class="act-btn act-btn--danger" data-del="${e.n}" title="Sil" aria-label="Olayı sil">${icon('trash')}</button></td></tr>`).join(''):'<tr class="table-empty"><td colspan="5"><strong>Kayıt bulunamadı</strong>Olay Ekle ile gol, kart veya değişiklik girin.</td></tr>';
+        $('[data-evcount]').textContent=sorted.length+' olay';}
+      f.team.innerHTML=`<option value="">Takım seçin</option><option value="${m.home}">${esc(TEAMS[m.home].name)} (Ev sahibi)</option><option value="${m.away}">${esc(TEAMS[m.away].name)} (Deplasman)</option>`;
+      const sync=()=>{$$('[data-only]',el.form).forEach(x=>x.hidden=x.dataset.only!==f.type.value);$('[data-plabel]').innerHTML=(f.type.value==='s'?'Giren Oyuncu':'Oyuncu')+' <span class="req">*</span>'};f.type.addEventListener('change',sync);
+      modalWire(el.modal);$('[data-open]').addEventListener('click',()=>{el.form.reset();$$('.has-error',el.form).forEach(x=>x.classList.remove('has-error'));el.alert.classList.remove('is-visible');sync();el.modal.showModal();f.team.focus()});
+      const err=(n,t)=>{const x=el.form.querySelector(`[data-field="${n}"]`);x.classList.add('has-error');x.querySelector('.field-error').textContent=t};
+      el.form.addEventListener('submit',e=>{e.preventDefault();$$('.has-error',el.form).forEach(x=>x.classList.remove('has-error'));
+        const d=Object.fromEntries(new FormData(el.form).entries()),bad=[];
+        if(!d.team)bad.push(['team','Lütfen takımı seçin.']);if(!d.player.trim())bad.push(['player','Oyuncu adı zorunludur.']);
+        if(d.type==='s'&&!d.out.trim())bad.push(['out','Çıkan oyuncu adı zorunludur.']);
+        if(!/^\d{1,3}(\+\d{1,2})?$/.test(d.minute.trim())||parseInt(d.minute)>120)bad.push(['minute','Geçerli bir dakika girin (örn. 67 veya 90+2).']);
+        if(bad.length){bad.forEach(b=>err(...b));el.alert.classList.add('is-visible');return}
+        const n=Math.max(-1,...ev.map(x=>x.n))+1,mn=d.minute.trim();  /* POST /api/matches/{id}/goals | cards | substitutions */
+        ev.push(d.type==='s'?{k:'s',t:d.team,i:d.player.trim(),o:d.out.trim(),mn,n}:d.type==='c'?{k:'c',t:d.team,p:d.player.trim(),mn,ty:d.card,n}:{k:'g',t:d.team,p:d.player.trim(),mn,n});
+        el.modal.close();render();toast('Olay eklendi.');});
+      $('[data-ev]').addEventListener('click',e=>{const b=e.target.closest('[data-del]');if(!b||!confirm('Bu olay kaydı silinsin mi?'))return;ev=ev.filter(x=>x.n!==+b.dataset.del);render();toast('Olay silindi.')});  /* DELETE */
+      render();
+    })();
+  </script>
+</body>
+</html>
