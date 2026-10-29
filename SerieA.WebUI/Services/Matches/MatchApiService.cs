@@ -12,34 +12,34 @@ namespace SerieA.WebUI.Services.Matches
             if (week.HasValue) queryParams["week"] = week.Value.ToString();
             if (!string.IsNullOrWhiteSpace(team)) queryParams["team"] = team;
 
-            var url = QueryHelpers.AddQueryString("admin/matches", queryParams);
+            var url = QueryHelpers.AddQueryString("matches", queryParams);
             var response = await _client.GetFromJsonAsync<ApiResponse<List<ResultMatchDto>>>(url, cancellationToken);
             return response ?? ApiResponse<List<ResultMatchDto>>.Fail("Maçlar alınamadı.");
         }
 
         public async Task<ApiResponse<ResultMatchDetailDto>> GetMatchByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            var response = await _client.GetFromJsonAsync<ApiResponse<ResultMatchDetailDto>>($"admin/matches/{id}", cancellationToken);
+            var response = await _client.GetFromJsonAsync<ApiResponse<ResultMatchDetailDto>>($"matches/{id}", cancellationToken);
             return response ?? ApiResponse<ResultMatchDetailDto>.Fail("Maç bulunamadı.");
         }
 
         public async Task<ApiResponse<ResultMatchDto>> CreateMatchAsync(MatchUpsertDto createDto, CancellationToken cancellationToken = default)
         {
-            var response = await _client.PostAsJsonAsync("admin/matches", createDto, cancellationToken);
+            var response = await _client.PostAsJsonAsync("matches", createDto, cancellationToken);
             var result = await response.Content.ReadFromJsonAsync<ApiResponse<ResultMatchDto>>(cancellationToken: cancellationToken);
             return result ?? ApiResponse<ResultMatchDto>.Fail("Maç eklenirken bir hata oluştu.");
         }
 
         public async Task<ApiResponse> UpdateMatchAsync(Guid id, MatchUpsertDto updateDto, CancellationToken cancellationToken = default)
         {
-            var response = await _client.PutAsJsonAsync($"admin/matches/{id}", updateDto, cancellationToken);
+            var response = await _client.PutAsJsonAsync($"matches/{id}", updateDto, cancellationToken);
             var result = await response.Content.ReadFromJsonAsync<ApiResponse>(cancellationToken: cancellationToken);
             return result ?? ApiResponse.Fail("Maç güncellenirken bir hata oluştu.");
         }
 
         public async Task<ApiResponse> DeleteMatchAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            var response = await _client.DeleteAsync($"admin/matches/{id}", cancellationToken);
+            var response = await _client.DeleteAsync($"matches/{id}", cancellationToken);
             var result = await response.Content.ReadFromJsonAsync<ApiResponse>(cancellationToken: cancellationToken);
             return result ?? ApiResponse.Fail("Maç silinirken bir hata oluştu.");
         }

@@ -4,7 +4,7 @@ using SerieA.API.Services.Teams;
 
 namespace SerieA.API.Controllers
 {
-    [Route("api/admin/teams")]
+    [Route("api/teams")]
     [ApiController]
     public class TeamsController(ITeamService _teamService) : ControllerBase
     {

@@ -3,7 +3,7 @@ using SerieA.API.Services.Standings;
 
 namespace SerieA.API.Controllers
 {
-    [Route("api/admin/standings")]
+    [Route("api/standings")]
     [ApiController]
     public class StandingsController(IStandingService _standingService) : ControllerBase
     {

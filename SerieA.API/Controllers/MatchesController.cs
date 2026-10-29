@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using SerieA.API.DTOs.Matches;
 using SerieA.API.Services.Matches;
 
 namespace SerieA.API.Controllers
 {
-    [Route("api/admin/matches")]
+    [Route("api/matches")]
     [ApiController]
     public class MatchesController(IMatchService _matchService) : ControllerBase
     {
@@ -15,6 +15,13 @@ namespace SerieA.API.Controllers
             var result = await _matchService.GetMatchesAsync(week, team);
             return Ok(result);
         }
+        [HttpGet("week/{week:int}")]
+        public async Task<IActionResult> GetMatchesByWeekAsync(int week)
+        {
+            var result = await _matchService.GetMatchesAsync(week, null);
+            return Ok(result);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetMatchByIdAsync(Guid id)
         {
