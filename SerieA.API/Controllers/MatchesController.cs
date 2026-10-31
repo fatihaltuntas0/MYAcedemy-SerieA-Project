@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SerieA.API.DTOs.Matches;
 using SerieA.API.Services.Matches;
+using System.Threading.Tasks;
 
 namespace SerieA.API.Controllers
 {
@@ -19,6 +20,13 @@ namespace SerieA.API.Controllers
         public async Task<IActionResult> GetMatchesByWeekAsync(int week)
         {
             var result = await _matchService.GetMatchesAsync(week, null);
+            return Ok(result);
+        }
+
+        [HttpGet("weeks-summary")]
+        public async Task<IActionResult> GetWeekSummaryAsync()
+        {
+            var result = await _matchService.GetWeekSummaryAsync();
             return Ok(result);
         }
 

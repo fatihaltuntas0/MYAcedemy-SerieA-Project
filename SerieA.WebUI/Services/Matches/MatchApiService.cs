@@ -19,8 +19,15 @@ namespace SerieA.WebUI.Services.Matches
 
         public async Task<ApiResponse<ResultMatchDetailDto>> GetMatchByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            var response = await _client.GetFromJsonAsync<ApiResponse<ResultMatchDetailDto>>($"matches/{id}", cancellationToken);
-            return response ?? ApiResponse<ResultMatchDetailDto>.Fail("Maç bulunamadı.");
+            try
+            {
+                var response = await _client.GetFromJsonAsync<ApiResponse<ResultMatchDetailDto>>($"matches/{id}", cancellationToken);
+                return response ?? ApiResponse<ResultMatchDetailDto>.Fail("Maç bulunamadı.");
+            }
+            catch (Exception ex)
+            {
+                return ApiResponse<ResultMatchDetailDto>.Fail($"Maç detayları alınırken hata oluştu: {ex.Message}");
+            }
         }
 
         public async Task<ApiResponse<ResultMatchDto>> CreateMatchAsync(MatchUpsertDto createDto, CancellationToken cancellationToken = default)
@@ -42,6 +49,12 @@ namespace SerieA.WebUI.Services.Matches
             var response = await _client.DeleteAsync($"matches/{id}", cancellationToken);
             var result = await response.Content.ReadFromJsonAsync<ApiResponse>(cancellationToken: cancellationToken);
             return result ?? ApiResponse.Fail("Maç silinirken bir hata oluştu.");
+        }
+
+        public async Task<ApiResponse<List<ResultWeekSummaryDto>>> GetWeeksSummaryAsync(CancellationToken cancellationToken = default)
+        {
+            var response = await _client.GetFromJsonAsync<ApiResponse<List<ResultWeekSummaryDto>>>("matches/weeks-summary", cancellationToken);
+            return response ?? ApiResponse<List<ResultWeekSummaryDto>>.Fail("Haftalık özet bilgileri alınamadı.");
         }
     }
 }

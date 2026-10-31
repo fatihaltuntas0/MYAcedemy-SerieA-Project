@@ -1,0 +1,254 @@
+@using SerieA.WebUI.ViewModels
+@using SerieA.WebUI.Enums
+@model WeekIndexViewModel
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Haftalar & Fikstür";
+    ViewData["Crumb"] = "Haftalar";
+
+    var totalWeeks = Model.Weeks.Count;
+    var completedWeeks = Model.Weeks.Count(w => w.Status == MatchStatus.Finished);
+    var liveOrPlannedWeeks = totalWeeks - completedWeeks;
+    var validWeeksCount = Model.Weeks.Count(w => w.IsValidFixture);
+}
+
+<link rel="stylesheet" href="~/css/weeks.css" asp-append-version="true" />
+
+<div class="weeks-page">
+    <!-- Sayfa Başlığı -->
+    <div class="page-head">
+        <div>
+            <span class="page-eyebrow">SERIE A · 2026/27 SEZONU</span>
+            <h1 class="page-title">Haftalar &amp; Fikstür Yönetimi</h1>
+            <p class="page-desc">38 haftalık lig fikstürünü, tamamlanma ilerlemesini ve lig kurallarına uygunluğunu takip edin.</p>
+        </div>
+    </div>
+
+    <!-- 1. Fikstür KPI & İlerleme Şeridi -->
+    <section class="weeks-kpi-grid" aria-label="Fikstür genel durumu">
+        <div class="weeks-kpi-card">
+            <div class="weeks-kpi-icon weeks-kpi-icon--blue">
+                <svg class="icon" aria-hidden="true"><use href="#i-calendar" /></svg>
+            </div>
+            <div>
+                <span class="weeks-kpi-label">Toplam Hafta</span>
+                <span class="weeks-kpi-val">@totalWeeks <small>/ 38</small></span>
+            </div>
+        </div>
+
+        <div class="weeks-kpi-card">
+            <div class="weeks-kpi-icon weeks-kpi-icon--green">
+                <svg class="icon" aria-hidden="true"><use href="#i-check" /></svg>
+            </div>
+            <div>
+                <span class="weeks-kpi-label">Tamamlanan</span>
+                <span class="weeks-kpi-val">@completedWeeks <small>Hafta</small></span>
+            </div>
+        </div>
+
+        <div class="weeks-kpi-card">
+            <div class="weeks-kpi-icon weeks-kpi-icon--amber">
+                <svg class="icon" aria-hidden="true"><use href="#i-clock" /></svg>
+            </div>
+            <div>
+                <span class="weeks-kpi-label">Kalan / Planlanan</span>
+                <span class="weeks-kpi-val">@liveOrPlannedWeeks <small>Hafta</small></span>
+            </div>
+        </div>
+
+        <div class="weeks-kpi-card">
+            <div class="weeks-kpi-icon weeks-kpi-icon--navy">
+                <svg class="icon" aria-hidden="true"><use href="#i-shield" /></svg>
+            </div>
+            <div>
+                <span class="weeks-kpi-label">Kural Uyumluluğu</span>
+                <span class="weeks-kpi-val">@(totalWeeks > 0 ? $"%{(int)((double)validWeeksCount / totalWeeks * 100)}" : "-") <small>Geçerli</small></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Hafta Listesi Tablosu -->
+    <section class="weeks-card" aria-label="Hafta listesi">
+        <div class="weeks-card-head">
+            <h2 class="weeks-card-title">
+                <svg class="icon" style="color: var(--blue);" aria-hidden="true"><use href="#i-calendar" /></svg>
+                Haftalık Fikstür İlerlemesi
+            </h2>
+            <span style="font-size: 0.84rem; color: var(--muted); font-weight: 500;">
+                Her hafta 10 maç · 20 farklı takım
+            </span>
+        </div>
+
+        <div class="weeks-table-wrap">
+            <table class="weeks-table">
+                <caption class="visually-hidden">Serie A Hafta Listesi</caption>
+                <colgroup>
+                    <col style="width: 14%;" />
+                    <col style="width: 22%;" />
+                    <col style="width: 8%;" />
+                    <col style="width: 22%;" />
+                    <col style="width: 14%;" />
+                    <col style="width: 14%;" />
+                    <col style="width: 6%;" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th scope="col">Hafta</th>
+                        <th scope="col">Tarih Aralığı</th>
+                        <th scope="col" style="text-align: center;">Maç</th>
+                        <th scope="col">İlerleme</th>
+                        <th scope="col">Durum</th>
+                        <th scope="col">Fikstür Kontrolü</th>
+                        <th scope="col" style="text-align: right;">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody id="weeks-tbody">
+                    @if (Model.Weeks.Count == 0)
+                    {
+                        <tr>
+                            <td colspan="7">
+                                <div class="empty-state">
+                                    <div class="empty-state-icon">
+                                        <svg class="icon" aria-hidden="true"><use href="#i-calendar" /></svg>
+                                    </div>
+                                    <h3 class="empty-state-title">Fikstür Planı Bulunamadı</h3>
+                                    <p class="empty-state-desc">Sezona ait haftalık fikstür veya maç henüz oluşturulmamış. Maçlar eklendikçe haftalık ilerleme burada görüntülenecektir.</p>
+                                    <div class="empty-state-actions">
+                                        <a href="/Matches" class="btn-a btn-a--primary">
+                                            <svg class="icon" aria-hidden="true"><use href="#i-plus" /></svg>Maç Oluştur
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        @foreach (var week in Model.Weeks)
+                        {
+                            var percent = week.TotalMatches > 0 ? (int)((double)week.CompletedMatches / week.TotalMatches * 100) : 0;
+                            var statusClass = week.Status switch
+                            {
+                                MatchStatus.Finished => "badge-status--finished",
+                                MatchStatus.Live => "badge-status--live",
+                                _ => "badge-status--planned"
+                            };
+                            var statusText = week.Status switch
+                            {
+                                MatchStatus.Finished => "Tamamlandı",
+                                MatchStatus.Live => "Devam ediyor",
+                                _ => "Planlandı"
+                            };
+
+                            <tr data-week="@week.Week">
+                                <td>
+                                    <span class="week-pill">@week.Week. Hafta</span>
+                                </td>
+                                <td>
+                                    <div class="date-range-cell">
+                                        <svg class="icon" aria-hidden="true"><use href="#i-clock" /></svg>
+                                        <span>@week.StartDate.ToString("dd.MM.yyyy") – @week.EndDate.ToString("dd.MM.yyyy")</span>
+                                    </div>
+                                </td>
+                                <td style="text-align: center;">
+                                    <strong style="font-size: 0.95rem; font-variant-numeric: tabular-nums;">@week.TotalMatches</strong>
+                                </td>
+                                <td>
+                                    <div class="week-progress-wrap" title="@week.CompletedMatches / @week.TotalMatches maç tamamlandı">
+                                        <div class="week-progress-track">
+                                            <span class="week-progress-fill @(percent == 100 ? "week-progress-fill--done" : "")" style="width: @percent%;"></span>
+                                        </div>
+                                        <span class="week-progress-text">@week.CompletedMatches / @week.TotalMatches</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge-status @statusClass">
+                                        @if (week.Status == MatchStatus.Live)
+                                        {
+                                            <span class="live-dot" aria-hidden="true"></span>
+                                        }
+                                        @statusText
+                                    </span>
+                                </td>
+                                <td>
+                                    @if (week.IsValidFixture)
+                                    {
+                                        <span class="fixture-badge fixture-badge--ok" title="20 takımın tamamı haftada 1 maça çıkıyor">
+                                            <svg class="icon" style="width: 14px; height: 14px;" aria-hidden="true"><use href="#i-check" /></svg>
+                                            20 Takım · Tam
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="fixture-badge fixture-badge--warn" title="@week.UniqueTeamsCount farklı takım tespit edildi">
+                                            <svg class="icon" style="width: 14px; height: 14px;" aria-hidden="true"><use href="#i-info" /></svg>
+                                            Hatalı (@week.UniqueTeamsCount/20)
+                                        </span>
+                                    }
+                                </td>
+                                <td style="text-align: right;">
+                                    <div class="row-actions" style="justify-content: flex-end;">
+                                        <button type="button" class="act-btn" data-view-week="@week.Week" title="@week.Week. Hafta Maçlarını İncele" aria-label="@week.Week. hafta maçlarını göster">
+                                            <svg class="icon" aria-hidden="true"><use href="#i-eye" /></svg>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="table-foot" style="padding: 14px 24px;">
+            <span><strong>@Model.Weeks.Count</strong> hafta listeleniyor</span>
+            <span>Serie A Resmi Fikstürü</span>
+        </div>
+    </section>
+
+    <!-- 3. Seçilen Haftanın Maçları (Dinamik AJAX Paneli) -->
+    <section class="week-detail-panel" id="week-detail-panel" hidden aria-label="Seçilen haftanın karşılaşmaları">
+        <div class="week-detail-head">
+            <div class="week-detail-title-wrap">
+                <svg class="icon" style="color: #60A5FA; width: 22px; height: 22px;" aria-hidden="true"><use href="#i-ball" /></svg>
+                <div>
+                    <h2 class="week-detail-title" id="week-panel-title">Hafta Karşılaşmaları</h2>
+                    <span class="week-detail-sub" id="week-panel-sub">10 müsabaka listeleniyor</span>
+                </div>
+            </div>
+            <button type="button" class="btn-close-panel" id="btn-close-panel">
+                <svg class="icon" style="width: 14px; height: 14px;" aria-hidden="true"><use href="#i-x" /></svg>
+                Paneli Kapat
+            </button>
+        </div>
+
+        <div class="weeks-table-wrap">
+            <table class="week-matches-table">
+                <caption class="visually-hidden">Hafta Maçları Listesi</caption>
+                <colgroup>
+                    <col style="width: 15%;" />
+                    <col style="width: 27%;" />
+                    <col style="width: 14%;" />
+                    <col style="width: 27%;" />
+                    <col style="width: 17%;" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th scope="col" style="padding-left: 24px;">Tarih &amp; Saat</th>
+                        <th scope="col" style="text-align: right;">Ev Sahibi</th>
+                        <th scope="col" style="text-align: center;">Skor</th>
+                        <th scope="col" style="text-align: left;">Deplasman</th>
+                        <th scope="col" style="padding-right: 24px;">Stadyum</th>
+                    </tr>
+                </thead>
+                <tbody id="week-matches-tbody">
+                    <!-- JavaScript (weeks.js) ile doldurulacak -->
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
+@section Scripts {
+    <script src="~/js/weeks.js" asp-append-version="true"></script>
+}

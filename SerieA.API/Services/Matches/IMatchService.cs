@@ -10,5 +10,6 @@ namespace SerieA.API.Services.Matches
         Task<ApiResponse<ResultMatchDto>> CreateMatchAsync(MatchUpsertDto createDto);
         Task<ApiResponse> UpdateMatchAsync(Guid id, MatchUpsertDto updateDto);
         Task<ApiResponse> DeleteMatchAsync(Guid id);
+        Task<ApiResponse<List<WeekSummaryDto>>> GetWeekSummaryAsync();
     }
 }

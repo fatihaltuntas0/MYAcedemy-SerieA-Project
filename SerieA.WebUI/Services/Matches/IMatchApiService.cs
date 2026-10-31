@@ -10,5 +10,6 @@ namespace SerieA.WebUI.Services.Matches
         Task<ApiResponse<ResultMatchDto>> CreateMatchAsync(MatchUpsertDto createDto, CancellationToken cancellationToken = default);
         Task<ApiResponse> UpdateMatchAsync(Guid id, MatchUpsertDto updateDto, CancellationToken cancellationToken = default);
         Task<ApiResponse> DeleteMatchAsync(Guid id, CancellationToken cancellationToken = default);
+        Task<ApiResponse<List<ResultWeekSummaryDto>>> GetWeeksSummaryAsync(CancellationToken cancellationToken = default);
     }
 }

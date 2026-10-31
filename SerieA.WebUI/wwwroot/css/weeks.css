@@ -1,0 +1,476 @@
+/* ==========================================================================
+   Serie A Weeks & Fixture Dashboard — Agency Grade Design
+   ========================================================================== */
+
+.weeks-page {
+    width: 100%;
+    min-width: 0;
+}
+
+/* ---- Weeks KPI / Progress Strip ---- */
+.weeks-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.weeks-kpi-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 22px;
+    background: #FFFFFF;
+    border: 1px solid rgba(14, 21, 33, 0.08);
+    border-radius: var(--radius, 12px);
+    box-shadow: 0 1px 3px rgba(14, 21, 33, 0.04), 0 6px 16px -4px rgba(14, 21, 33, 0.04);
+    transition: transform 0.16s var(--ease), box-shadow 0.16s var(--ease);
+}
+
+.weeks-kpi-card:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-card);
+}
+
+.weeks-kpi-icon {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+
+.weeks-kpi-icon .icon {
+    width: 22px;
+    height: 22px;
+}
+
+.weeks-kpi-icon--blue {
+    background: var(--blue-soft, #EDF3FF);
+    color: var(--blue, #0F62FE);
+}
+
+.weeks-kpi-icon--green {
+    background: var(--green-soft, #E4F4EC);
+    color: var(--green, #0F8F5F);
+}
+
+.weeks-kpi-icon--amber {
+    background: var(--amber-soft, #FBF1DC);
+    color: var(--amber, #A86A12);
+}
+
+.weeks-kpi-icon--navy {
+    background: #F1F4F9;
+    color: #1C2738;
+}
+
+.weeks-kpi-label {
+    display: block;
+    color: var(--muted, #5C687E);
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 3px;
+}
+
+.weeks-kpi-val {
+    font-family: var(--font-display, inherit);
+    font-size: 1.55rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--text, #121A2B);
+}
+
+.weeks-kpi-val small {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--muted, #5C687E);
+    margin-left: 4px;
+}
+
+/* ---- Main Weeks Card ---- */
+.weeks-card {
+    background: #FFFFFF;
+    border: 1px solid rgba(14, 21, 33, 0.08);
+    border-radius: var(--radius, 12px);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+}
+
+.weeks-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--line, #E2E5EC);
+    background: #FAFBFC;
+}
+
+.weeks-card-title {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text, #121A2B);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* ---- Dedicated Weeks Table ---- */
+.weeks-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.weeks-table {
+    width: 100%;
+    min-width: 860px;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.weeks-table th {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--line, #E2E5EC);
+    background: #F8F9FA;
+    color: var(--muted, #5C687E);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.weeks-table th:first-child,
+.weeks-table td:first-child {
+    padding-left: 24px;
+}
+
+.weeks-table th:last-child,
+.weeks-table td:last-child {
+    padding-right: 24px;
+    text-align: right;
+}
+
+.weeks-table td {
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--line, #E2E5EC);
+    color: var(--text-2, #38445C);
+    vertical-align: middle;
+    font-size: 0.92rem;
+    transition: background-color 0.12s var(--ease);
+}
+
+.weeks-table tbody tr:hover td {
+    background-color: #F8FAFC;
+}
+
+.weeks-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+/* Week Badge Pill */
+.week-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 6px;
+    background: #F1F4F9;
+    color: var(--ink-900, #0E1521);
+    font-weight: 700;
+    font-size: 0.88rem;
+    letter-spacing: 0.01em;
+}
+
+/* Date Range Display */
+.date-range-cell {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-2, #38445C);
+    font-variant-numeric: tabular-nums;
+    font-size: 0.9rem;
+}
+
+.date-range-cell .icon {
+    width: 15px;
+    height: 15px;
+    color: var(--dim, #667085);
+}
+
+/* Progress bar inside table */
+.week-progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 220px;
+}
+
+.week-progress-track {
+    flex: 1;
+    height: 8px;
+    border-radius: 9999px;
+    background: #EAEFF5;
+    overflow: hidden;
+}
+
+.week-progress-fill {
+    display: block;
+    height: 100%;
+    border-radius: 9999px;
+    background: var(--blue, #0F62FE);
+    transition: width 0.3s var(--ease);
+}
+
+.week-progress-fill--done {
+    background: var(--green, #0F8F5F);
+}
+
+.week-progress-text {
+    font-size: 0.82rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-2, #38445C);
+    min-width: 38px;
+    text-align: right;
+}
+
+/* Status Badges */
+.badge-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.badge-status--finished {
+    background: #E8ECEF;
+    color: #242E3E;
+}
+
+.badge-status--live {
+    background: var(--green-soft, #E4F4EC);
+    color: var(--green, #0F8F5F);
+}
+
+.badge-status--planned {
+    background: #EDF1F7;
+    color: #4C5A73;
+}
+
+/* Fixture Rule Verification Badges */
+.fixture-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+.fixture-badge--ok {
+    background: var(--green-soft, #E4F4EC);
+    color: var(--green, #0F8F5F);
+    border: 1px solid rgba(15, 143, 95, 0.18);
+}
+
+.fixture-badge--warn {
+    background: var(--amber-soft, #FBF1DC);
+    color: var(--amber, #A86A12);
+    border: 1px solid rgba(168, 106, 18, 0.18);
+}
+
+/* ---- Detail Match Drawer / Center (Hafta Karşılaşmaları) ---- */
+.week-detail-panel {
+    margin-top: 24px;
+    background: #FFFFFF;
+    border: 1px solid rgba(14, 21, 33, 0.08);
+    border-radius: var(--radius, 12px);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    animation: slideUp 0.28s var(--ease);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.week-detail-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--line, #E2E5EC);
+    background: #0E1521;
+    color: #FFFFFF;
+}
+
+.week-detail-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.week-detail-title {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    letter-spacing: -0.01em;
+}
+
+.week-detail-sub {
+    font-size: 0.82rem;
+    color: #9AA7BC;
+}
+
+.btn-close-panel {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.06);
+    color: #E2E8F0;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.16s var(--ease);
+}
+
+.btn-close-panel:hover {
+    background: rgba(255, 255, 255, 0.14);
+    color: #FFFFFF;
+}
+
+/* Match Center Table */
+.week-matches-table {
+    width: 100%;
+    min-width: 840px;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.week-matches-table th {
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--line, #E2E5EC);
+    background: #F8F9FA;
+    color: var(--muted, #5C687E);
+    font-size: 0.74rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.week-matches-table td {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--line, #E2E5EC);
+    vertical-align: middle;
+    font-size: 0.92rem;
+    color: var(--text-2, #38445C);
+    transition: background-color 0.12s var(--ease);
+}
+
+.week-matches-table tbody tr:hover td {
+    background-color: #F8FAFC;
+}
+
+.week-matches-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+/* Match Date & Time Column */
+.match-datetime-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.match-date-val {
+    font-weight: 600;
+    color: var(--text, #121A2B);
+    font-size: 0.9rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.match-time-val {
+    font-size: 0.78rem;
+    color: var(--dim, #667085);
+    font-variant-numeric: tabular-nums;
+}
+
+/* Home Team (Right-aligned towards score) */
+.match-team-home {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    text-align: right;
+}
+
+.match-team-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text, #121A2B);
+}
+
+/* Away Team (Left-aligned towards score) */
+.match-team-away {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    text-align: left;
+}
+
+.match-team-logo {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+/* Stadium Cell */
+.match-stadium-cell {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--dim, #667085);
+    font-size: 0.85rem;
+}
+
+.match-stadium-cell .icon {
+    width: 14px;
+    height: 14px;
+    color: #929DAC;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991.98px) {
+    .weeks-kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 575.98px) {
+    .weeks-kpi-grid {
+        grid-template-columns: 1fr;
+    }
+}
