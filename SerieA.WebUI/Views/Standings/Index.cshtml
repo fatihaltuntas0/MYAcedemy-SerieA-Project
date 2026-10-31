@@ -1,0 +1,26 @@
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Puan Durumu";
+    ViewData["Crumb"] = "Puan Durumu";
+}
+@model StandingIndexViewModel
+
+<link rel="stylesheet" href="~/css/standings.css" asp-append-version="true" />
+
+<div class="standings-page">
+    <div class="page-head standings-page-head">
+        <div>
+            <span class="page-eyebrow">SERIE A · 2026/27 SEZONU</span>
+            <h1 class="page-title">Puan Durumu</h1>
+            <p class="page-desc">Takımların lig performansı ve güncel sıralaması.</p>
+        </div>
+    </div>
+
+    <div class="standings-info" role="note">
+        <span class="standings-info__icon">i</span>
+        <p><strong>Puanlama sistemi</strong><span>Yalnızca tamamlanan maçlar hesaba katılır. Galibiyet 3, beraberlik 1, mağlubiyet 0 puan.</span></p>
+        <span class="standings-info__rule">Puan <b>→</b> Averaj <b>→</b> Atılan gol</span>
+    </div>
+
+    <partial name="_StandingTable" model="Model" />
+</div>

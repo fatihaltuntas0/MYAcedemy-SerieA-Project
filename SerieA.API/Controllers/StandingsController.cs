@@ -8,9 +8,9 @@ namespace SerieA.API.Controllers
     public class StandingsController(IStandingService _standingService) : ControllerBase
     {
         [HttpGet]
-        public async Task<IActionResult> GetStandingAsync()
+        public async Task<IActionResult> GetStandingAsync([FromQuery] int? upToWeek = null)
         {
-            var result = await _standingService.CalculateStandingAsync();
+            var result = await _standingService.CalculateStandingAsync(upToWeek);
 
             return Ok(result);
         }

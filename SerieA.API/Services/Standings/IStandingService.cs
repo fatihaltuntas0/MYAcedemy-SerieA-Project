@@ -5,6 +5,6 @@ namespace SerieA.API.Services.Standings
 {
     public interface IStandingService
     {
-        Task<ApiResponse<List<StandingRowDto>>> CalculateStandingAsync();
+        Task<ApiResponse<List<StandingRowDto>>> CalculateStandingAsync(int? upToWeek = null);
     }
 }

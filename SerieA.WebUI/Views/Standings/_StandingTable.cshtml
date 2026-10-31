@@ -1,0 +1,145 @@
+@model StandingIndexViewModel
+
+@{
+    const int championsZone = 4;
+    const int relegationZone = 3;
+    const int formSlots = 5;
+    var total = Model.Standings.Count;
+}
+
+<section class="standings-card" aria-label="Serie A puan durumu">
+    <div class="standings-toolbar">
+        <div class="standings-toolbar__filter">
+            <label class="standings-label" for="f-week">GÖRÜNTÜLENEN DÖNEM</label>
+            <form method="get" asp-action="Index">
+                <select class="standings-select" id="f-week" name="upToWeek" onchange="this.form.submit()">
+                    <option value="">Tüm sezon · Güncel</option>
+                    @foreach (var week in Model.AvailableWeeks)
+                    {
+                        <option value="@week" selected="@(Model.SelectedWeek == week)">@week. Hafta</option>
+                    }
+                </select>
+            </form>
+        </div>
+
+        <div class="standings-legend" aria-label="Sıralama bölgeleri">
+            <span class="standings-legend__item"><i class="standings-legend__dot standings-legend__dot--europe"></i> Avrupa kupaları <b>1–4</b></span>
+            <span class="standings-legend__item"><i class="standings-legend__dot standings-legend__dot--relegation"></i> Küme düşme <b>Son 3</b></span>
+        </div>
+    </div>
+
+    <div class="standings-table-wrap">
+        <table class="standings-table">
+            <caption class="visually-hidden">Serie A puan durumu</caption>
+            <colgroup>
+                <col class="st-col-rank" />
+                <col class="st-col-team" />
+                <col class="st-col-stat" span="7" />
+                <col class="st-col-points" />
+                <col class="st-col-form" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th scope="col" class="st-rank">SIRA</th>
+                    <th scope="col" class="st-team-heading">TAKIM</th>
+                    <th scope="col" title="Oynanan maç">O</th>
+                    <th scope="col" title="Galibiyet">G</th>
+                    <th scope="col" title="Beraberlik">B</th>
+                    <th scope="col" title="Mağlubiyet">M</th>
+                    <th scope="col" title="Atılan gol">AG</th>
+                    <th scope="col" title="Yenilen gol">YG</th>
+                    <th scope="col" title="Averaj">AV</th>
+                    <th scope="col" class="st-points-heading" title="Puan">PUAN</th>
+                    <th scope="col" class="st-form-heading">SON 5 MAÇ</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (total == 0)
+                {
+                    <tr>
+                        <td colspan="11">
+                            <div class="empty-state">
+                                <div class="empty-state-icon">
+                                    <svg class="icon" aria-hidden="true"><use href="#i-table" /></svg>
+                                </div>
+                                <h3 class="empty-state-title">Puan Durumu Henüz Oluşmadı</h3>
+                                <p class="empty-state-desc">Seçilen dönemde veya mevcut sezonda henüz tamamlanmış bir müsabaka bulunmuyor. Maçlar tamamlandıkça lig tablosu otomatik güncellenecektir.</p>
+                                <div class="empty-state-actions">
+                                    <a href="/Matches" class="btn-a btn-a--primary">
+                                        <svg class="icon" aria-hidden="true"><use href="#i-ball" /></svg>Maçları Yönet
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    @foreach (var row in Model.Standings)
+                    {
+                        var zoneClass = row.Position <= championsZone ? "st-row--europe"
+                        : row.Position > total - relegationZone ? "st-row--relegation"
+                        : "";
+                        var gdClass = row.GoalDifference > 0 ? "st-positive" : row.GoalDifference < 0 ? "st-negative" : "";
+                        var colorOne = string.IsNullOrEmpty(row.TeamColorOne) ? "#1E5BD8" : row.TeamColorOne;
+                        var colorTwo = string.IsNullOrEmpty(row.TeamColorTwo) ? "#FFFFFF" : row.TeamColorTwo;
+                        var hasLogo = !string.IsNullOrEmpty(row.TeamLogoUrl);
+
+                        <tr class="@zoneClass">
+                            <td class="st-rank">
+                                <span class="st-rank-number">@row.Position.ToString("00")</span>
+                            </td>
+                            <td class="st-team">
+                                <div class="st-team-cell">
+                                    <span class="st-crest-wrap">
+                                        @if (hasLogo)
+                                        {
+                                            <img class="st-crest" src="@row.TeamLogoUrl" alt="" loading="lazy"
+                                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-grid';" />
+                                        }
+                                        <span class="st-crest st-crest--fallback" style="display:@(hasLogo ? "none" : "inline-grid"); --crest-a:@colorOne; --crest-b:@colorTwo;" aria-hidden="true">@row.TeamCode</span>
+                                    </span>
+                                    <span class="st-team-copy">
+                                        <span class="st-team-name">@row.TeamName</span>
+                                        <span class="st-team-code">@row.TeamCode</span>
+                                    </span>
+                                </div>
+                            </td>
+                            <td class="st-stat">@row.Played</td>
+                            <td class="st-stat">@row.Won</td>
+                            <td class="st-stat">@row.Drawn</td>
+                            <td class="st-stat">@row.Lost</td>
+                            <td class="st-stat">@row.GoalsFor</td>
+                            <td class="st-stat">@row.GoalsAgainst</td>
+                            <td class="st-stat @gdClass">@(row.GoalDifference > 0 ? $"+{row.GoalDifference}" : row.GoalDifference.ToString())</td>
+                            <td class="st-points"><span>@row.Points</span></td>
+                            <td class="st-form">
+                                <div class="st-form-list" aria-label="Son beş maç sonucu">
+                                    @foreach (var result in row.Form.Take(formSlots))
+                                    {
+                                        var (letter, label) = result switch
+                                        {
+                                            "W" => ("G", "Galibiyet"),
+                                            "D" => ("B", "Beraberlik"),
+                                            _ => ("M", "Mağlubiyet")
+                                        };
+                                        <span class="st-form-chip st-form-chip--@result" title="@label" aria-label="@label">@letter</span>
+                                    }
+                                    @for (var i = row.Form.Count; i < formSlots; i++)
+                                    {
+                                        <span class="st-form-chip st-form-chip--empty" title="Henüz oynanmadı" aria-hidden="true">–</span>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <footer class="standings-footer">
+        <span><strong>@total</strong> takım listeleniyor <span class="st-footer-separator">·</span> @(Model.SelectedWeek.HasValue ? $"{Model.SelectedWeek}. haftaya kadar" : "Sezon geneli")</span>
+        <span class="st-footer-help">O Oynanan <i>·</i> G Galibiyet <i>·</i> B Beraberlik <i>·</i> M Mağlubiyet <i>·</i> AG Atılan gol <i>·</i> YG Yenilen gol <i>·</i> AV Averaj</span>
+    </footer>
+</section>
