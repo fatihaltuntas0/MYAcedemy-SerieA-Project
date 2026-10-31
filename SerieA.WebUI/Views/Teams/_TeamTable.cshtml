@@ -55,8 +55,19 @@
                 {
                     <tr class="table-empty">
                         <td colspan="9">
-                            <strong>Takım bulunamadı</strong>
-                            Filtreleri değiştirin ya da Temizle ile tüm takımları gösterin.
+                            <div class="empty-state">
+                                <div class="empty-state-icon">
+                                    <svg class="icon" aria-hidden="true"><use href="#i-shield" /></svg>
+                                </div>
+                                <h3 class="empty-state-title">Eşleşen Takım Bulunamadı</h3>
+                                <p class="empty-state-desc">Arama kriterlerinize veya seçilen filtrelere uygun Serie A kulübü bulunamadı. Filtreleri temizleyerek tüm kulüpleri listeleyebilirsiniz.</p>
+                                <div class="empty-state-actions">
+                                    <a href="/Teams" class="btn-a btn-a--secondary">Filtreleri Temizle</a>
+                                    <button type="button" class="btn-a btn-a--primary" data-open-create>
+                                        <svg class="icon" aria-hidden="true"><use href="#i-plus" /></svg>Yeni Takım Ekle
+                                    </button>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 }

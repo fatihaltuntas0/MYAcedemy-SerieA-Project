@@ -54,9 +54,20 @@
                 @if (!Model.Matches.Any())
                 {
                     <tr class="table-empty">
-                        <td colspan="9" style="text-align:center; padding:32px;">
-                            <strong>Maç bulunamadı</strong>
-                            <p style="margin:4px 0 0; color:var(--muted)">Filtreleri değiştirin veya yeni maç ekleyin.</p>
+                        <td colspan="9">
+                            <div class="empty-state">
+                                <div class="empty-state-icon">
+                                    <svg class="icon" aria-hidden="true"><use href="#i-ball" /></svg>
+                                </div>
+                                <h3 class="empty-state-title">Kayıtlı Maç Bulunamadı</h3>
+                                <p class="empty-state-desc">Seçilen hafta veya arama kriterine uygun karşılaşma kaydı bulunmuyor. Filtreleri temizleyebilir veya yeni maç ekleyebilirsiniz.</p>
+                                <div class="empty-state-actions">
+                                    <a href="/Matches" class="btn-a btn-a--secondary">Filtreleri Temizle</a>
+                                    <button type="button" class="btn-a btn-a--primary" data-open-create>
+                                        <svg class="icon" aria-hidden="true"><use href="#i-plus" /></svg>Yeni Maç Ekle
+                                    </button>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 }
@@ -81,14 +92,16 @@
                                     <span class="team-name">@m.HomeTeamName</span>
                                 </div>
                             </td>
-                            <td style="text-align:center; font-weight:700; font-size:16px;">
+                            <td style="text-align:center;">
                                 @if (m.HomeScore.HasValue && m.AwayScore.HasValue)
                                 {
-                                    <span>@m.HomeScore - @m.AwayScore</span>
+                                    <span class="match-score-pill @(m.Status.ToString() == "Live" || m.Status.ToString() == "Canlı" ? "match-score-pill--live" : "match-score-pill--finished")">
+                                        @m.HomeScore : @m.AwayScore
+                                    </span>
                                 }
                                 else
                                 {
-                                    <span style="color:var(--muted)">- : -</span>
+                                    <span class="match-score-pill match-score-pill--scheduled">VS</span>
                                 }
                             </td>
                             <td>
@@ -103,6 +116,10 @@
                             <td><small>@m.Stadium</small></td>
                             <td>
                                 <span class="badge-a badge-a--@m.Status.ToBadgeClass()">
+                                    @if (m.Status.ToString() == "Live" || m.Status.ToString() == "Canlı")
+                                    {
+                                        <span class="live-dot" aria-hidden="true"></span>
+                                    }
                                     @m.Status.ToDisplayStatus()
                                 </span>
                             </td>

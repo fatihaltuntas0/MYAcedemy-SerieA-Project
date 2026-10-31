@@ -8,8 +8,8 @@
         <li><a class="sidebar-link" href="/Admin" data-demo-nav><svg class="icon" aria-hidden="true"><use href="#i-home" /></svg>Ana Sayfa</a></li>
         <li><a class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Matches" ? "is-active" : "")" href="/Matches"><svg class="icon" aria-hidden="true"><use href="#i-ball" /></svg>Maçlar</a></li>
         <li><a class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Teams" ? "is-active" : "")" href="/Teams"><svg class="icon" aria-hidden="true"><use href="#i-shield" /></svg>Takımlar</a></li>
-        <li><a class="sidebar-link" href="/Admin/Weeks" data-demo-nav><svg class="icon" aria-hidden="true"><use href="#i-calendar" /></svg>Haftalar</a></li>
-        <li><a class="sidebar-link" href="/Admin/Standings" data-demo-nav><svg class="icon" aria-hidden="true"><use href="#i-table" /></svg>Puan Durumu</a></li>
+        <li><a class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Weeks" ? "is-active" : "")" href="/Weeks"><svg class="icon" aria-hidden="true"><use href="#i-calendar" /></svg>Haftalar</a></li>
+        <li><a class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Standings" ? "is-active" : "")" href="/Standings"><svg class="icon" aria-hidden="true"><use href="#i-table" /></svg>Puan Durumu</a></li>
         <li><a class="sidebar-link" href="/Admin/Users" data-demo-nav><svg class="icon" aria-hidden="true"><use href="#i-users" /></svg>Kullanıcılar</a></li>
     </ul>
     <div class="sidebar-foot">

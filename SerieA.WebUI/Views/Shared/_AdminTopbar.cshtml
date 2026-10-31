@@ -1,10 +1,9 @@
-﻿<header class="admin-topbar">
+<header class="admin-topbar">
     <div class="topbar-left">
         <button type="button" class="icon-btn menu-toggle" data-sidebar-toggle aria-controls="admin-sidebar" aria-expanded="false" aria-label="Menüyü aç">
             <svg class="icon" aria-hidden="true"><use href="#i-menu" /></svg>
         </button>
-        <p class="topbar-title">Takım Yönetimi</p>
-        <span class="topbar-crumb">Yönetim / Takımlar</span>
+        <span class="topbar-crumb">Yönetim / @(ViewData["Crumb"] ?? ViewData["Title"])</span>
     </div>
     <div class="topbar-right">
         <button type="button" class="icon-btn" aria-label="Bildirimler, 3 okunmamış" data-demo-action>
