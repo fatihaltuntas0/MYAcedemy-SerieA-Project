@@ -7,12 +7,12 @@ namespace SerieA.WebUI.Handlers
 {
     public class ApiExceptionHandler : DelegatingHandler
     {
-        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage message, CancellationToken token)
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken token)
         {
             try
             {
                 // Send the request to the API
-                var response = await base.SendAsync(message, token);
+                var response = await base.SendAsync(request, token);
 
                 if (!response.IsSuccessStatusCode)
                 {

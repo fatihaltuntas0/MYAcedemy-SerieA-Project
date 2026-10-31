@@ -1,5 +1,7 @@
+using SerieA.WebUI.Extensions;
 using SerieA.WebUI.Handlers;
 using SerieA.WebUI.Services.Matches;
+using SerieA.WebUI.Services.Standings;
 using SerieA.WebUI.Services.Teams;
 using System;
 
@@ -15,19 +17,9 @@ builder.Services.AddControllersWithViews()
 builder.Services.AddTransient<ApiExceptionHandler>();
 
 
-builder.Services.AddHttpClient<ITeamApiService, TeamApiService>(client =>
-{
-    var baseUrl = builder.Configuration["ApiSettings:BaseUrl"] ?? "https://localhost:7283/api/";
-    client.BaseAddress = new Uri(baseUrl);
-})
-    .AddHttpMessageHandler<ApiExceptionHandler>();
-
-builder.Services.AddHttpClient<IMatchApiService, MatchApiService>(client =>
-{
-    var baseUrl = builder.Configuration["ApiSettings:BaseUrl"] ?? "https://localhost:7283/api/";
-    client.BaseAddress = new Uri(baseUrl);
-})
-.AddHttpMessageHandler<ApiExceptionHandler>();
+builder.Services.AddCustomHttpClient<ITeamApiService, TeamApiService>();
+builder.Services.AddCustomHttpClient<IMatchApiService, MatchApiService>();
+builder.Services.AddCustomHttpClient<IStandingApiService, StandingApiService>();
 
 var app = builder.Build();
 
