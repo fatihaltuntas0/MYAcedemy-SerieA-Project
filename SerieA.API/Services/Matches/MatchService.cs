@@ -14,6 +14,7 @@ namespace SerieA.API.Services.Matches
         public async Task<ApiResponse<List<ResultMatchDto>>> GetMatchesAsync(int? week, string? team)
         {
             var query = _context.Matches
+                .AsNoTracking()
                 .Include(m => m.HomeTeam)
                 .Include(m => m.AwayTeam)
                 .AsQueryable();
@@ -35,6 +36,7 @@ namespace SerieA.API.Services.Matches
         public async Task<ApiResponse<ResultMatchDetailDto>> GetMatchByIdAsync(Guid id)
         {
             var match = await _context.Matches
+                .AsNoTracking()
                 .Include(m => m.HomeTeam)
                 .Include(m => m.AwayTeam)
                 .Include(m => m.MatchGoals)
@@ -131,7 +133,7 @@ namespace SerieA.API.Services.Matches
 
         public async Task<ApiResponse<List<WeekSummaryDto>>> GetWeekSummaryAsync()
         {
-            var allMatches = await _context.Matches.ToListAsync();
+            var allMatches = await _context.Matches.AsNoTracking().ToListAsync();
 
             if (!allMatches.Any())
             {
@@ -191,7 +193,7 @@ namespace SerieA.API.Services.Matches
 
         private async Task<bool> IsTeamBusyAsync(int week, Guid homeTeamId, Guid awayTeamId, Guid? excludeMatchId = null)
         {
-            return await _context.Matches.AnyAsync(m =>
+            return await _context.Matches.AsNoTracking().AnyAsync(m =>
                 (!excludeMatchId.HasValue || m.Id != excludeMatchId.Value) &&
                 m.Week == week &&
                 (m.HomeTeamId == homeTeamId ||

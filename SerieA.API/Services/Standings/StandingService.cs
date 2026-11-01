@@ -13,6 +13,7 @@ namespace SerieA.API.Services.Standings
         public async Task<ApiResponse<List<StandingRowDto>>> CalculateStandingAsync(int? upToWeek = null)
         {
             var activeTeams = await _context.Teams
+                .AsNoTracking()
                 .Where(t => t.Status == true)
                 .ToListAsync();
 
@@ -25,6 +26,7 @@ namespace SerieA.API.Services.Standings
                                       .ToDictionary(x => x.TeamId);
 
             var query = _context.Matches
+                .AsNoTracking()
                 .Where(m => m.Status == MatchStatus.Finished && m.HomeScore.HasValue && m.AwayScore.HasValue);
 
             if (upToWeek.HasValue)

@@ -11,7 +11,7 @@ namespace SerieA.API.Services.Teams
     {
         public async Task<ApiResponse<List<ResultTeamDto>>> GetTeamsAsync(string? q, string? region, string? status)
         {
-            var query = _context.Teams.AsQueryable();
+            var query = _context.Teams.AsNoTracking().AsQueryable();
             if (!string.IsNullOrEmpty(status))
             {
                 if (status.Equals("active", StringComparison.OrdinalIgnoreCase))
@@ -34,6 +34,7 @@ namespace SerieA.API.Services.Teams
         {
             // The league summary is calculated based only on active teams
             var activeTeams = await _context.Teams
+                .AsNoTracking()
                 .Where(t => t.Status == true)
                 .ToListAsync();
 
@@ -67,7 +68,7 @@ namespace SerieA.API.Services.Teams
 
         public async Task<ApiResponse<ResultTeamDto>> GetTeamByIdAsync(Guid id)
         {
-            var team = await _context.Teams.FirstOrDefaultAsync(t => t.Id == id);
+            var team = await _context.Teams.AsNoTracking().FirstOrDefaultAsync(t => t.Id == id);
             if (team is null)
             {
                 return ApiResponse<ResultTeamDto>.Fail("Aradığınız takım bulunamadı.");
