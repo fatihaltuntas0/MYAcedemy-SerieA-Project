@@ -1,32 +1,21 @@
 using Microsoft.AspNetCore.Mvc;
-using SerieA.WebUI.Models;
-using System.Diagnostics;
+using SerieA.WebUI.Services.Dashboard;
+using SerieA.WebUI.ViewModels;
 
 namespace SerieA.WebUI.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController(IDashboardApiService _dashboardApiService) : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        [HttpGet]
+        [Route("")]
+        [Route("Admin")]
+        [Route("Home")]
+        [Route("Home/Index")]
+        public async Task<IActionResult> Index(CancellationToken cancellationToken)
         {
-            _logger = logger;
-        }
-
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var result = await _dashboardApiService.GetDashboardSummaryAsync(cancellationToken);
+            var model = result.IsSuccess && result.Data != null ? result.Data : new DashboardViewModel();
+            return View(model);
         }
     }
 }

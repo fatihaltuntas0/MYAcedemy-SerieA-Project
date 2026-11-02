@@ -1,11 +1,11 @@
 <aside class="admin-sidebar" id="admin-sidebar" aria-label="Yönetim menüsü">
-    <a class="sidebar-brand" href="/Admin" data-demo-nav>
+    <a class="sidebar-brand" href="/" data-demo-nav>
         <span class="brand-mark" aria-hidden="true">SA</span>
         <span class="brand-text">Serie A Admin</span>
     </a>
     <p class="sidebar-label">Yönetim</p>
     <ul class="sidebar-nav">
-        <li><a class="sidebar-link" href="/Admin" data-demo-nav><svg class="icon" aria-hidden="true"><use href="#i-home" /></svg>Ana Sayfa</a></li>
+        <li><a class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" ? "is-active" : "")" href="/" data-demo-nav><svg class="icon" aria-hidden="true"><use href="#i-home" /></svg>Ana Sayfa</a></li>
         <li><a class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Matches" ? "is-active" : "")" href="/Matches"><svg class="icon" aria-hidden="true"><use href="#i-ball" /></svg>Maçlar</a></li>
         <li><a class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Teams" ? "is-active" : "")" href="/Teams"><svg class="icon" aria-hidden="true"><use href="#i-shield" /></svg>Takımlar</a></li>
         <li><a class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Weeks" ? "is-active" : "")" href="/Weeks"><svg class="icon" aria-hidden="true"><use href="#i-calendar" /></svg>Haftalar</a></li>

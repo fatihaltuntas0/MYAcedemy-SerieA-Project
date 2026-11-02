@@ -2,6 +2,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using SerieA.API.Context;
+using SerieA.API.Services.Dashboard;
 using SerieA.API.Services.Matches;
 using SerieA.API.Services.MatchEvents;
 using SerieA.API.Services.Standings;
@@ -26,12 +27,10 @@ builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
 builder.Services.AddScoped<IStandingService, StandingService>();
-
 builder.Services.AddScoped<ITeamService, TeamService>();
-
 builder.Services.AddScoped<IMatchService, MatchService>();
-
 builder.Services.AddScoped<IMatchEventService, MatchEventService>();
+builder.Services.AddScoped<IDashboardService, DashboardService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

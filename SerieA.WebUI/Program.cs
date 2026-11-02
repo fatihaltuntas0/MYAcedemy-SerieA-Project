@@ -1,5 +1,6 @@
 using SerieA.WebUI.Extensions;
 using SerieA.WebUI.Handlers;
+using SerieA.WebUI.Services.Dashboard;
 using SerieA.WebUI.Services.Matches;
 using SerieA.WebUI.Services.MatchEvents;
 using SerieA.WebUI.Services.Standings;
@@ -17,11 +18,11 @@ builder.Services.AddControllersWithViews()
 
 builder.Services.AddTransient<ApiExceptionHandler>();
 
-
 builder.Services.AddCustomHttpClient<ITeamApiService, TeamApiService>();
 builder.Services.AddCustomHttpClient<IMatchApiService, MatchApiService>();
 builder.Services.AddCustomHttpClient<IStandingApiService, StandingApiService>();
 builder.Services.AddCustomHttpClient<IMatchEventApiService, MatchEventApiService>();
+builder.Services.AddCustomHttpClient<IDashboardApiService, DashboardApiService>();
 
 var app = builder.Build();
 
@@ -42,6 +43,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Teams}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

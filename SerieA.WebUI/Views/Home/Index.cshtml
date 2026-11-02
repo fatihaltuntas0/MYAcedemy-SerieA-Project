@@ -1,8 +1,250 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@model SerieA.WebUI.ViewModels.DashboardViewModel
+@using SerieA.WebUI.Enums
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Ana Sayfa";
+    ViewData["Crumb"] = "Ana Sayfa";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="page-head">
+    <div>
+        <span class="page-eyebrow">Serie A 2026/27</span>
+        <h1 class="page-title">Genel Bakış</h1>
+        <p class="page-desc">Sezonun genel durumunu, son maç sonuçlarını, puan cetveli liderlerini ve yaklaşan fikstürü buradan takip edebilirsiniz.</p>
+    </div>
+    <a class="btn-a btn-a--primary" href="/Matches">
+        <svg class="icon" aria-hidden="true"><use href="#i-plus" /></svg>Yeni Maç Ekle
+    </a>
 </div>
+
+<!-- 1. League KPI Strip -->
+<section class="league-strip mb-4" aria-label="Lig özeti">
+    <div class="strip-item strip-item--blue">
+        <span class="strip-icon">
+            <svg class="icon" aria-hidden="true"><use href="#i-shield" /></svg>
+        </span>
+        <div>
+            <span class="strip-label">Aktif Takım</span>
+            <span class="strip-value">@Model.ActiveTeamCount</span>
+        </div>
+    </div>
+    <div class="strip-item strip-item--green">
+        <span class="strip-icon">
+            <svg class="icon" aria-hidden="true"><use href="#i-ball" /></svg>
+        </span>
+        <div>
+            <span class="strip-label">Oynanan Maç</span>
+            <span class="strip-value">@Model.FinishedMatchCount <small>/ @Model.TotalMatchCount</small></span>
+        </div>
+    </div>
+    <div class="strip-item strip-item--navy">
+        <span class="strip-icon">
+            <svg class="icon" aria-hidden="true"><use href="#i-table" /></svg>
+        </span>
+        <div>
+            <span class="strip-label">Atılan Gol</span>
+            <span class="strip-value">@Model.TotalGoals <small>maç başı @Model.AverageGoalsPerMatch.ToString("0.00")</small></span>
+        </div>
+    </div>
+    <div class="strip-item strip-item--red">
+        <span class="strip-icon">
+            <svg class="icon" aria-hidden="true"><use href="#i-calendar" /></svg>
+        </span>
+        <div>
+            <span class="strip-label">Sıradaki Hafta</span>
+            <span class="strip-value">@(Model.NextWeek > 0 ? $"{Model.NextWeek}. Hafta" : "-")</span>
+        </div>
+    </div>
+</section>
+
+<!-- 2. Main Dashboard Grid (Recent Results & Top 5 Standings) -->
+<div class="dash-grid">
+    <!-- Son Sonuçlar -->
+    <section class="card-a" aria-label="Son sonuçlar">
+        <div class="card-head">
+            <h2 class="card-title">Son Sonuçlar</h2>
+            <a class="card-link" href="/Matches">Tüm maçlar &rarr;</a>
+        </div>
+        <div>
+            @if (Model.RecentMatches != null && Model.RecentMatches.Any())
+            {
+                @foreach (var m in Model.RecentMatches)
+                {
+                    <div class="mrow">
+                        <!-- Ev Sahibi (Sağa yaslı, logo merkeze yakın) -->
+                        <div class="team-home">
+                            <span class="team-name" title="@m.HomeTeamName">@m.HomeTeamName</span>
+                            @if (!string.IsNullOrEmpty(m.HomeTeamLogoUrl))
+                            {
+                                <img class="team-crest team-crest--sm" src="@m.HomeTeamLogoUrl" alt="@m.HomeTeamName" onerror="this.style.display='none';" />
+                            }
+                        </div>
+
+                        <!-- Skor Kutusu (Merkezde) -->
+                        <div class="mrow-score" title="Maç Sonucu">
+                            @m.HomeScore : @m.AwayScore
+                        </div>
+
+                        <!-- Deplasman (Sola yaslı, logo merkeze yakın) -->
+                        <div class="team-away">
+                            @if (!string.IsNullOrEmpty(m.AwayTeamLogoUrl))
+                            {
+                                <img class="team-crest team-crest--sm" src="@m.AwayTeamLogoUrl" alt="@m.AwayTeamName" onerror="this.style.display='none';" />
+                            }
+                            <span class="team-name" title="@m.AwayTeamName">@m.AwayTeamName</span>
+                        </div>
+
+                        <!-- Detay Butonu -->
+                        <div class="mrow-actions">
+                            <a href="/Matches/Detail/@m.Id" class="act-btn" title="Maç Detayı ve Olaylar">
+                                <svg class="icon" aria-hidden="true"><use href="#i-eye" /></svg>
+                            </a>
+                        </div>
+
+                        <!-- Alt Meta Bilgisi (Merkezde) -->
+                        <div class="mrow-meta">
+                            <span>@m.Week. Hafta</span>
+                            <span>·</span>
+                            <span>@m.MatchDate.ToString("dd.MM.yyyy HH:mm")</span>
+                            @if (!string.IsNullOrEmpty(m.Stadium))
+                            {
+                                <span>·</span>
+                                <span>@m.Stadium</span>
+                            }
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="p-4 text-center text-muted">Henüz tamamlanan maç bulunmuyor.</div>
+            }
+        </div>
+    </section>
+
+    <!-- Puan Durumu İlk 5 -->
+    <section class="card-a" aria-label="Puan durumu özeti">
+        <div class="card-head">
+            <h2 class="card-title">Puan Durumu - İlk 5</h2>
+            <a class="card-link" href="/Standings">Tümünü gör &rarr;</a>
+        </div>
+        <div class="table-scroll">
+            <table class="dash-standings-table">
+                <thead>
+                    <tr>
+                        <th style="width:48px; text-align:center;">#</th>
+                        <th>Takım</th>
+                        <th style="width:60px; text-align:center;">O</th>
+                        <th style="width:60px; text-align:right; padding-right:18px;">P</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.TopStandings != null && Model.TopStandings.Any())
+                    {
+                        @for (int i = 0; i < Model.TopStandings.Count; i++)
+                        {
+                            var r = Model.TopStandings[i];
+                            var rank = i + 1;
+                            var rankClass = rank <= 4 ? "rank-pill--ucl" : "rank-pill--uel";
+                            <tr>
+                                <td style="text-align:center; padding:10px 8px;">
+                                    <span class="rank-pill @rankClass">@rank</span>
+                                </td>
+                                <td>
+                                    <div class="dash-team-cell">
+                                        @if (!string.IsNullOrEmpty(r.TeamLogoUrl))
+                                        {
+                                            <img class="team-crest team-crest--sm" src="@r.TeamLogoUrl" alt="@r.TeamName" onerror="this.style.display='none';" />
+                                        }
+                                        <span class="team-name">@r.TeamName</span>
+                                    </div>
+                                </td>
+                                <td style="text-align:center; color:var(--dim); font-size:0.85rem; font-weight:500;">@r.Played</td>
+                                <td style="text-align:right; font-weight:700; color:var(--text); padding-right:18px;">@r.Points</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4" class="text-center py-4 text-muted">Puan durumu tablosu hesaplanamadı.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
+<!-- 3. Upcoming Matches Card -->
+<section class="card-a mb-4" aria-label="Yaklaşan maçlar">
+    <div class="card-head">
+        <h2 class="card-title">Yaklaşan Maçlar</h2>
+        <a class="card-link" href="/Weeks">Haftalık fikstür &rarr;</a>
+    </div>
+    <div>
+        @if (Model.UpcomingMatches != null && Model.UpcomingMatches.Any())
+        {
+            @foreach (var m in Model.UpcomingMatches)
+            {
+                <div class="mrow">
+                    <!-- Ev Sahibi -->
+                    <div class="team-home">
+                        <span class="team-name" title="@m.HomeTeamName">@m.HomeTeamName</span>
+                        @if (!string.IsNullOrEmpty(m.HomeTeamLogoUrl))
+                        {
+                            <img class="team-crest team-crest--sm" src="@m.HomeTeamLogoUrl" alt="@m.HomeTeamName" onerror="this.style.display='none';" />
+                        }
+                    </div>
+
+                    <!-- Başlama Saati veya Canlı Skor -->
+                    @if (m.Status == MatchStatus.Live)
+                    {
+                        <div class="mrow-score mrow-score--live" title="Canlı Karşılaşma">
+                            @(m.HomeScore ?? 0) : @(m.AwayScore ?? 0)
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="mrow-time" title="Başlama Saati">
+                            @m.MatchDate.ToString("HH:mm")
+                        </div>
+                    }
+
+                    <!-- Deplasman -->
+                    <div class="team-away">
+                        @if (!string.IsNullOrEmpty(m.AwayTeamLogoUrl))
+                        {
+                            <img class="team-crest team-crest--sm" src="@m.AwayTeamLogoUrl" alt="@m.AwayTeamName" onerror="this.style.display='none';" />
+                        }
+                        <span class="team-name" title="@m.AwayTeamName">@m.AwayTeamName</span>
+                    </div>
+
+                    <!-- Detay Butonu -->
+                    <div class="mrow-actions">
+                        <a href="/Matches/Detail/@m.Id" class="act-btn" title="Maç Detayı">
+                            <svg class="icon" aria-hidden="true"><use href="#i-eye" /></svg>
+                        </a>
+                    </div>
+
+                    <!-- Alt Meta Bilgisi -->
+                    <div class="mrow-meta">
+                        <span>@m.Week. Hafta</span>
+                        <span>·</span>
+                        <span>@m.MatchDate.ToString("dd.MM.yyyy HH:mm")</span>
+                        @if (!string.IsNullOrEmpty(m.Stadium))
+                        {
+                            <span>·</span>
+                            <span>@m.Stadium</span>
+                        }
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="p-4 text-center text-muted">Yaklaşan planlı maç bulunmuyor.</div>
+        }
+    </div>
+</section>
