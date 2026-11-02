@@ -269,6 +269,11 @@ document.addEventListener('DOMContentLoaded', () => {
         // Render Timeline Events
         renderMatchEvents(m);
 
+        const fullPageBtn = document.getElementById('detail-full-page-btn');
+        if (fullPageBtn) {
+          fullPageBtn.href = `/Matches/Detail/${matchId}`;
+        }
+
         detailModal.showModal();
 
       } catch (err) {

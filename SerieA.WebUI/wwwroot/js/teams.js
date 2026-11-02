@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+﻿document.addEventListener('DOMContentLoaded', () => {
   const modal = document.getElementById('team-modal');
   const deleteModal = document.getElementById('delete-modal');
   const form = document.getElementById('team-form');
@@ -92,16 +92,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Silmeyi Onayla
+  // Confirm Delete
   deleteForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const id = document.getElementById('delete-id').value;
-    const res = await fetch(`/Teams/Delete?id=${id}`, { method: 'POST' });
-    const result = await res.json();
-    if (result.isSuccess) {
-      window.location.reload();
-    } else {
-      alert(result.message);
+    const btnConfirm = document.getElementById('btn-confirm-delete');
+    if (!id) return;
+
+    try {
+      if (btnConfirm) btnConfirm.classList.add('is-loading');
+      const res = await fetch(`/Teams/Delete?id=${id}`, { method: 'POST' });
+      const result = await res.json();
+
+      if (result.isSuccess) {
+        deleteModal.close();
+        window.location.reload();
+      } else {
+        const errorMsg = result.message || (result.errors ? result.errors.join(', ') : 'Silme işlemi başarısız oldu.');
+        alert(errorMsg);
+      }
+    } catch (err) {
+      console.error('Delete team error:', err);
+      alert('Takım silinirken sunucuyla iletişim hatası oluştu.');
+    } finally {
+      if (btnConfirm) btnConfirm.classList.remove('is-loading');
     }
   });
 });

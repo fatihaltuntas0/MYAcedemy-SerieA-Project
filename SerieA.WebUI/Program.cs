@@ -1,6 +1,7 @@
 using SerieA.WebUI.Extensions;
 using SerieA.WebUI.Handlers;
 using SerieA.WebUI.Services.Matches;
+using SerieA.WebUI.Services.MatchEvents;
 using SerieA.WebUI.Services.Standings;
 using SerieA.WebUI.Services.Teams;
 using System;
@@ -20,6 +21,7 @@ builder.Services.AddTransient<ApiExceptionHandler>();
 builder.Services.AddCustomHttpClient<ITeamApiService, TeamApiService>();
 builder.Services.AddCustomHttpClient<IMatchApiService, MatchApiService>();
 builder.Services.AddCustomHttpClient<IStandingApiService, StandingApiService>();
+builder.Services.AddCustomHttpClient<IMatchEventApiService, MatchEventApiService>();
 
 var app = builder.Build();
 

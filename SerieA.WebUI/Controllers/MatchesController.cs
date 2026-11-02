@@ -1,25 +1,17 @@
 using Microsoft.AspNetCore.Mvc;
 using SerieA.WebUI.DTOs.Matches;
+using SerieA.WebUI.DTOs.Matches.Events;
 using SerieA.WebUI.DTOs.Teams;
 using SerieA.WebUI.Enums;
 using SerieA.WebUI.Services.Matches;
+using SerieA.WebUI.Services.MatchEvents;
 using SerieA.WebUI.Services.Teams;
 using SerieA.WebUI.ViewModels;
 
 namespace SerieA.WebUI.Controllers
 {
-    public class MatchesController : Controller
+    public class MatchesController(IMatchApiService _matchApiService, ITeamApiService _teamApiService, IMatchEventApiService _matchEventApiService) : Controller
     {
-        private readonly IMatchApiService _matchApiService;
-        private readonly ITeamApiService _teamApiService;
-
-        public MatchesController(
-            IMatchApiService matchApiService,
-            ITeamApiService teamApiService)
-        {
-            _matchApiService = matchApiService;
-            _teamApiService = teamApiService;
-        }
 
         [HttpGet]
         public async Task<IActionResult> Index(int? week, string? team, string? status, CancellationToken cancellationToken)
@@ -77,6 +69,56 @@ namespace SerieA.WebUI.Controllers
         public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
         {
             var result = await _matchApiService.DeleteMatchAsync(id, cancellationToken);
+            return Json(result);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Detail(Guid id, CancellationToken cancellationToken)
+        {
+            var result = await _matchApiService.GetMatchByIdAsync(id, cancellationToken);
+            if(!result.IsSuccess || result.Data == null)
+            {
+                TempData["ErrorMessage"] = result.Message ?? "Maç bulunamadý.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(result.Data);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddGoal(Guid matchId, [FromBody] CreateGoalDto dto, CancellationToken cancellationToken)
+        {
+            var result = await _matchEventApiService.AddGoalAsync(matchId, dto, cancellationToken);
+            return Json(result);
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteGoal(Guid goalId, CancellationToken cancellationToken)
+        {
+            var result = await _matchEventApiService.DeleteGoalAsync(goalId, cancellationToken);
+            return Json(result);
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddCard(Guid matchId, [FromBody] CreateCardDto dto, CancellationToken cancellationToken)
+        {
+            var result = await _matchEventApiService.AddCardAsync(matchId, dto, cancellationToken);
+            return Json(result);
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteCard(Guid cardId, CancellationToken cancellationToken)
+        {
+            var result = await _matchEventApiService.DeleteCardAsync(cardId, cancellationToken);
+            return Json(result);
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddSubstitution(Guid matchId, [FromBody] CreateSubstitutionDto dto, CancellationToken cancellationToken)
+        {
+            var result = await _matchEventApiService.AddSubstitutionAsync(matchId, dto, cancellationToken);
+            return Json(result);
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteSubstitution(Guid subId, CancellationToken cancellationToken)
+        {
+            var result = await _matchEventApiService.DeleteSubstitutionAsync(subId, cancellationToken);
             return Json(result);
         }
     }

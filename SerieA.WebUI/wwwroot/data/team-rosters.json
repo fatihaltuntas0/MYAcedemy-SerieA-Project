@@ -1,0 +1,2486 @@
+﻿{
+    "ATA":  {
+                "name":  "Atalanta BC",
+                "players":  [
+                                {
+                                    "name":  "Marco Sportiello",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Marco Carnesecchi",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Thomas Pompei",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Mattia Sonzogni",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Sead Kolašinac",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Thomas Kristensen",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Giorgio Scalvini",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Isak Hien",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Odilon Kossounou",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Éderson",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Franck Kessié",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Raoul Bellanova",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Mario Pašalić",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Davide Zappacosta",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Eljif Elmas",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Gianluca Gaetano",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Charles De Ketelaere",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Lazar Samardzic",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Lorenzo Bernasconi",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Nicola Zalewski",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Gianluca Scamacca",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Giacomo Raspadori",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Nikola Krstović",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Kamal Deen Sulemana",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Jonathan Rowe",
+                                    "position":  "Attacker"
+                                }
+                            ]
+            },
+    "BOL":  {
+                "name":  "Bologna FC 1909",
+                "players":  [
+                                {
+                                    "name":  "Łukasz Skorupski",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Massimo Pessina",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Ukko Happonen",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Lorenzo De Silvestri",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Torbjørn Heggem",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Juan Miranda",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Nicolò Casale",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Emil Holm",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Nadir Zortea",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Arthur Theate",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Martin Vitík",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Eivind Helland",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Rahim Alhassane",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Jens Odgaard",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Nikola Moro",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Lewis Ferguson",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Tommaso Pobega",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Oussama El Azzouzi",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Mikel Amondarain",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Riccardo Orsolini",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Federico Bernardeschi",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Artem Dovbyk",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Jesper Karlsson",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Roberto Piccoli",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Jay Enem",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Samuel Mbangula",
+                                    "position":  "Attacker"
+                                }
+                            ]
+            },
+    "CAG":  {
+                "name":  "Cagliari Calcio",
+                "players":  [
+                                {
+                                    "name":  "Boris Radunović",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Elia Caprile",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Alen Sherri",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Yerry Mina",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Yukinari Sugawara",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Zé Pedro Figueiredo",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Giuseppe Aurelio",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Adam Obert",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Raphael Kofler",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Juan Martín Rodriguez",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Riyad Idrissi",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Alessandro Deiola",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Roberto Gagliardini",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Harry Winks",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Daniel Maldini",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Jacopo Fazzini",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Yanis Massolin",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Michel Adopo",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Alessandro Romano",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Joseph Liteta",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Nicola Grandu",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Ivan Sulev",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Mbala N\u0027Zola",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Mattia Felici",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Gennaro Borrelli",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Riccardo Ciervo",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Kevin Carlos",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Alieu Fadera",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Kingstone Mutandwa",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Yael Trepy",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Paul Mendy",
+                                    "position":  "Attacker"
+                                }
+                            ]
+            },
+    "FIO":  {
+                "name":  "ACF Fiorentina",
+                "players":  [
+                                {
+                                    "name":  "Luca Lezzerini",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "David De Gea",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Oliver Christensen",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Luca Ranieri",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Marin Pongračić",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Dodô",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "João Mário Lopes",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Fabiano Parisi",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Radu Drăgușin",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Viery",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Álex Jiménez",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Víctor Valdepeñas",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Antonín Barák",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Nicolò Fagioli",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Marco Brescianini",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Arthur Atta",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Cher Ndour",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Christ Ravynel Inao Oulaï",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Riccardo Sottil",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Pedro Gonçalves",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Beto",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Mateo Pellegrino",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Wilfried Gnonto",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Alieu Njie",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Franco Mastantuono",
+                                    "position":  "Attacker"
+                                }
+                            ]
+            },
+    "GEN":  {
+                "name":  "Genoa CFC",
+                "players":  [
+                                {
+                                    "name":  "Justin Bijlow",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Daniele Sommariva",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Franz Stolz",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Stefano Sabelli",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Johan Vásquez",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Leo Østigård",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Cody Drameh",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Mario Mitaj",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Sebastian Otoa",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Alessandro Marcandalli",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "David Puczka",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Mamedi Doucouré",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Marcelo Vaz",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Djibril Sow",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Morten Frendrup",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Tommaso Baldanzi",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Mikael Egill Ellertsson",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Alexsandro Amorim",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Ethan Meichtry",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Samuel Wiafe",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Hamed Traoré",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Milutin Osmajić",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Junior Messias",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Lorenzo Colombo",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Vitor Oliveira",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Elias Havel",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Lorenzo Venturino",
+                                    "position":  "Attacker"
+                                }
+                            ]
+            },
+    "INT":  {
+                "name":  "FC Internazionale Milano",
+                "players":  [
+                                {
+                                    "name":  "Ivan Provedel",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Raffaele Di Gennaro",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Josep Martinez",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Manuel Akanji",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Yann Aurel Bisseck",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Alessandro Bastoni",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "John Stones",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Benjamin Pavard",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Carlos",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Federico Dimarco",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Djed Spence",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Hakan Çalhanoğlu",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Nicolò Barella",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Piotr Zieliński",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Henrikh Mkhitaryan",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Curtis Jones",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Luis Henrique",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Petar Sucic",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Andy Diouf",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Aleksandar Stankovic",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Lautaro Martínez",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Marcus Thuram-Ulien",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Ange-Yoan Bonny",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Francesco Esposito",
+                                    "position":  "Attacker"
+                                }
+                            ]
+            },
+    "JUV":  {
+                "name":  "Juventus FC",
+                "players":  [
+                                {
+                                    "name":  "Carlo Pinsoglio",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Guglielmo Vicario",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Kamil Grabara",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Bremer",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Daniele Rugani",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Lloyd Kelly",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Jhon Lucumí",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Zeki Çelik",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Juan Cabal",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Andrea Cambiaso",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Pierre Kalulu",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Federico Gatti",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Manuel Locatelli",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Weston McKennie",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Teun Koopmeiners",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Douglas Luiz",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Khéphren Thuram-Ulie",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Pape Sarr",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Arkadiusz Milik",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Jérémie Boga",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Randal Kolo Muani",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Edon Zhegrova",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Nicolás González",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Nick Woltemade",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Francisco Conceição",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Kenan Yıldız",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Jeff Ekhator",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Kerim Alajbegović",
+                                    "position":  "Attacker"
+                                }
+                            ]
+            },
+    "LAZ":  {
+                "name":  "SS Lazio",
+                "players":  [
+                                {
+                                    "name":  "Christos Mandas",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Alessio Furlanetto",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Davide Renzetti",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Edoardo Motta",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Alfonso Pedraza",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Alessio Romagnoli",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Luca Pellegrini",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Patric",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Adam Marušić",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Mohamed Salim Fares",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Manuel Lazzari",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Danilho Doekhi",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Nuno Tavares",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Josip Šutalo",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Romano Floriani",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Oliver Nielsen",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Filipe",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Davide Frattesi",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Danilo Cataldi",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Kenneth Taylor",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Nicolò Rovella",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Fisayo Dele-Bashiru",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Reda Belahyane",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Adrian Przyborek",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Valerio Farcomeni",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Bruno Galassi",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Andrea Pinamonti",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Mattia Zaccagni",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Albert Guðmundsson",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Gustav Isaksen",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Matteo Cancellieri",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Tijjani Noslin",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Federico Serra",
+                                    "position":  "Attacker"
+                                }
+                            ]
+            },
+    "LEC":  {
+                "name":  "US Lecce",
+                "players":  [
+                                {
+                                    "name":  "Marco Bleve",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Wladimiro Falcone",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Alexandru Borbei",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Plamen Penev",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Antonino Gallo",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Gaby Jean",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Corrie Ndaba",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Jamil Siebert",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Danilo Veiga",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Ali Dembele",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Sebastian Esposito",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Kialonda Gaspar",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Tiago Gabriel",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Elijah Scott",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Vernon Addo",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Marlon Ubani",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Lassana Coulibaly",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Youssef Maleh",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Ivan Ilić",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Omri Gandelman",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Mohamed Kaba",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Sadik Fofana",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Oumar Ngom",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Medon Berisha",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Olaf Gorter",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Niko Kovač",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Willem Geubbels",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Santiago Pierotti",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Nikola Štulić",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Joel Monteiro",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Konan N\u0027Dri",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Miloš Jović",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Hjalte Laerke",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Paco Esteban",
+                                    "position":  "Attacker"
+                                }
+                            ]
+            },
+    "MIL":  {
+                "name":  "AC Milan",
+                "players":  [
+                                {
+                                    "name":  "Pietro Terracciano",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Mike Maignan",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Lorenzo Torriani",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Matteo Gabbia",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Fikayo Tomori",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Pervis Estupiñán",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Strahinja Pavlović",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Filippo Terracciano",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Koni De Winter",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Gila",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Davide Bartesaghi",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Sankhoun Diawara",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Luka Modrić",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Adrien Rabiot",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Ruben Loftus-Cheek",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Alexis Saelemaekers",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Ardon Jasari",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Yunus Musah",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Warren Bondo",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Diego Moreira",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Alphadjo Cisse",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Christian Comotto",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Christian Pulisic",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Samuel Chukwueze",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Gonçalo Ramos",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Omari Hutchinson",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Francesco Camarda",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Lorenzo Ossola",
+                                    "position":  "Unknown"
+                                },
+                                {
+                                    "name":  "El Hadji Cissé",
+                                    "position":  "Unknown"
+                                },
+                                {
+                                    "name":  "Luca Menon",
+                                    "position":  "Unknown"
+                                },
+                                {
+                                    "name":  "Nirash Perera",
+                                    "position":  "Unknown"
+                                }
+                            ]
+            },
+    "MON":  {
+                "name":  "AC Monza",
+                "players":  [
+                                {
+                                    "name":  "Demba Thiam",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Noel Törnqvist",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Aljaž Strajnar",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Valentin Antov",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Samuele Birindelli",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Ricardo Mangas",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Andrea Carboni",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Saba Goglichidze",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Jan Ziółkowski",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Lorenzo Lucchesi",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Eddy Kouadio",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Adam Bakoune",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Yvan Maye",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Andrea Colpani",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Matteo Pessina",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Patrick Ciurria",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Michael Folorunsho",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Idrissa Touré",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Leonardo Colombo",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Ebenezer Akinsanmiro",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Manga Foe Ondoa",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Mathis Mout",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Patrick Cutrone",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Dany Mota Carvalho",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Keïta Baldé",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Cyril Ngonge",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Exequiel Zeballos",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Omari Forson",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Gustavo Varela",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Jay Robinson",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Kevin Martins",
+                                    "position":  "Attacker"
+                                }
+                            ]
+            },
+    "NAP":  {
+                "name":  "SSC Napoli",
+                "players":  [
+                                {
+                                    "name":  "Vanja Milinković-Savić",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Alex Meret",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Nikita Contini Baranovsky",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Claudio Pugliese",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Leonardo Spinazzola",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Alessandro Buongiorno",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Giovanni Di Lorenzo",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Amir Rrahmani",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Mathías Olivera",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Sam Beukema",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Benoît Badiashile",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Rafa Marin",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Costantino Favasuli",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Luca Marianucci",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Kevin De Bruyne",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Scott McTominay",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "André Zambo Anguissa",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Stanislav Lobotka",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Billy Gilmour",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Antonio Vergara",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Matteo Politano",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Noa Lang",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "David Neres",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Lorenzo Lucca",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Rasmus Højlund",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Giovane Nascimento",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Alisson Santos",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Dinis Rodrigues",
+                                    "position":  "Attacker"
+                                }
+                            ]
+            },
+    "PAR":  {
+                "name":  "Parma Calcio 1913",
+                "players":  [
+                                {
+                                    "name":  "Simone Ghidotti",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Edoardo Corvi",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Giovanni Daffara",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Enrico Del Prato",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Diego Carlos",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Emanuele Valeri",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Lautaro Valenti",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Franco Carboni",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Abdoulaye N\u0027Diaye",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Mariano Troilo",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Ousmane Diallo",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Sascha Britschgi",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Dominik Drobnič",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Adrián Bernabé",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Hans Nicolussi Caviglia",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Mandela Keita",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Giovanni Fabbian",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Christian Ordonez",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Abdou-Salam Konate",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Pontus Almqvist",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "El Bilal Touré",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "José Romero",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Matija Frigan",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Nesta Elphege",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Thomas de Martis",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Simone Lontani",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Djibril Diallo",
+                                    "position":  "Unknown"
+                                }
+                            ]
+            },
+    "ROM":  {
+                "name":  "AS Roma",
+                "players":  [
+                                {
+                                    "name":  "Pierluigi Gollini",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Mile Svilar",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Devis Vásquez",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Giorgio De Marzi",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Evan N\u0027Dicka",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Gianluca Mancini",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Mario Hermoso",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Nahuel Molina",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Leonardo Balerdi",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Anass Salah-Eddine",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Devyne Rensch",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Konstantinos Koulierakis",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Wesley",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Daniele Ghilardi",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Emanuele Lulli",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Lorenzo Pellegrini",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Bryan Cristante",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Marten de Roon",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Manu Koné",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Niccolo Pisilli",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Rodrigo Mora",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Paulo Dybala",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Donyell Malen",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Santiago Castro",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Matias Soule",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Alessandro Di Nunzio",
+                                    "position":  "Unknown"
+                                }
+                            ]
+            },
+    "TOR":  {
+                "name":  "Torino FC",
+                "players":  [
+                                {
+                                    "name":  "Lucas Perri",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Alberto Paleari",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Franco Israel",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Lapo Siviero",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Diego Mascardi",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Cristiano Biraghi",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Ardian Ismajli",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Eray Cömert",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Saúl Coco",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Nathan Patterson",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Rafik Belghali",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Pietro Comuzzo",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Niccolò Fortini",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Rolando Mandragora",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Nikola Vlašić",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Daniel Bragança",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Faustino Anjorin",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Kian Fitz-Jim",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Gaetano Oristanio",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Emirhan Ilkhan",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Cesare Casadei",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Gvidas Gineitis",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Alessio Cacciamani",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Andrea Luongo",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Giovanni Simeone",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Duván Zapata",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Che Adams",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Pietro Pellegri",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Sandro Kulenović",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Zakaria Aboukhlal",
+                                    "position":  "Attacker"
+                                }
+                            ]
+            },
+    "UDI":  {
+                "name":  "Udinese Calcio",
+                "players":  [
+                                {
+                                    "name":  "Daniele Padelli",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Maduka Okoye",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Bartosz Mrozek",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Edoardo Piana",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Enzo Ebosse",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Hassane Kamara",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Alessandro Zanoli",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Christian Kabasele",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Oumar Solet",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Mërgim Vojvoda",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Nicolo Bertola",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "James Abankwah",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Matteo Palma",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Jurgen Ekkelenkamp",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Giorgi Chakvetadze",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Sandi Lovric",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Jesper Karlström",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Jakub Piotrowski",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Oier Zarraga",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Lennon Miller",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Unai Gomez",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Juan Arizala",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "David Pejičić",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Nicolò Zaniolo",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Keinan Davis",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Vakoun Issouf Bayo",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Lazar Jovanovic",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Idrissa Guèye",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Giulio Vinciati",
+                                    "position":  "Attacker"
+                                }
+                            ]
+            },
+    "COM":  {
+                "name":  "Como 1907",
+                "players":  [
+                                {
+                                    "name":  "Mauro Vigorito",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Jean Butez",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Robert Sánchez",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Edoardo Goldaniga",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Trevoh Chalobah",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Marc-Oliver Kempf",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Alberto Dossena",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Ivan Smolčić",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Yan Couto",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Kaiki",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Alex Valle",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Willy Kambwala",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Jacobo Ramón",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Luca Mazzitelli",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Luis Milla",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Maxence Caqueret",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Samuele Ricci",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Lucas Da Cunha",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Martin Baturina",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Maximo Perrone",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Nico Paz",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Adrian Lahdo",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Mattia Liberali",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Moise Kean",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Anastasios Douvikas",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Suliman Mustapha",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Jayden Addai",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Assane Diao",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Jesús Rodríguez",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Lorenzo Ginelli",
+                                    "position":  "Unknown"
+                                }
+                            ]
+            },
+    "VEN":  {
+                "name":  "Venezia FC",
+                "players":  [
+                                {
+                                    "name":  "Alessio Pozzi",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Lorenzo Montipò",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Matteo Grandi",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Filip Stankovic",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Pasquale Mazzocchi",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Marin Šverko",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Ridgeciano Haps",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Thierry Correia",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Armel Bella Kotchap",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Bartol Franjić",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Juan Jesus",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Redouane Halhal",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Richie Sagrado",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Antoine Hainaut",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Joel Schingtienne",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Calixte Ligue",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Matias Moreno",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Rufai Mohammed",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Ale Gomes",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Alfred Duncan",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Þórir Jóhann Helgason",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Toma Bašić",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Kike Pérez",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Gianluca Busio",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Simon Sohm",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Simone Panada",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Matteo Dagasso",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Lamine Dabo",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Saad El Haddad",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Toni Fernández",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Lorenzo Berardi",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Lion Lauberbach",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Akor Adams",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "John Yeboah",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Andrea Adorante",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Albion Rrahmani",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Kornel Lisman",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Mohamed Malang Touré",
+                                    "position":  "Attacker"
+                                }
+                            ]
+            },
+    "EMP":  {
+                "name":  "Empoli FC",
+                "players":  [
+                                {
+                                    "name":  "Federico Brancolini",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Marco Silvestri",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Devis Vásquez",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Jacopo Seghetti",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Giuseppe Pezzella",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Liberato Cacace",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Junior Sambia",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Ardian Ismajli",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Mattia Viti",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Saba Sazonov",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Luca Marianucci",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Saba Goglichidze",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Lorenzo Tosto",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Dawid Bembnista",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Darius Fălcușan",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Jeremy Moray",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Vincenzo Di Leva",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Alberto Grassi",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Liam Henderson",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Youssef Maleh",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Faustino Anjorin",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Jacopo Fazzini",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Jacopo Bacci",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Noah El Biache",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Alessio Baralla",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Christian Kouamé",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Pietro Pellegri",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Ola Solbakken",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Sebastiano Esposito",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Lorenzo Colombo",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Emmanuel Gyasi",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Bogdan Popov",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Ismael Konate",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Thomas Campaniello",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Ank Asmussen",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Brayan",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Viktor Kovalenko",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Szymon Zurkowski",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Tyronne Ebuehi",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Mattia De Sciglio",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Nicolas Haas",
+                                    "position":  "Midfielder"
+                                }
+                            ]
+            },
+    "VER":  {
+                "name":  "Hellas Verona FC",
+                "players":  [
+                                {
+                                    "name":  "Alessandro Berardi",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Lorenzo Montipò",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Simone Perilli",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Federico Magro",
+                                    "position":  "Goalkeeper"
+                                },
+                                {
+                                    "name":  "Martin Frese",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Domagoj Bradarić",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Flavius Daniliuc",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Luan Patrick",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Nicolas Valentini",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Daniel Oyegoke",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Diego Coppola",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Yllan Okou",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Tobias Slotsager",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Daniele Ghilardi",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Paweł Dawidowicz",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Ondrej Duda",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Suat Serdar",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Abdou Harroui",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Antoine Bernede",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Grigoris Kastanos",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Cheikh Niasse",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Tomáš Suslov",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Alphadjo Cisse",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Amin Sarr",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Casper Tengstedt",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Jackson Tchatchoua",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Dailon Rocha Livramento",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Daniel Mosquera",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Mathis Lambourde",
+                                    "position":  "Attacker"
+                                },
+                                {
+                                    "name":  "Davide Faraoni",
+                                    "position":  "Defender"
+                                },
+                                {
+                                    "name":  "Darko Lazović",
+                                    "position":  "Midfielder"
+                                },
+                                {
+                                    "name":  "Junior Ajayi",
+                                    "position":  "Attacker"
+                                }
+                            ]
+            }
+}
