@@ -1,11 +1,11 @@
-@model MatchIndexViewModel
+﻿@model MatchIndexViewModel
 
 <section class="card-a" aria-label="Maç listesi">
     <form class="filter-bar" method="get" asp-action="Index" role="search">
         <div class="filter-search">
             <label class="field-label" for="f-team">Takım Ara</label>
             <div class="input-icon">
-                <svg class="icon" aria-hidden="true"><use href="#i-search" /></svg>
+                <svg class="icon" aria-hidden="true"><use href="#lucide-search" /></svg>
                 <input class="input-a" id="f-team" name="team" type="search" value="@Model.SearchTeam" placeholder="Takım adı yazın" autocomplete="off">
             </div>
         </div>
@@ -57,14 +57,14 @@
                         <td colspan="9">
                             <div class="empty-state">
                                 <div class="empty-state-icon">
-                                    <svg class="icon" aria-hidden="true"><use href="#i-ball" /></svg>
+                                    <svg class="icon" aria-hidden="true"><use href="#lucide-trophy" /></svg>
                                 </div>
                                 <h3 class="empty-state-title">Kayıtlı Maç Bulunamadı</h3>
                                 <p class="empty-state-desc">Seçilen hafta veya arama kriterine uygun karşılaşma kaydı bulunmuyor. Filtreleri temizleyebilir veya yeni maç ekleyebilirsiniz.</p>
                                 <div class="empty-state-actions">
                                     <a href="/Matches" class="btn-a btn-a--secondary">Filtreleri Temizle</a>
                                     <button type="button" class="btn-a btn-a--primary" data-open-create>
-                                        <svg class="icon" aria-hidden="true"><use href="#i-plus" /></svg>Yeni Maç Ekle
+                                        <svg class="icon" aria-hidden="true"><use href="#lucide-plus" /></svg>Yeni Maç Ekle
                                     </button>
                                 </div>
                             </div>
@@ -126,15 +126,15 @@
                             <td class="col-actions">
                                 <div class="row-actions">
                                     <a class="act-btn" href="/Matches/Detail/@m.Id" title="Maç Detayı ve Olay Yönetimi">
-                                        <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                                        <svg class="icon icon--sm" aria-hidden="true"><use href="#lucide-eye" /></svg>
                                     </a>
                                     <button type="button" class="act-btn" data-edit="@m.Id"
                                             data-match='@Json.Serialize(m)' title="Düzenle">
-                                        <svg class="icon" aria-hidden="true"><use href="#i-edit" /></svg>
+                                        <svg class="icon" aria-hidden="true"><use href="#lucide-pencil" /></svg>
                                     </button>
                                     <button type="button" class="act-btn act-btn--danger" data-delete="@m.Id" 
                                             data-name="@m.HomeTeamName vs @m.AwayTeamName" title="Sil">
-                                        <svg class="icon" aria-hidden="true"><use href="#i-trash" /></svg>
+                                        <svg class="icon" aria-hidden="true"><use href="#lucide-trash-2" /></svg>
                                     </button>
                                 </div>
                             </td>

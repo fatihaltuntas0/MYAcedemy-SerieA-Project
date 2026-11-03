@@ -1,4 +1,4 @@
-/* ==========================================================================
+﻿/* ==========================================================================
    Serie A Match Detail & Event Management - Interactive Logic
    With Dynamic Player Roster & Position Grouping from team-rosters.json
    And Strict Domain Rules (Substituted players, Red cards, Minute order)
@@ -47,10 +47,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Position mapping & order
     const positionLabels = {
-        'Goalkeeper': '🧤 Kaleciler',
-        'Defender': '🛡️ Defans',
-        'Midfielder': '⚙️ Orta Saha',
-        'Attacker': '⚡ Forvetler',
+        'Goalkeeper': 'Kaleciler',
+        'Defender': 'Defans',
+        'Midfielder': 'Orta Saha',
+        'Attacker': 'Forvetler',
         'Unknown': 'Diğer'
     };
     const positionOrder = ['Goalkeeper', 'Defender', 'Midfielder', 'Attacker', 'Unknown'];
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const iconName = type === 'success' ? 'check' : 'info';
         toastEl.innerHTML = `
-            <svg class="icon" aria-hidden="true"><use href="#i-${iconName}"/></svg>
+            <svg class="icon" aria-hidden="true"><use href="#lucide-${iconName}"/></svg>
             <span>${message}</span>
         `;
         toastContainer.appendChild(toastEl);
@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const customOpt = document.createElement('option');
             customOpt.value = '__custom__';
-            customOpt.textContent = '✍️ Diğer (Manuel İsim Gir)...';
+            customOpt.textContent = 'Diğer (Manuel İsim Gir)...';
             selectEl.appendChild(customOpt);
             return;
         }
@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Always provide a fallback for manual entry
         const customOpt = document.createElement('option');
         customOpt.value = '__custom__';
-        customOpt.textContent = '✍️ Diğer (Manuel İsim Gir)...';
+        customOpt.textContent = 'Diğer (Manuel İsim Gir)...';
         selectEl.appendChild(customOpt);
     }
 

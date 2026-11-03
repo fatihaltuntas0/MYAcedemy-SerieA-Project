@@ -1,4 +1,4 @@
-@using SerieA.WebUI.ViewModels
+﻿@using SerieA.WebUI.ViewModels
 @model TeamIndexViewModel
 
 <section class="card-a" aria-label="Takım listesi">
@@ -6,7 +6,7 @@
         <div class="filter-search">
             <label class="field-label" for="f-q">Takım Ara</label>
             <div class="input-icon">
-                <svg class="icon" aria-hidden="true"><use href="#i-search" /></svg>
+                <svg class="icon" aria-hidden="true"><use href="#lucide-search" /></svg>
                 <input class="input-a" id="f-q" name="q" type="search" value="@Model.SearchQuery" placeholder="Takım, şehir veya stadyum" autocomplete="off">
             </div>
         </div>
@@ -57,14 +57,14 @@
                         <td colspan="9">
                             <div class="empty-state">
                                 <div class="empty-state-icon">
-                                    <svg class="icon" aria-hidden="true"><use href="#i-shield" /></svg>
+                                    <svg class="icon" aria-hidden="true"><use href="#lucide-shield" /></svg>
                                 </div>
                                 <h3 class="empty-state-title">Eşleşen Takım Bulunamadı</h3>
                                 <p class="empty-state-desc">Arama kriterlerinize veya seçilen filtrelere uygun Serie A kulübü bulunamadı. Filtreleri temizleyerek tüm kulüpleri listeleyebilirsiniz.</p>
                                 <div class="empty-state-actions">
                                     <a href="/Teams" class="btn-a btn-a--secondary">Filtreleri Temizle</a>
                                     <button type="button" class="btn-a btn-a--primary" data-open-create>
-                                        <svg class="icon" aria-hidden="true"><use href="#i-plus" /></svg>Yeni Takım Ekle
+                                        <svg class="icon" aria-hidden="true"><use href="#lucide-plus" /></svg>Yeni Takım Ekle
                                     </button>
                                 </div>
                             </div>
@@ -127,10 +127,10 @@
                                 <div class="row-actions">
                                     <button type="button" class="act-btn" data-edit="@t.Id"
                                             data-team='@Json.Serialize(t)' title="Düzenle">
-                                        <svg class="icon" aria-hidden="true"><use href="#i-edit" /></svg>
+                                        <svg class="icon" aria-hidden="true"><use href="#lucide-pencil" /></svg>
                                     </button>
                                     <button type="button" class="act-btn act-btn--danger" data-delete="@t.Id" data-name="@t.Name" title="Sil">
-                                        <svg class="icon" aria-hidden="true"><use href="#i-trash" /></svg>
+                                        <svg class="icon" aria-hidden="true"><use href="#lucide-trash-2" /></svg>
                                     </button>
                                 </div>
                             </td>

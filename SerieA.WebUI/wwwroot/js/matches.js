@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+﻿document.addEventListener('DOMContentLoaded', () => {
   const modal = document.getElementById('match-modal');
   const deleteModal = document.getElementById('delete-match-modal');
   const detailModal = document.getElementById('match-detail-modal');
@@ -330,8 +330,16 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const buildIcon = (e) => {
-      if (e.type === 'goal')   return el('span', 'tl-icon', '⚽');
-      if (e.type === 'sub')    return el('span', 'tl-icon', '🔄');
+      if (e.type === 'goal') {
+        const s = el('span', 'tl-icon');
+        s.innerHTML = window.lucideIcon ? window.lucideIcon('trophy', 'icon--xs') : '<svg class="icon icon--xs"><use href="#lucide-trophy"/></svg>';
+        return s;
+      }
+      if (e.type === 'sub') {
+        const s = el('span', 'tl-icon');
+        s.innerHTML = window.lucideIcon ? window.lucideIcon('arrow-left-right', 'icon--xs') : '<svg class="icon icon--xs"><use href="#lucide-arrow-left-right"/></svg>';
+        return s;
+      }
       return el('span', 'tl-card tl-card--' + (e.type === 'red' ? 'red' : 'yellow'));
     };
 

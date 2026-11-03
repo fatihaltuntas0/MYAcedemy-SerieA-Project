@@ -1,4 +1,4 @@
-@using SerieA.WebUI.DTOs.Matches
+﻿@using SerieA.WebUI.DTOs.Matches
 @using SerieA.WebUI.Enums
 @model ResultMatchDetailDto
 
@@ -64,11 +64,11 @@
         </div>
         <div class="filter-actions">
             <a class="btn-a btn-a--secondary" asp-action="Index">
-                <svg class="icon" aria-hidden="true"><use href="#i-ball" /></svg>
+                <svg class="icon" aria-hidden="true"><use href="#lucide-trophy" /></svg>
                 Maçlara Dön
             </a>
             <button type="button" class="btn-a btn-a--primary" data-open-event-modal>
-                <svg class="icon" aria-hidden="true"><use href="#i-plus" /></svg>
+                <svg class="icon" aria-hidden="true"><use href="#lucide-plus" /></svg>
                 Olay Ekle
             </button>
         </div>
@@ -151,17 +151,17 @@
         <!-- Match Meta Strip -->
         <div class="sb-meta-strip">
             <span class="sb-meta-item">
-                <svg class="icon" aria-hidden="true"><use href="#i-calendar" /></svg>
+                <svg class="icon" aria-hidden="true"><use href="#lucide-calendar" /></svg>
                 <strong>@Model.Week. Hafta</strong>
             </span>
             <span class="sb-meta-dot"></span>
             <span class="sb-meta-item">
-                <svg class="icon" aria-hidden="true"><use href="#i-clock" /></svg>
+                <svg class="icon" aria-hidden="true"><use href="#lucide-clock" /></svg>
                 @Model.MatchDate.ToString("dd.MM.yyyy HH:mm")
             </span>
             <span class="sb-meta-dot"></span>
             <span class="sb-meta-item">
-                <svg class="icon" aria-hidden="true"><use href="#i-stadium" /></svg>
+                <svg class="icon" aria-hidden="true"><use href="#lucide-map-pin" /></svg>
                 @Model.Stadium
             </span>
         </div>
@@ -171,7 +171,7 @@
     @if (hasScoreMismatch)
     {
         <div class="mismatch-banner" role="alert">
-            <svg class="icon mismatch-icon" aria-hidden="true"><use href="#i-info" /></svg>
+            <svg class="icon mismatch-icon" aria-hidden="true"><use href="#lucide-info" /></svg>
             <div class="mismatch-content">
                 <div class="mismatch-title">Skor ve Gol Kaydı Uyuşmazlığı</div>
                 <p class="mismatch-desc">
@@ -188,7 +188,7 @@
         <section class="card-a" aria-label="Olay Akışı">
             <div class="detail-card-head">
                 <h2 class="detail-card-title">
-                    <svg class="icon" aria-hidden="true"><use href="#i-clock" /></svg>
+                    <svg class="icon" aria-hidden="true"><use href="#lucide-clock" /></svg>
                     Olay Akışı
                 </h2>
                 <span class="detail-badge-count">@sortedEvents.Count Olay</span>
@@ -199,12 +199,12 @@
                 {
                     <div class="empty-state" style="padding: 40px 16px;">
                         <div class="empty-state-icon">
-                            <svg class="icon" aria-hidden="true"><use href="#i-ball" /></svg>
+                            <svg class="icon" aria-hidden="true"><use href="#lucide-trophy" /></svg>
                         </div>
                         <p class="empty-state-title">Henüz Kayıtlı Olay Yok</p>
                         <p class="empty-state-desc">Bu maça ait henüz gol, kart veya oyuncu değişikliği kaydı bulunmuyor.</p>
                         <button type="button" class="btn-a btn-a--primary" data-open-event-modal>
-                            <svg class="icon" aria-hidden="true"><use href="#i-plus" /></svg>
+                            <svg class="icon" aria-hidden="true"><use href="#lucide-plus" /></svg>
                             İlk Olayı Ekle
                         </button>
                     </div>
@@ -274,7 +274,7 @@
         <section class="card-a" aria-label="Olay Kayıtları">
             <div class="detail-card-head">
                 <h2 class="detail-card-title">
-                    <svg class="icon" aria-hidden="true"><use href="#i-table" /></svg>
+                    <svg class="icon" aria-hidden="true"><use href="#lucide-table" /></svg>
                     Olay Kayıtları
                 </h2>
                 <span class="detail-badge-count">@sortedEvents.Count Kayıt</span>
@@ -307,31 +307,31 @@
                         {
                             @foreach (var ev in sortedEvents)
                             {
-                                var eventSummary = ev.Type == "goal" ? $"⚽ {ev.PlayerName} (Gol)"
-                                : ev.Type == "card" ? $"{(ev.CardType == CardType.Red ? "🟥 Kırmızı Kart" : "🟨 Sarı Kart")}: {ev.PlayerName}"
-                                : $"🔄 Değişiklik: {ev.PlayerName} / {ev.PlayerOut}";
+                                var eventSummary = ev.Type == "goal" ? $"{ev.PlayerName} (Gol)"
+                                : ev.Type == "card" ? $"{(ev.CardType == CardType.Red ? "Kırmızı Kart" : "Sarı Kart")}: {ev.PlayerName}"
+                                : $"Değişiklik: {ev.PlayerName} / {ev.PlayerOut}";
 
                                 <tr>
                                     <td><strong>@ev.Minute'</strong></td>
                                     <td>
                                         @if (ev.Type == "goal")
                                         {
-                                            <span class="ev-type-chip ev-type-chip--goal">⚽ Gol</span>
+                                            <span class="ev-type-chip ev-type-chip--goal"><svg class="icon icon--xs" aria-hidden="true"><use href="#lucide-trophy" /></svg> Gol</span>
                                         }
                                         else if (ev.Type == "card")
                                         {
                                             if (ev.CardType == CardType.Red)
                                             {
-                                                <span class="ev-type-chip ev-type-chip--red-card">🟥 Kırmızı</span>
+                                                <span class="ev-type-chip ev-type-chip--red-card"><svg class="icon icon--xs" aria-hidden="true"><use href="#lucide-square" /></svg> Kırmızı</span>
                                             }
                                             else
                                             {
-                                                <span class="ev-type-chip ev-type-chip--yellow-card">🟨 Sarı</span>
+                                                <span class="ev-type-chip ev-type-chip--yellow-card"><svg class="icon icon--xs" aria-hidden="true"><use href="#lucide-square" /></svg> Sarı</span>
                                             }
                                         }
                                         else if (ev.Type == "sub")
                                         {
-                                            <span class="ev-type-chip ev-type-chip--sub">🔄 Değişiklik</span>
+                                            <span class="ev-type-chip ev-type-chip--sub"><svg class="icon icon--xs" aria-hidden="true"><use href="#lucide-arrow-left-right" /></svg> Değişiklik</span>
                                         }
                                     </td>
                                     <td>
@@ -362,7 +362,7 @@
                                                 data-label="@eventSummary"
                                                 title="Olayı Sil"
                                                 aria-label="Olayı sil">
-                                            <svg class="icon" aria-hidden="true"><use href="#i-trash" /></svg>
+                                            <svg class="icon" aria-hidden="true"><use href="#lucide-trash-2" /></svg>
                                         </button>
                                     </td>
                                 </tr>
@@ -386,7 +386,7 @@
         <div class="modal-head">
             <h2 class="modal-title" id="event-modal-title">Olay Ekle</h2>
             <button type="button" class="icon-btn" data-modal-close aria-label="Kapat">
-                <svg class="icon" aria-hidden="true"><use href="#i-x" /></svg>
+                <svg class="icon" aria-hidden="true"><use href="#lucide-x" /></svg>
             </button>
         </div>
         <div class="modal-body">
@@ -395,9 +395,9 @@
                 <div class="form-field">
                     <label class="field-label" for="ev-type">Olay Türü</label>
                     <select class="select-a" id="ev-type" name="type">
-                        <option value="Goal">⚽ Gol</option>
-                        <option value="Card">🟨 / 🟥 Kart</option>
-                        <option value="Substitution">🔄 Oyuncu Değişikliği</option>
+                        <option value="Goal">Gol</option>
+                        <option value="Card">Kart (Sarı / Kırmızı)</option>
+                        <option value="Substitution">Oyuncu Değişikliği</option>
                     </select>
                 </div>
                 <div class="form-field">
@@ -447,7 +447,7 @@
         <div class="modal-foot">
             <button type="button" class="btn-a btn-a--secondary" data-modal-close>Vazgeç</button>
             <button type="submit" id="ev-submit-btn" class="btn-a btn-a--primary">
-                <svg class="icon" aria-hidden="true"><use href="#i-check" /></svg>
+                <svg class="icon" aria-hidden="true"><use href="#lucide-check" /></svg>
                 Kaydet
             </button>
         </div>
@@ -460,7 +460,7 @@
         <div class="modal-head">
             <h2 class="modal-title" id="delete-event-title">Olayı Sil</h2>
             <button type="button" class="icon-btn" data-modal-close aria-label="Kapat">
-                <svg class="icon" aria-hidden="true"><use href="#i-x" /></svg>
+                <svg class="icon" aria-hidden="true"><use href="#lucide-x" /></svg>
             </button>
         </div>
         <div class="modal-body">
@@ -471,7 +471,7 @@
         <div class="modal-foot">
             <button type="button" class="btn-a btn-a--secondary" data-modal-close>Vazgeç</button>
             <button type="submit" id="delete-submit-btn" class="btn-a btn-a--danger">
-                <svg class="icon" aria-hidden="true"><use href="#i-trash" /></svg>
+                <svg class="icon" aria-hidden="true"><use href="#lucide-trash-2" /></svg>
                 Sil
             </button>
         </div>

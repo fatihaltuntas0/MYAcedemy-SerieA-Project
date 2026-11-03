@@ -1,4 +1,4 @@
-// weeks.js - Haftalar ve Fikstür Paneli Etkileşimi
+﻿// weeks.js - Haftalar ve Fikstür Paneli Etkileşimi
 document.addEventListener('DOMContentLoaded', () => {
   const panel = document.getElementById('week-detail-panel');
   const panelTitle = document.getElementById('week-panel-title');
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <td colspan="5">
                 <div class="empty-state">
                   <div class="empty-state-icon">
-                    <svg class="icon"><use href="#i-calendar" /></svg>
+                    <svg class="icon"><use href="#lucide-calendar" /></svg>
                   </div>
                   <h3 class="empty-state-title">${week}. Hafta İçin Maç Bulunamadı</h3>
                   <p class="empty-state-desc">Bu haftaya ait fikstürde henüz tanımlanmış bir maç kaydı bulunmuyor.</p>
@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
               </td>
               <td style="padding-right: 24px;">
                 <div class="match-stadium-cell">
-                  <svg class="icon" aria-hidden="true"><use href="#i-stadium" /></svg>
+                  <svg class="icon" aria-hidden="true"><use href="#lucide-map-pin" /></svg>
                   <span>${m.stadium || '-'}</span>
                 </div>
               </td>
@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <td colspan="5">
               <div class="empty-state empty-state--error">
                 <div class="empty-state-icon">
-                  <svg class="icon"><use href="#i-alert" /></svg>
+                  <svg class="icon"><use href="#lucide-alert-circle" /></svg>
                 </div>
                 <h3 class="empty-state-title">Karşılaşmalar Yüklenemedi</h3>
                 <p class="empty-state-desc">Sunucudan maç listesi alınırken bir hata meydana geldi. Lütfen tekrar deneyin.</p>

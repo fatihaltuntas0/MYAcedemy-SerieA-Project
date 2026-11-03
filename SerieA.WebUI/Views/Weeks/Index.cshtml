@@ -1,4 +1,4 @@
-@using SerieA.WebUI.ViewModels
+﻿@using SerieA.WebUI.ViewModels
 @using SerieA.WebUI.Enums
 @model WeekIndexViewModel
 
@@ -29,7 +29,7 @@
     <section class="weeks-kpi-grid" aria-label="Fikstür genel durumu">
         <div class="weeks-kpi-card">
             <div class="weeks-kpi-icon weeks-kpi-icon--blue">
-                <svg class="icon" aria-hidden="true"><use href="#i-calendar" /></svg>
+                <svg class="icon" aria-hidden="true"><use href="#lucide-calendar" /></svg>
             </div>
             <div>
                 <span class="weeks-kpi-label">Toplam Hafta</span>
@@ -39,7 +39,7 @@
 
         <div class="weeks-kpi-card">
             <div class="weeks-kpi-icon weeks-kpi-icon--green">
-                <svg class="icon" aria-hidden="true"><use href="#i-check" /></svg>
+                <svg class="icon" aria-hidden="true"><use href="#lucide-check" /></svg>
             </div>
             <div>
                 <span class="weeks-kpi-label">Tamamlanan</span>
@@ -49,7 +49,7 @@
 
         <div class="weeks-kpi-card">
             <div class="weeks-kpi-icon weeks-kpi-icon--amber">
-                <svg class="icon" aria-hidden="true"><use href="#i-clock" /></svg>
+                <svg class="icon" aria-hidden="true"><use href="#lucide-clock" /></svg>
             </div>
             <div>
                 <span class="weeks-kpi-label">Kalan / Planlanan</span>
@@ -59,7 +59,7 @@
 
         <div class="weeks-kpi-card">
             <div class="weeks-kpi-icon weeks-kpi-icon--navy">
-                <svg class="icon" aria-hidden="true"><use href="#i-shield" /></svg>
+                <svg class="icon" aria-hidden="true"><use href="#lucide-shield" /></svg>
             </div>
             <div>
                 <span class="weeks-kpi-label">Kural Uyumluluğu</span>
@@ -72,7 +72,7 @@
     <section class="weeks-card" aria-label="Hafta listesi">
         <div class="weeks-card-head">
             <h2 class="weeks-card-title">
-                <svg class="icon" style="color: var(--blue);" aria-hidden="true"><use href="#i-calendar" /></svg>
+                <svg class="icon" style="color: var(--blue);" aria-hidden="true"><use href="#lucide-calendar" /></svg>
                 Haftalık Fikstür İlerlemesi
             </h2>
             <span style="font-size: 0.84rem; color: var(--muted); font-weight: 500;">
@@ -110,13 +110,13 @@
                             <td colspan="7">
                                 <div class="empty-state">
                                     <div class="empty-state-icon">
-                                        <svg class="icon" aria-hidden="true"><use href="#i-calendar" /></svg>
+                                        <svg class="icon" aria-hidden="true"><use href="#lucide-calendar" /></svg>
                                     </div>
                                     <h3 class="empty-state-title">Fikstür Planı Bulunamadı</h3>
                                     <p class="empty-state-desc">Sezona ait haftalık fikstür veya maç henüz oluşturulmamış. Maçlar eklendikçe haftalık ilerleme burada görüntülenecektir.</p>
                                     <div class="empty-state-actions">
                                         <a href="/Matches" class="btn-a btn-a--primary">
-                                            <svg class="icon" aria-hidden="true"><use href="#i-plus" /></svg>Maç Oluştur
+                                            <svg class="icon" aria-hidden="true"><use href="#lucide-plus" /></svg>Maç Oluştur
                                         </a>
                                     </div>
                                 </div>
@@ -147,7 +147,7 @@
                                 </td>
                                 <td>
                                     <div class="date-range-cell">
-                                        <svg class="icon" aria-hidden="true"><use href="#i-clock" /></svg>
+                                        <svg class="icon" aria-hidden="true"><use href="#lucide-clock" /></svg>
                                         <span>@week.StartDate.ToString("dd.MM.yyyy") – @week.EndDate.ToString("dd.MM.yyyy")</span>
                                     </div>
                                 </td>
@@ -175,14 +175,14 @@
                                     @if (week.IsValidFixture)
                                     {
                                         <span class="fixture-badge fixture-badge--ok" title="20 takımın tamamı haftada 1 maça çıkıyor">
-                                            <svg class="icon" style="width: 14px; height: 14px;" aria-hidden="true"><use href="#i-check" /></svg>
+                                            <svg class="icon" style="width: 14px; height: 14px;" aria-hidden="true"><use href="#lucide-check" /></svg>
                                             20 Takım · Tam
                                         </span>
                                     }
                                     else
                                     {
                                         <span class="fixture-badge fixture-badge--warn" title="@week.UniqueTeamsCount farklı takım tespit edildi">
-                                            <svg class="icon" style="width: 14px; height: 14px;" aria-hidden="true"><use href="#i-info" /></svg>
+                                            <svg class="icon" style="width: 14px; height: 14px;" aria-hidden="true"><use href="#lucide-info" /></svg>
                                             Hatalı (@week.UniqueTeamsCount/20)
                                         </span>
                                     }
@@ -190,7 +190,7 @@
                                 <td style="text-align: right;">
                                     <div class="row-actions" style="justify-content: flex-end;">
                                         <button type="button" class="act-btn" data-view-week="@week.Week" title="@week.Week. Hafta Maçlarını İncele" aria-label="@week.Week. hafta maçlarını göster">
-                                            <svg class="icon" aria-hidden="true"><use href="#i-eye" /></svg>
+                                            <svg class="icon" aria-hidden="true"><use href="#lucide-eye" /></svg>
                                         </button>
                                     </div>
                                 </td>
@@ -210,14 +210,14 @@
     <section class="week-detail-panel" id="week-detail-panel" hidden aria-label="Seçilen haftanın karşılaşmaları">
         <div class="week-detail-head">
             <div class="week-detail-title-wrap">
-                <svg class="icon" style="color: #60A5FA; width: 22px; height: 22px;" aria-hidden="true"><use href="#i-ball" /></svg>
+                <svg class="icon" style="color: #60A5FA; width: 22px; height: 22px;" aria-hidden="true"><use href="#lucide-trophy" /></svg>
                 <div>
                     <h2 class="week-detail-title" id="week-panel-title">Hafta Karşılaşmaları</h2>
                     <span class="week-detail-sub" id="week-panel-sub">10 müsabaka listeleniyor</span>
                 </div>
             </div>
             <button type="button" class="btn-close-panel" id="btn-close-panel">
-                <svg class="icon" style="width: 14px; height: 14px;" aria-hidden="true"><use href="#i-x" /></svg>
+                <svg class="icon" style="width: 14px; height: 14px;" aria-hidden="true"><use href="#lucide-x" /></svg>
                 Paneli Kapat
             </button>
         </div>
