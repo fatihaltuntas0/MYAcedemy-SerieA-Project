@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SerieA.API.Entities;
+using SerieA.API.Enums;
 
 namespace SerieA.API.Context
 {
@@ -14,6 +15,7 @@ namespace SerieA.API.Context
         public DbSet<MatchGoal> MatchGoals { get; set; }
         public DbSet<MatchCard> MatchCards { get; set; }
         public DbSet<Substitution> Substitutions { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -74,6 +76,10 @@ namespace SerieA.API.Context
             // Storing match statuses, which are held as enums, in the database as strings
             modelBuilder.Entity<Match>()
                 .Property(m => m.Status)
+                .HasConversion<string>();
+
+            modelBuilder.Entity<User>()
+                .Property(u => u.Role)
                 .HasConversion<string>();
         }
     }

@@ -1,0 +1,32 @@
+﻿@model SerieA.WebUI.ViewModels.UserIndexViewModel
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Kullanıcı Yönetimi";
+    ViewData["Crumb"] = "Kullanıcılar";
+}
+
+<div class="page-head">
+    <div>
+        <span class="page-eyebrow">Serie A 2026/27</span>
+        <h1 class="page-title">Kullanıcı Yönetimi</h1>
+        <p class="page-desc">Yönetim paneline erişebilen yöneticileri ve editörleri görüntüleyebilir, yeni kullanıcı ekleyebilir, yetki ve durumlarını düzenleyebilirsiniz.</p>
+    </div>
+    <button type="button" class="btn-a btn-a--primary" data-open-create>
+        <svg class="icon" aria-hidden="true"><use href="#lucide-plus" /></svg>Yeni Kullanıcı Ekle
+    </button>
+</div>
+
+<!-- 1. User Table Partial -->
+<partial name="_UserTable" model="Model" />
+
+<!-- 2. Add / Edit User Modal Partial -->
+<partial name="_UserModal" />
+
+<!-- 3. Delete Confirmation Modal Partial -->
+<partial name="_DeleteUserModal" />
+
+@section Scripts {
+    <script src="~/js/users.js" asp-append-version="true"></script>
+}
+

@@ -1,0 +1,72 @@
+﻿<dialog class="modal-a" id="user-modal" aria-labelledby="user-modal-title">
+    <form id="user-form" novalidate>
+        <div class="modal-head">
+            <h2 class="modal-title" id="user-modal-title">Yeni Kullanıcı Ekle</h2>
+            <button type="button" class="icon-btn" data-modal-close aria-label="Kapat">
+                <svg class="icon" aria-hidden="true"><use href="#lucide-x" /></svg>
+            </button>
+        </div>
+
+        <div class="modal-body">
+            <div class="form-alert" id="form-alert" role="alert" style="display: none;">
+                Lütfen işaretli alanları kontrol edin.
+            </div>
+
+            <input type="hidden" id="u-id" name="id" value="" />
+
+            <div class="form-grid">
+                <!-- Ad Soyad -->
+                <div class="form-field" data-field="name">
+                    <label class="field-label" for="u-name">Ad Soyad <span class="req">*</span></label>
+                    <input class="input-a" id="u-name" name="name" type="text" placeholder="Örn: Mario Rossi" required autocomplete="name" />
+                    <p class="field-error" style="color: var(--red); font-size: 0.76rem; margin-top: 4px; display: none;"></p>
+                </div>
+
+                <!-- E-posta -->
+                <div class="form-field" data-field="email">
+                    <label class="field-label" for="u-email">E-posta <span class="req">*</span></label>
+                    <input class="input-a" id="u-email" name="email" type="email" placeholder="ornek@serie-a.local" required autocomplete="email" />
+                    <p class="field-error" style="color: var(--red); font-size: 0.76rem; margin-top: 4px; display: none;"></p>
+                </div>
+
+                <!-- Rol -->
+                <div class="form-field" data-field="role">
+                    <label class="field-label" for="u-role">Rol</label>
+                    <select class="select-a" id="u-role" name="role">
+                        <option value="Admin">Yönetici</option>
+                        <option value="Editor" selected>Editör</option>
+                    </select>
+                </div>
+
+                <!-- Durum -->
+                <div class="form-field" data-field="status">
+                    <label class="field-label" for="u-active">Durum</label>
+                    <select class="select-a" id="u-active" name="active">
+                        <option value="true" selected>Aktif</option>
+                        <option value="false">Pasif</option>
+                    </select>
+                </div>
+
+                <!-- Şifre -->
+                <div class="form-field span-2" data-field="password">
+                    <label class="field-label" for="u-pass">
+                        Şifre <span class="req" id="pass-req">*</span>
+                    </label>
+                    <input class="input-a" id="u-pass" name="password" type="password" autocomplete="new-password" placeholder="••••••••" />
+                    <p class="field-hint" style="color: var(--dim); font-size: 0.78rem; margin-top: 4px;">
+                        En az 8 karakter. Düzenlerken boş bırakırsanız mevcut şifre değişmez.
+                    </p>
+                    <p class="field-error" style="color: var(--red); font-size: 0.76rem; margin-top: 4px; display: none;"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-foot">
+            <button type="button" class="btn-a btn-a--secondary" data-modal-close>Vazgeç</button>
+            <button type="submit" class="btn-a btn-a--primary" id="btn-save-user">
+                <svg class="icon" aria-hidden="true"><use href="#lucide-check" /></svg>Kaydet
+            </button>
+        </div>
+    </form>
+</dialog>
+

@@ -1,0 +1,168 @@
+@model SerieA.WebUI.ViewModels.UserIndexViewModel
+@using SerieA.WebUI.Enums
+
+<section class="card-a" aria-label="Kullanıcı listesi">
+    <!-- Filter Bar -->
+    <form class="filter-bar" method="get" asp-action="Index" data-filter role="search">
+        <div>
+            <label class="field-label" for="f-q">Kullanıcı Ara</label>
+            <div class="input-icon">
+                <svg class="icon icon--sm" aria-hidden="true"><use href="#lucide-search" /></svg>
+                <input class="input-a" id="f-q" name="q" type="search" placeholder="Ad veya e-posta..." value="@Model.Query" autocomplete="off">
+            </div>
+        </div>
+
+        <div>
+            <label class="field-label" for="f-role">Rol</label>
+            <select class="select-a" id="f-role" name="role">
+                <option value="">Tümü</option>
+                <option value="Admin" selected="@(Model.Role == UserRole.Admin)">Yönetici</option>
+                <option value="Editor" selected="@(Model.Role == UserRole.Editor)">Editör</option>
+            </select>
+        </div>
+
+        <div>
+            <label class="field-label" for="f-act">Durum</label>
+            <select class="select-a" id="f-act" name="active">
+                <option value="">Tümü</option>
+                <option value="true" selected="@(Model.Active == true)">Aktif</option>
+                <option value="false" selected="@(Model.Active == false)">Pasif</option>
+            </select>
+        </div>
+
+        <div class="filter-actions">
+            <a href="/Users" class="btn-a btn-a--ghost" data-reset>Temizle</a>
+            <button type="submit" class="btn-a btn-a--secondary">
+                <svg class="icon icon--sm" aria-hidden="true"><use href="#lucide-filter" /></svg>Filtrele
+            </button>
+        </div>
+    </form>
+
+    <!-- Table -->
+    <div class="table-scroll">
+        <table class="users-table">
+            <caption class="visually-hidden">Kullanıcı listesi</caption>
+            <thead>
+                <tr>
+                    <th scope="col" class="col-u-id">#</th>
+                    <th scope="col" class="col-u-user">Kullanıcı</th>
+                    <th scope="col" class="col-u-email">E-posta</th>
+                    <th scope="col" class="col-u-role">Rol</th>
+                    <th scope="col" class="col-u-status">Durum</th>
+                    <th scope="col" class="col-u-login">Son Giriş</th>
+                    <th scope="col" class="col-u-actions">İşlemler</th>
+                </tr>
+            </thead>
+            <tbody data-table-body>
+                @if (Model.Users != null && Model.Users.Any())
+                {
+                    int index = 0;
+                    foreach (var u in Model.Users)
+                    {
+                        index++;
+                        var initials = !string.IsNullOrWhiteSpace(u.Name)
+                            ? string.Concat(u.Name.Split(' ', StringSplitOptions.RemoveEmptyEntries).Take(2).Select(s => s[0])).ToUpper()
+                            : "U";
+
+                        <tr data-row-id="@u.Id">
+                            <td class="col-u-id"><span class="u-index">@index</span></td>
+                            <td class="col-u-user">
+                                <div class="u-cell">
+                                    <span class="u-av" aria-hidden="true">@initials</span>
+                                    <div class="u-meta">
+                                        <span class="u-name">@u.Name</span>
+                                        <span class="u-sub">Kayıt: @u.CreatedAt.ToString("dd.MM.yyyy")</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="col-u-email">
+                                <span class="u-email" title="@u.Email">
+                                    <svg class="icon icon--xs" aria-hidden="true"><use href="#lucide-mail" /></svg>
+                                    @u.Email
+                                </span>
+                            </td>
+                            <td class="col-u-role">
+                                @if (u.Role == UserRole.Admin)
+                                {
+                                    <span class="u-badge u-badge--admin">
+                                        <svg class="icon icon--xs" aria-hidden="true"><use href="#lucide-shield-check" /></svg>
+                                        Yönetici
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="u-badge u-badge--editor">
+                                        <svg class="icon icon--xs" aria-hidden="true"><use href="#lucide-pencil" /></svg>
+                                        Editör
+                                    </span>
+                                }
+                            </td>
+                            <td class="col-u-status">
+                                @if (u.Status)
+                                {
+                                    <span class="u-badge u-badge--active">
+                                        <span class="status-dot status-dot--active"></span>
+                                        Aktif
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="u-badge u-badge--inactive">
+                                        <span class="status-dot status-dot--inactive"></span>
+                                        Pasif
+                                    </span>
+                                }
+                            </td>
+                            <td class="col-u-login">
+                                <span class="u-time">
+                                    <svg class="icon icon--xs" aria-hidden="true"><use href="#lucide-clock" /></svg>
+                                    @(u.LastLogin.HasValue ? u.LastLogin.Value.ToString("dd.MM.yyyy HH:mm") : "Giriş yapılmadı")
+                                </span>
+                            </td>
+                            <td class="col-u-actions">
+                                <div class="row-actions" style="justify-content: flex-end;">
+                                    <button type="button" 
+                                            class="act-btn" 
+                                            data-edit="@u.Id" 
+                                            data-user='@Json.Serialize(u)' 
+                                            title="Düzenle: @u.Name" 
+                                            aria-label="Düzenle: @u.Name">
+                                        <svg class="icon icon--sm" aria-hidden="true"><use href="#lucide-pencil" /></svg>
+                                    </button>
+                                    <button type="button" 
+                                            class="act-btn act-btn--danger" 
+                                            data-delete="@u.Id" 
+                                            data-name="@u.Name" 
+                                            data-email="@u.Email" 
+                                            title="Sil: @u.Name" 
+                                            aria-label="Sil: @u.Name">
+                                        <svg class="icon icon--sm" aria-hidden="true"><use href="#lucide-trash-2" /></svg>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr class="table-empty">
+                        <td colspan="7" class="text-center py-5">
+                            <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                                <div class="empty-state-icon">
+                                    <svg class="icon icon--lg" aria-hidden="true"><use href="#lucide-users" /></svg>
+                                </div>
+                                <strong style="font-size: 1rem; color: var(--text);">Kayıt bulunamadı</strong>
+                                <p style="color: var(--dim); font-size: 0.85rem; margin: 0;">Filtreleri değiştirin ya da Temizle ile tüm kullanıcıları gösterin.</p>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-foot">
+        <span>@(Model.Users?.Count ?? 0) kullanıcı listeleniyor</span>
+        <span>Sezon 2026/27</span>
+    </div>
+</section>

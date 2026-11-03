@@ -1,0 +1,25 @@
+﻿<dialog class="modal-a modal-a--sm" id="delete-modal" aria-labelledby="delete-modal-title">
+    <form id="delete-form" method="dialog">
+        <div class="modal-head">
+            <h2 class="modal-title" id="delete-modal-title">Kullanıcıyı Sil</h2>
+            <button type="button" class="icon-btn" data-modal-close aria-label="Kapat">
+                <svg class="icon" aria-hidden="true"><use href="#lucide-x" /></svg>
+            </button>
+        </div>
+
+        <div class="modal-body">
+            <input type="hidden" id="delete-id" name="id" value="" />
+            <p class="confirm-text" id="delete-text" style="color: var(--text-2); font-size: 0.92rem; line-height: 1.5; margin: 0 0 12px;">
+                Bu kullanıcı kalıcı olarak silinecektir. Bu işlem geri alınamaz.
+            </p>
+        </div>
+
+        <div class="modal-foot">
+            <button type="button" class="btn-a btn-a--secondary" data-modal-close>Vazgeç</button>
+            <button type="button" class="btn-a btn-a--danger" id="btn-confirm-delete">
+                <svg class="icon" aria-hidden="true"><use href="#lucide-trash-2" /></svg>Evet, sil
+            </button>
+        </div>
+    </form>
+</dialog>
+
