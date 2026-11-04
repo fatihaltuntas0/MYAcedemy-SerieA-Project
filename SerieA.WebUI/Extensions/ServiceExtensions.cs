@@ -14,7 +14,8 @@ namespace SerieA.WebUI.Extensions
                 var baseUrl = configuration["ApiSettings:BaseUrl"] ?? "https://localhost:7283/api/";
                 client.BaseAddress = new Uri(baseUrl);
             })
-                .AddHttpMessageHandler<ApiExceptionHandler>();
+                .AddHttpMessageHandler<ApiExceptionHandler>()
+                .AddHttpMessageHandler<AuthHeaderHandler>();
         }
     }
 }

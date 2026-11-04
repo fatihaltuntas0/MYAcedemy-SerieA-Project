@@ -1,12 +1,14 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using NuGet.Configuration;
 using SerieA.WebUI.Extensions;
 using SerieA.WebUI.Handlers;
+using SerieA.WebUI.Services.Auth;
 using SerieA.WebUI.Services.Dashboard;
 using SerieA.WebUI.Services.Matches;
 using SerieA.WebUI.Services.MatchEvents;
 using SerieA.WebUI.Services.Standings;
 using SerieA.WebUI.Services.Teams;
 using SerieA.WebUI.Services.Users;
-using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,14 +19,33 @@ builder.Services.AddControllersWithViews()
         options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
     });
 
-builder.Services.AddTransient<ApiExceptionHandler>();
+builder.Services.AddHttpContextAccessor();
 
+builder.Services.AddTransient<AuthHeaderHandler>();
+
+// WebUI Cookie Authentication Infrastructure
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.Cookie.Name = ".SerieA.Auth";
+        options.LoginPath = "/Account/Login";               
+        options.LogoutPath = "/Account/Logout";             
+        options.AccessDeniedPath = "/Account/AccessDenied"; 
+        options.ExpireTimeSpan = TimeSpan.FromHours(2);    
+        options.SlidingExpiration = true;                 
+        options.Cookie.HttpOnly = true;                   
+        options.Cookie.SameSite = SameSiteMode.Lax;
+    });
+
+builder.Services.AddTransient<ApiExceptionHandler>();
 builder.Services.AddCustomHttpClient<ITeamApiService, TeamApiService>();
 builder.Services.AddCustomHttpClient<IMatchApiService, MatchApiService>();
-builder.Services.AddCustomHttpClient<IStandingApiService, StandingApiService>();
 builder.Services.AddCustomHttpClient<IMatchEventApiService, MatchEventApiService>();
+builder.Services.AddCustomHttpClient<IStandingApiService, StandingApiService>();
 builder.Services.AddCustomHttpClient<IDashboardApiService, DashboardApiService>();
 builder.Services.AddCustomHttpClient<IUserApiService, UserApiService>();
+builder.Services.AddCustomHttpClient<IAuthApiService, AuthApiService>();
+
 
 var app = builder.Build();
 
@@ -35,11 +56,18 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+else
+{
+    app.UseExceptionHandler("/Home/Error");
+}
+app.UseStatusCodePagesWithReExecute("/Home/StatusCodeError", "?code={0}");
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

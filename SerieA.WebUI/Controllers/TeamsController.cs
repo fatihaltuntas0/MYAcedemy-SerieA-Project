@@ -1,19 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SerieA.WebUI.DTOs.Teams;
 using SerieA.WebUI.Services.Teams;
 using SerieA.WebUI.ViewModels;
 
 namespace SerieA.WebUI.Controllers
 {
-    public class TeamsController : Controller
+    [Authorize]
+    public class TeamsController(ITeamApiService _teamApiService) : Controller
     {
-
-        private readonly ITeamApiService _teamApiService;
-
-        public TeamsController(ITeamApiService teamApiService)
-        {
-            _teamApiService = teamApiService;
-        }
 
         [HttpGet]
         public async Task<IActionResult> Index(string? q, string? region, string? status)

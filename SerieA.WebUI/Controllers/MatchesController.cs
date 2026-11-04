@@ -1,3 +1,4 @@
+ï»¿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SerieA.WebUI.DTOs.Matches;
 using SerieA.WebUI.DTOs.Matches.Events;
@@ -10,6 +11,7 @@ using SerieA.WebUI.ViewModels;
 
 namespace SerieA.WebUI.Controllers
 {
+    [Authorize]
     public class MatchesController(IMatchApiService _matchApiService, ITeamApiService _teamApiService, IMatchEventApiService _matchEventApiService) : Controller
     {
 
@@ -78,7 +80,7 @@ namespace SerieA.WebUI.Controllers
             var result = await _matchApiService.GetMatchByIdAsync(id, cancellationToken);
             if(!result.IsSuccess || result.Data == null)
             {
-                TempData["ErrorMessage"] = result.Message ?? "Maç bulunamadý.";
+                TempData["ErrorMessage"] = result.Message ?? "Maï¿½ bulunamadï¿½.";
                 return RedirectToAction(nameof(Index));
             }
 

@@ -1,0 +1,40 @@
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Erişim Engellendi (403)";
+    ViewData["Crumb"] = "Güvenlik Uyarısı";
+}
+
+<div class="access-denied-container" style="min-height: 60vh; display: flex; align-items: center; justify-content: center; padding: 40px 16px;">
+    <div class="card-a" style="max-width: 520px; text-align: center; padding: 48px 32px; border-radius: 16px; border: 1px solid var(--line); box-shadow: 0 12px 32px rgba(0,0,0,0.2);">
+        
+        <!-- Big Lucide Shield / Lock Icon with subtle danger badge -->
+        <div style="width: 72px; height: 72px; margin: 0 auto 24px; border-radius: 20px; background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.25); display: grid; place-items: center; color: #EF4444;">
+            <svg class="icon icon--xl" style="width: 36px; height: 36px;" aria-hidden="true">
+                <use href="#lucide-shield-check"></use>
+            </svg>
+        </div>
+
+        <span style="font-family: 'Barlow Condensed', sans-serif; font-size: 0.95rem; font-weight: 700; letter-spacing: 1px; color: #EF4444; text-transform: uppercase;">
+            Yetkisiz İşlem (HTTP 403)
+        </span>
+
+        <h1 style="font-family: 'Barlow Condensed', sans-serif; font-size: 2rem; font-weight: 700; margin: 8px 0 16px; color: var(--text);">
+            Bu Sayfaya Erişim Yetkiniz Bulunmuyor
+        </h1>
+
+        <p style="color: var(--dim); font-size: 0.95rem; line-height: 1.5; margin: 0 0 28px;">
+            Görüntülemeye çalıştığınız bölüm yalnızca <strong>Yönetici (Admin)</strong> rolündeki kullanıcıların erişimine açıktır. Mevcut kullanıcı hesabınız bu işlem için yetkilendirilmemiştir.
+        </p>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;">
+            <a href="/" class="btn-a btn-a--primary" style="padding: 10px 24px; font-weight: 600;">
+                <svg class="icon icon--sm" aria-hidden="true"><use href="#lucide-home"></use></svg>
+                <span>Ana Sayfaya Dön</span>
+            </a>
+            <a href="/Account/Logout" class="btn-a btn-a--secondary" style="padding: 10px 24px; font-weight: 600;">
+                <svg class="icon icon--sm" aria-hidden="true"><use href="#lucide-log-out"></use></svg>
+                <span>Farklı Hesapla Giriş Yap</span>
+            </a>
+        </div>
+    </div>
+</div>

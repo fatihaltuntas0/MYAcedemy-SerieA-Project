@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SerieA.WebUI.Enums;
 using SerieA.WebUI.Services.Matches;
 using SerieA.WebUI.Services.Standings;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace SerieA.WebUI.Controllers
 {
+    [Authorize]
     public class StandingsController(IStandingApiService _standingApiService, IMatchApiService _matchApiService) : Controller
     {
 

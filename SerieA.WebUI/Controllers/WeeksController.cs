@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SerieA.WebUI.Services.Matches;
 using SerieA.WebUI.ViewModels;
 
 namespace SerieA.WebUI.Controllers
 {
+    [Authorize]
     public class WeeksController(IMatchApiService _matchApiService) : Controller
     {
         [HttpGet]

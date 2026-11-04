@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SerieA.WebUI.DTOs.Users;
 using SerieA.WebUI.Enums;
 using SerieA.WebUI.Services.Users;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace SerieA.WebUI.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class UsersController(IUserApiService _userApiService) : Controller
     {
         // Main page and filtering
