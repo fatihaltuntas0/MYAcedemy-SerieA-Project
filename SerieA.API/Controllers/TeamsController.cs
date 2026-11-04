@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SerieA.API.DTOs.Teams;
 using SerieA.API.Services.Teams;
 
 namespace SerieA.API.Controllers
 {
+    [Authorize]
     [Route("api/teams")]
     [ApiController]
     public class TeamsController(ITeamService _teamService) : ControllerBase

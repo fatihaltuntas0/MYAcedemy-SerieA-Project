@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SerieA.API.Services.Dashboard;
 
 namespace SerieA.API.Controllers
 {
+    [Authorize]
     [Route("api/dashboard")]
     [ApiController]
     public class DashboardController(IDashboardService _dashboardService) : ControllerBase

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SerieA.API.DTOs.Users;
 using SerieA.API.Enums;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace SerieA.API.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("api/users")]
     [ApiController]
     public class UsersController(IUserService _userService) : ControllerBase

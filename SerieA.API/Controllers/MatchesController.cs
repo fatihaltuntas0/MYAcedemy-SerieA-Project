@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SerieA.API.DTOs.Matches;
 using SerieA.API.Services.Matches;
@@ -5,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace SerieA.API.Controllers
 {
+    [Authorize]
     [Route("api/matches")]
     [ApiController]
     public class MatchesController(IMatchService _matchService) : ControllerBase
