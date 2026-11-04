@@ -1,23 +1,23 @@
 <aside class="admin-sidebar" id="admin-sidebar" aria-label="Yönetim menüsü">
-    <a class="sidebar-brand" href="/" data-demo-nav>
+    <a class="sidebar-brand" href="/">
         <span class="brand-mark" aria-hidden="true">SA</span>
         <span class="brand-text">Serie A Admin</span>
     </a>
     <p class="sidebar-label">Yönetim</p>
     <ul class="sidebar-nav">
-        <li><a class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" ? "is-active" : "")" href="/" data-demo-nav><svg class="icon icon--nav" aria-hidden="true"><use href="#lucide-home" /></svg>Ana Sayfa</a></li>
+        <li><a class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" ? "is-active" : "")" href="/"><svg class="icon icon--nav" aria-hidden="true"><use href="#lucide-home" /></svg>Ana Sayfa</a></li>
         <li><a class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Matches" ? "is-active" : "")" href="/Matches"><svg class="icon icon--nav" aria-hidden="true"><use href="#lucide-trophy" /></svg>Maçlar</a></li>
         <li><a class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Teams" ? "is-active" : "")" href="/Teams"><svg class="icon icon--nav" aria-hidden="true"><use href="#lucide-shield" /></svg>Takımlar</a></li>
         <li><a class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Weeks" ? "is-active" : "")" href="/Weeks"><svg class="icon icon--nav" aria-hidden="true"><use href="#lucide-calendar" /></svg>Haftalar</a></li>
         <li><a class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Standings" ? "is-active" : "")" href="/Standings"><svg class="icon icon--nav" aria-hidden="true"><use href="#lucide-table" /></svg>Puan Durumu</a></li>
         @if (User.IsInRole("Admin"))
         {
-            <li><a class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Users" ? "is-active" : "")" href="/Users" data-demo-nav><svg class="icon icon--nav" aria-hidden="true"><use href="#lucide-users" /></svg>Kullanıcılar</a></li>
+            <li><a class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Users" ? "is-active" : "")" href="/Users"><svg class="icon icon--nav" aria-hidden="true"><use href="#lucide-users" /></svg>Kullanıcılar</a></li>
         }
     </ul>
     <div class="sidebar-foot">
         <span class="sidebar-season">Sezon 2026/27</span>
-        <a class="sidebar-link sidebar-link--logout" href="/Account/Logout" data-demo-nav><svg class="icon icon--nav" aria-hidden="true"><use href="#lucide-log-out" /></svg>Çıkış Yap</a>
+        <a class="sidebar-link sidebar-link--logout" href="/Account/Logout"><svg class="icon icon--nav" aria-hidden="true"><use href="#lucide-log-out" /></svg>Çıkış Yap</a>
     </div>
 </aside>
 <div class="sidebar-backdrop" data-sidebar-close></div>

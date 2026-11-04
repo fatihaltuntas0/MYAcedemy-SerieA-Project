@@ -18,10 +18,39 @@
  * @param {string} [title=''] - Accessible label/tooltip
  * @returns {string} SVG HTML markup
  */
-window.lucideIcon = function(name, extraClass = '', title = '') {
+window.lucideIcon = function (name, extraClass = '', title = '') {
     const cls = extraClass ? `icon ${extraClass}` : 'icon';
-    const accessibility = title 
-        ? ` role="img" aria-label="${title}" title="${title}"` 
+    const accessibility = title
+        ? ` role="img" aria-label="${title}" title="${title}"`
         : ' aria-hidden="true"';
     return `<svg class="${cls}"${accessibility}><use href="#lucide-${name}"></use></svg>`;
 };
+
+// Mobile Responsive Sidebar Toggle
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleBtn = document.querySelector('[data-sidebar-toggle]');
+    const backdrop = document.querySelector('[data-sidebar-close]');
+
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = document.body.classList.toggle('sidebar-open');
+            toggleBtn.setAttribute('aria-expanded', isOpen);
+        });
+    }
+
+    if (backdrop) {
+        backdrop.addEventListener('click', () => {
+            document.body.classList.remove('sidebar-open');
+            if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
+        });
+    }
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && document.body.classList.contains('sidebar-open')) {
+            document.body.classList.remove('sidebar-open');
+            if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
+        }
+    });
+});

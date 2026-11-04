@@ -18,9 +18,6 @@
         <span class="topbar-crumb">Yönetim / @(ViewData["Crumb"] ?? ViewData["Title"])</span>
     </div>
     <div class="topbar-right">
-        <button type="button" class="icon-btn" aria-label="Bildirimler" title="Bildirimler" data-demo-action>
-            <svg class="icon icon--md" aria-hidden="true"><use href="#lucide-bell" /></svg><span class="notif-dot"></span>
-        </button>
         <div class="topbar-user" title="@userName (@roleLabel)">
             <span class="avatar" style="background: linear-gradient(135deg, var(--blue) 0%, #003380 100%); color: #fff; font-weight: 700; font-size: 0.85rem; display: grid; place-items: center; border: 1px solid rgba(255,255,255,0.15);">
                 @initials
