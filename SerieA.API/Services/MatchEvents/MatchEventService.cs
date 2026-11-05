@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using SerieA.API.Common;
 using SerieA.API.Context;
@@ -7,7 +8,7 @@ using SerieA.API.Enums;
 
 namespace SerieA.API.Services.MatchEvents
 {
-    public class MatchEventService(ApiContext _context) : IMatchEventService
+    public class MatchEventService(ApiContext _context, IMapper _mapper) : IMatchEventService
     {
         private static int ParseMinute(string minute)
         {
@@ -70,14 +71,8 @@ namespace SerieA.API.Services.MatchEvents
                 return ApiResponse<Guid>.Fail($"'{playerName}' {subOut.Minute}. dakikada oyundan çıktığı için bu dakikada ({createCardDto.Minute}') sahada kart göremez.");
             }
 
-            var card = new MatchCard
-            {
-                MatchId = matchId,
-                TeamId = createCardDto.TeamId,
-                PlayerName = playerName,
-                Minute = createCardDto.Minute.Trim(),
-                CardType = createCardDto.CardType
-            };
+            var card = _mapper.Map<MatchCard>(createCardDto);
+            card.MatchId = matchId;
 
             await _context.MatchCards.AddAsync(card);
             await _context.SaveChangesAsync();
@@ -131,13 +126,8 @@ namespace SerieA.API.Services.MatchEvents
                 return ApiResponse<Guid>.Fail($"'{playerName}' henüz oyuna girmediği için ({createGoalDto.Minute}') gol atamaz. (Oyuna girdiği dakika: {subIn.Minute}').");
             }
 
-            var goal = new MatchGoal
-            {
-                MatchId = matchId,
-                TeamId = createGoalDto.TeamId,
-                PlayerName = playerName,
-                Minute = createGoalDto.Minute.Trim()
-            };
+            var goal = _mapper.Map<MatchGoal>(createGoalDto);
+            goal.MatchId = matchId;
 
             await _context.MatchGoals.AddAsync(goal);
             await _context.SaveChangesAsync();
@@ -208,14 +198,8 @@ namespace SerieA.API.Services.MatchEvents
                 return ApiResponse<Guid>.Fail($"'{playerIn}' kırmızı kart gördüğü için oyuna giremez.");
             }
 
-            var subs = new Substitution
-            {
-                MatchId = matchId,
-                TeamId = createSubstitutionDto.TeamId,
-                PlayerIn = playerIn,
-                PlayerOut = playerOut,
-                Minute = createSubstitutionDto.Minute.Trim()
-            };
+            var subs = _mapper.Map<Substitution>(createSubstitutionDto);
+            subs.MatchId = matchId;
 
             await _context.Substitutions.AddAsync(subs);
             await _context.SaveChangesAsync();

@@ -39,9 +39,9 @@ namespace SerieA.API.Services.Matches
                 .AsNoTracking()
                 .Include(m => m.HomeTeam)
                 .Include(m => m.AwayTeam)
-                .Include(m => m.MatchGoals)
-                .Include(m => m.MatchCards)
-                .Include(m => m.Substitutions)
+                .Include(m => m.MatchGoals).ThenInclude(g => g.Team)
+                .Include(m => m.MatchCards).ThenInclude(c => c.Team)
+                .Include(m => m.Substitutions).ThenInclude(s => s.Team)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (match is null)
@@ -49,27 +49,7 @@ namespace SerieA.API.Services.Matches
                 return ApiResponse<ResultMatchDetailDto>.Fail("Aradığınız maç bulunamadı.");
             }
 
-            var detail = new ResultMatchDetailDto
-            {
-                Id = match.Id,
-                Week = match.Week,
-                MatchDate = match.MatchDate,
-                Stadium = match.Stadium,
-                Status = match.Status,
-                HomeScore = match.HomeScore,
-                AwayScore = match.AwayScore,
-                HomeTeamId = match.HomeTeamId,
-                HomeTeamName = match.HomeTeam?.Name ?? string.Empty,
-                HomeTeamCode = match.HomeTeam?.Code ?? string.Empty,
-                HomeTeamLogoUrl = match.HomeTeam?.LogoUrl ?? string.Empty,
-                AwayTeamId = match.AwayTeamId,
-                AwayTeamName = match.AwayTeam?.Name ?? string.Empty,
-                AwayTeamCode = match.AwayTeam?.Code ?? string.Empty,
-                AwayTeamLogoUrl = match.AwayTeam?.LogoUrl ?? string.Empty,
-                Goals = MapGoals(match),
-                Cards = MapCards(match),
-                Substitutions = MapSubstitutions(match)
-            };
+            var detail = _mapper.Map<ResultMatchDetailDto>(match);
 
             return ApiResponse<ResultMatchDetailDto>.Success(detail, "Maç başarıyla getirildi.");
         }
@@ -202,38 +182,6 @@ namespace SerieA.API.Services.Matches
                  m.AwayTeamId == awayTeamId)
             );
         }
-
-        private List<MatchGoalDto> MapGoals(Match match) =>
-            match.MatchGoals?.Select(g => new MatchGoalDto
-            {
-                Id = g.Id,
-                TeamId = g.TeamId,
-                TeamName = g.TeamId == match.HomeTeamId ? match.HomeTeam?.Name ?? "" : match.AwayTeam?.Name ?? "",
-                PlayerName = g.PlayerName,
-                Minute = g.Minute
-            }).ToList() ?? new List<MatchGoalDto>();
-
-        private List<MatchCardDto> MapCards(Match match) =>
-            match.MatchCards?.Select(c => new MatchCardDto
-            {
-                Id = c.Id,
-                TeamId = c.TeamId,
-                TeamName = c.TeamId == match.HomeTeamId ? match.HomeTeam?.Name ?? "" : match.AwayTeam?.Name ?? "",
-                PlayerName = c.PlayerName,
-                Minute = c.Minute,
-                CardType = c.CardType
-            }).ToList() ?? new List<MatchCardDto>();
-
-        private List<SubstitutionDto> MapSubstitutions(Match match) =>
-            match.Substitutions?.Select(s => new SubstitutionDto
-            {
-                Id = s.Id,
-                TeamId = s.TeamId,
-                TeamName = s.TeamId == match.HomeTeamId ? match.HomeTeam?.Name ?? "" : match.AwayTeam?.Name ?? "",
-                PlayerIn = s.PlayerIn,
-                PlayerOut = s.PlayerOut,
-                Minute = s.Minute
-            }).ToList() ?? new List<SubstitutionDto>();
 
         #endregion
     }

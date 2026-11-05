@@ -11,13 +11,15 @@ namespace SerieA.API.Controllers
     [ApiController]
     public class MatchesController(IMatchService _matchService) : ControllerBase
     {
-
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetMatchesAsync([FromQuery] int? week = null, [FromQuery] string? team = null)
         {
             var result = await _matchService.GetMatchesAsync(week, team);
             return Ok(result);
         }
+
+        [AllowAnonymous]
         [HttpGet("week/{week:int}")]
         public async Task<IActionResult> GetMatchesByWeekAsync(int week)
         {
@@ -25,6 +27,7 @@ namespace SerieA.API.Controllers
             return Ok(result);
         }
 
+        [AllowAnonymous]
         [HttpGet("weeks-summary")]
         public async Task<IActionResult> GetWeekSummaryAsync()
         {
@@ -32,6 +35,7 @@ namespace SerieA.API.Controllers
             return Ok(result);
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetMatchByIdAsync(Guid id)
         {

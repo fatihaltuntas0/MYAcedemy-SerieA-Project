@@ -11,18 +11,23 @@ namespace SerieA.API.Controllers
     public class TeamsController(ITeamService _teamService) : ControllerBase
     {
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetTeamsAsync([FromQuery] string? q, [FromQuery] string? region, [FromQuery] string? status)
         {
             var result = await _teamService.GetTeamsAsync(q, region, status);
             return Ok(result);
         }
+
+        [AllowAnonymous]
         [HttpGet("summary")]
         public async Task<IActionResult> GetLeagueSummaryAsync()
         {
             var result = await _teamService.GetLeagueSummaryAsync();
             return Ok(result);
         }
+
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTeamByIdAsync(Guid id)
         {
@@ -34,7 +39,6 @@ namespace SerieA.API.Controllers
             return Ok(result);
         }
 
-
         [HttpPost]
         public async Task<IActionResult> CreateTeamAsync([FromBody] TeamUpsertDto createDto)
         {
@@ -45,6 +49,7 @@ namespace SerieA.API.Controllers
             }
             return StatusCode(StatusCodes.Status201Created, result);
         }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateTeamAsync(Guid id, [FromBody] TeamUpsertDto updateDto)
         {
@@ -55,6 +60,7 @@ namespace SerieA.API.Controllers
             }
             return Ok(result);
         }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTeamAsync(Guid id)
         {

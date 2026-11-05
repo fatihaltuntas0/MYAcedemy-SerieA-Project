@@ -9,6 +9,7 @@ namespace SerieA.API.Controllers
     [Authorize]
     public class StandingsController(IStandingService _standingService) : ControllerBase
     {
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetStandingAsync([FromQuery] int? upToWeek = null)
         {

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SerieA.API.Common;
@@ -11,7 +12,7 @@ namespace SerieA.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController(ApiContext _context, ITokenService _tokenService, IPasswordHasher<User> _passwordHasher) : ControllerBase
+    public class AuthController(ApiContext _context, ITokenService _tokenService, IPasswordHasher<User> _passwordHasher, IMapper _mapper) : ControllerBase
     {
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto dto)
@@ -43,13 +44,8 @@ namespace SerieA.API.Controllers
             // Generate token
             var token = _tokenService.GenerateToken(user);
 
-            var response = new LoginResponseDto
-            {
-                Token = token,
-                Email = user.Email,
-                Name = user.Name,
-                Role = user.Role
-            };
+            var response = _mapper.Map<LoginResponseDto>(user);
+            response.Token = token;
 
             return Ok(ApiResponse<LoginResponseDto>.Success(response, "Giriş başarılı."));
         }

@@ -99,10 +99,7 @@ namespace SerieA.API.Services.Users
                 return ApiResponse.Fail("Bu eposta adresi başka bir kullanıcı tarafından kullanılıyor.");
             }
 
-            user.Name = updateDto.Name;
-            user.Email = updateDto.Email.Trim();
-            user.Role = updateDto.Role;
-            user.Status = updateDto.Status;
+            _mapper.Map(updateDto, user);
 
             if(!string.IsNullOrWhiteSpace(updateDto.Password))
             {
