@@ -1,46 +1,279 @@
 @model SerieA.WebUI.Models.ErrorViewModel
 @{
-    ViewData["Title"] = $"Hata ({Model.StatusCode})";
-    ViewData["Crumb"] = "Sistem Hatası";
-    Layout = "_AdminLayout";
+    Layout = null;
+    var statusCode = Model.StatusCode > 0 ? Model.StatusCode : 500;
+    var title = statusCode switch
+    {
+        404 => "Sayfa Bulunamadı",
+        403 => "Erişim Engellendi",
+        401 => "Giriş Gerekli",
+        _ => "Bir Hata Oluştu"
+    };
+    ViewData["Title"] = $"{statusCode} - {title}";
 }
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Lega Serie A</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+    <style>
+        :root {
+            --err-bg: #0A0D14;
+            --err-surface: #131722;
+            --err-line: #222938;
+            --err-text: #EEF1F6;
+            --err-dim: #9AA2B1;
+            --err-blue: #2A66E0;
+            --font-display: "IBM Plex Sans Condensed", -apple-system, sans-serif;
+            --font-body: "IBM Plex Sans", -apple-system, sans-serif;
+        }
 
-<div class="error-page-shell" style="min-height: 65vh; display: flex; align-items: center; justify-content: center; padding: 40px 16px;">
-    <div class="card-a" style="max-width: 540px; width: 100%; text-align: center; padding: 48px 32px; border-radius: 16px; border: 1px solid var(--line); box-shadow: 0 16px 36px rgba(0,0,0,0.25);">
-        
-        <!-- Big Lucide Alert Icon with status badge -->
-        <div style="width: 76px; height: 76px; margin: 0 auto 24px; border-radius: 20px; background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.28); display: grid; place-items: center; color: #F59E0B;">
-            <svg class="icon icon--xl" style="width: 38px; height: 38px;" aria-hidden="true">
-                <use href="#lucide-alert-triangle"></use>
-            </svg>
-        </div>
+        body.standalone-error-page {
+            margin: 0;
+            padding: 24px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at 50% 25%, #151D30 0%, #080A0F 100%);
+            color: var(--err-text);
+            font-family: var(--font-body);
+        }
 
-        <span style="font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 1px; color: #F59E0B; text-transform: uppercase;">
-            @(Model.StatusCode > 0 ? $"HTTP {Model.StatusCode}" : "SİSTEM UYARISI")
-        </span>
+        .error-card {
+            max-width: 540px;
+            width: 100%;
+            background: var(--err-surface);
+            border: 1px solid var(--err-line);
+            border-radius: 20px;
+            padding: 48px 36px;
+            text-align: center;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
 
-        <h1 style="font-family: 'Barlow Condensed', sans-serif; font-size: 2.2rem; font-weight: 700; margin: 8px 0 16px; color: var(--text);">
-            Bir Şeyler Ters Gitti
-        </h1>
+        .error-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #2A66E0, #78A9FF, #2A66E0);
+        }
 
-        <p style="color: var(--dim); font-size: 0.95rem; line-height: 1.55; margin: 0 0 28px;">
-            @(Model.Message ?? "İsteğinizi işlerken beklenmedik bir durum meydana geldi. Oturum süreniz dolmuş olabilir veya sunucu geçici olarak yanıt veremiyor olabilir.")
-        </p>
+        .error-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 24px;
+            text-decoration: none;
+            color: inherit;
+        }
 
-        <!-- Action Buttons -->
-        <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;">
-            <button type="button" onclick="window.location.reload();" class="btn-a btn-a--primary" style="padding: 10px 22px; font-weight: 600;">
+        .error-brand-logo {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #0047AB 0%, #002255 100%);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            display: grid;
+            place-items: center;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 71, 171, 0.35);
+        }
+
+        .error-brand-text {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: 0.5px;
+        }
+
+        .error-icon-box {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            border-radius: 20px;
+            display: grid;
+            place-items: center;
+            background: rgba(42, 102, 224, 0.12);
+            border: 1px solid rgba(42, 102, 224, 0.25);
+            color: #78A9FF;
+        }
+
+        .error-icon-box.status-404 {
+            background: rgba(120, 169, 255, 0.1);
+            border-color: rgba(120, 169, 255, 0.25);
+            color: #78A9FF;
+        }
+
+        .error-icon-box.status-403 {
+            background: rgba(239, 68, 68, 0.12);
+            border-color: rgba(239, 68, 68, 0.25);
+            color: #EF4444;
+        }
+
+        .error-icon-box.status-500 {
+            background: rgba(245, 158, 11, 0.12);
+            border-color: rgba(245, 158, 11, 0.28);
+            color: #F59E0B;
+        }
+
+        .error-code-badge {
+            display: inline-block;
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--err-dim);
+            margin-bottom: 12px;
+        }
+
+        .error-title {
+            font-family: var(--font-display);
+            font-size: 2.1rem;
+            font-weight: 700;
+            line-height: 1.15;
+            margin: 0 0 12px;
+            color: #fff;
+        }
+
+        .error-desc {
+            color: var(--err-dim);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0 0 32px;
+        }
+
+        .error-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .btn-err-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--err-blue);
+            color: #fff;
+            padding: 10px 22px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.15s ease;
+            border: 1px solid transparent;
+        }
+
+        .btn-err-primary:hover {
+            background: #1F55C9;
+            color: #fff;
+            box-shadow: 0 6px 18px rgba(42, 102, 224, 0.4);
+        }
+
+        .btn-err-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.06);
+            color: #EEF1F6;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            transition: all 0.15s ease;
+            cursor: pointer;
+        }
+
+        .btn-err-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+    </style>
+</head>
+<body class="standalone-error-page">
+    @await Html.PartialAsync("_AdminIcons")
+
+    <div class="error-card">
+        <a href="/" class="error-brand">
+            <span class="error-brand-logo" aria-hidden="true">SA</span>
+            <span class="error-brand-text">Serie A TIM</span>
+        </a>
+
+        @if (statusCode == 404)
+        {
+            <div class="error-icon-box status-404">
+                <svg class="icon icon--xl" style="width: 40px; height: 40px;" aria-hidden="true">
+                    <use href="#lucide-search-x"></use>
+                </svg>
+            </div>
+            <div class="error-code-badge">HTTP 404 &bull; SAYFA BULUNAMADI</div>
+            <h1 class="error-title">Aradığınız Sayfa Bulunamadı</h1>
+            <p class="error-desc">
+                Ulaşmaya çalıştığınız adres mevcut değil, kaldırılmış veya yazım hatası yapılmış olabilir.
+            </p>
+        }
+        else if (statusCode == 403)
+        {
+            <div class="error-icon-box status-403">
+                <svg class="icon icon--xl" style="width: 40px; height: 40px;" aria-hidden="true">
+                    <use href="#lucide-shield-alert"></use>
+                </svg>
+            </div>
+            <div class="error-code-badge">HTTP 403 &bull; ERİŞİM ENGELLENDİ</div>
+            <h1 class="error-title">Bu Sayfaya Yetkiniz Yok</h1>
+            <p class="error-desc">
+                Bu alana erişim sağlamak için gerekli izinlere sahip değilsiniz.
+            </p>
+        }
+        else
+        {
+            <div class="error-icon-box status-500">
+                <svg class="icon icon--xl" style="width: 40px; height: 40px;" aria-hidden="true">
+                    <use href="#lucide-alert-triangle"></use>
+                </svg>
+            </div>
+            <div class="error-code-badge">HTTP @statusCode &bull; SİSTEM BİLDİRİMİ</div>
+            <h1 class="error-title">Bir Şeyler Ters Gitti</h1>
+            <p class="error-desc">
+                @(Model.Message ?? "İsteğinizi işlerken beklenmedik bir durum meydana geldi. Lütfen biraz sonra tekrar deneyiniz.")
+            </p>
+        }
+
+        <div class="error-actions">
+            <a href="/" class="btn-err-primary">
+                <svg class="icon icon--sm" aria-hidden="true"><use href="#lucide-home"></use></svg>
+                <span>Ana Sayfaya Dön</span>
+            </a>
+            <button type="button" onclick="window.history.back()" class="btn-err-secondary">
+                <svg class="icon icon--sm" aria-hidden="true"><use href="#lucide-arrow-left"></use></svg>
+                <span>Önceki Sayfa</span>
+            </button>
+            <button type="button" onclick="window.location.reload()" class="btn-err-secondary">
                 <svg class="icon icon--sm" aria-hidden="true"><use href="#lucide-rotate-ccw"></use></svg>
                 <span>Yeniden Dene</span>
             </button>
-            <a href="/" class="btn-a btn-a--secondary" style="padding: 10px 22px; font-weight: 600;">
-                <svg class="icon icon--sm" aria-hidden="true"><use href="#lucide-home"></use></svg>
-                <span>Ana Sayfa</span>
-            </a>
-            <a href="/Account/Login" class="btn-a btn-a--ghost" style="padding: 10px 20px; font-weight: 600;">
-                <svg class="icon icon--sm" aria-hidden="true"><use href="#lucide-log-out" style="transform: rotate(180deg);"></use></svg>
-                <span>Giriş Yap</span>
-            </a>
         </div>
     </div>
-</div>
+</body>
+</html>

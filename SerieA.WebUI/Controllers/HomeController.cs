@@ -12,7 +12,6 @@ namespace SerieA.WebUI.Controllers
     {
         [HttpGet]
         [Authorize]
-        [Route("")]
         [Route("Admin")]
         [Route("Home")]
         [Route("Home/Index")]

@@ -1,40 +1,218 @@
 @{
-    Layout = "_AdminLayout";
+    Layout = null;
     ViewData["Title"] = "Erişim Engellendi (403)";
-    ViewData["Crumb"] = "Güvenlik Uyarısı";
 }
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>403 - Erişim Engellendi - Lega Serie A</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+    <style>
+        :root {
+            --err-bg: #0A0D14;
+            --err-surface: #131722;
+            --err-line: #222938;
+            --err-text: #EEF1F6;
+            --err-dim: #9AA2B1;
+            --err-red: #EF4444;
+            --font-display: "IBM Plex Sans Condensed", -apple-system, sans-serif;
+            --font-body: "IBM Plex Sans", -apple-system, sans-serif;
+        }
 
-<div class="access-denied-container" style="min-height: 60vh; display: flex; align-items: center; justify-content: center; padding: 40px 16px;">
-    <div class="card-a" style="max-width: 520px; text-align: center; padding: 48px 32px; border-radius: 16px; border: 1px solid var(--line); box-shadow: 0 12px 32px rgba(0,0,0,0.2);">
-        
-        <!-- Big Lucide Shield / Lock Icon with subtle danger badge -->
-        <div style="width: 72px; height: 72px; margin: 0 auto 24px; border-radius: 20px; background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.25); display: grid; place-items: center; color: #EF4444;">
-            <svg class="icon icon--xl" style="width: 36px; height: 36px;" aria-hidden="true">
-                <use href="#lucide-shield-check"></use>
+        body.standalone-error-page {
+            margin: 0;
+            padding: 24px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at 50% 25%, #1A1424 0%, #080A0F 100%);
+            color: var(--err-text);
+            font-family: var(--font-body);
+        }
+
+        .error-card {
+            max-width: 520px;
+            width: 100%;
+            background: var(--err-surface);
+            border: 1px solid var(--err-line);
+            border-radius: 20px;
+            padding: 48px 36px;
+            text-align: center;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .error-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #EF4444, #F87171, #EF4444);
+        }
+
+        .error-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 24px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .error-brand-logo {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #0047AB 0%, #002255 100%);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            display: grid;
+            place-items: center;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 71, 171, 0.35);
+        }
+
+        .error-brand-text {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: 0.5px;
+        }
+
+        .error-icon-box {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            border-radius: 20px;
+            display: grid;
+            place-items: center;
+            background: rgba(239, 68, 68, 0.12);
+            border: 1px solid rgba(239, 68, 68, 0.28);
+            color: #EF4444;
+        }
+
+        .error-code-badge {
+            display: inline-block;
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 6px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: #F87171;
+            margin-bottom: 12px;
+        }
+
+        .error-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1.15;
+            margin: 0 0 12px;
+            color: #fff;
+        }
+
+        .error-desc {
+            color: var(--err-dim);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0 0 32px;
+        }
+
+        .error-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .btn-err-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #2A66E0;
+            color: #fff;
+            padding: 10px 22px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.15s ease;
+            border: 1px solid transparent;
+        }
+
+        .btn-err-primary:hover {
+            background: #1F55C9;
+            color: #fff;
+        }
+
+        .btn-err-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.06);
+            color: #EEF1F6;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            transition: all 0.15s ease;
+        }
+
+        .btn-err-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+    </style>
+</head>
+<body class="standalone-error-page">
+    @await Html.PartialAsync("_AdminIcons")
+
+    <div class="error-card">
+        <a href="/" class="error-brand">
+            <span class="error-brand-logo" aria-hidden="true">SA</span>
+            <span class="error-brand-text">Serie A TIM</span>
+        </a>
+
+        <div class="error-icon-box">
+            <svg class="icon icon--xl" style="width: 40px; height: 40px;" aria-hidden="true">
+                <use href="#lucide-shield-alert"></use>
             </svg>
         </div>
 
-        <span style="font-family: 'Barlow Condensed', sans-serif; font-size: 0.95rem; font-weight: 700; letter-spacing: 1px; color: #EF4444; text-transform: uppercase;">
-            Yetkisiz İşlem (HTTP 403)
-        </span>
-
-        <h1 style="font-family: 'Barlow Condensed', sans-serif; font-size: 2rem; font-weight: 700; margin: 8px 0 16px; color: var(--text);">
-            Bu Sayfaya Erişim Yetkiniz Bulunmuyor
-        </h1>
-
-        <p style="color: var(--dim); font-size: 0.95rem; line-height: 1.5; margin: 0 0 28px;">
-            Görüntülemeye çalıştığınız bölüm yalnızca <strong>Yönetici (Admin)</strong> rolündeki kullanıcıların erişimine açıktır. Mevcut kullanıcı hesabınız bu işlem için yetkilendirilmemiştir.
+        <div class="error-code-badge">HTTP 403 &bull; ERİŞİM ENGELLENDİ</div>
+        <h1 class="error-title">Bu Sayfaya Yetkiniz Yok</h1>
+        <p class="error-desc">
+            Görüntülemeye çalıştığınız alan yalnızca yetkili kullanıcıların erişimine açıktır. Mevcut hesabınız bu işlem için yetkilendirilmemiştir.
         </p>
 
-        <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;">
-            <a href="/" class="btn-a btn-a--primary" style="padding: 10px 24px; font-weight: 600;">
+        <div class="error-actions">
+            <a href="/" class="btn-err-primary">
                 <svg class="icon icon--sm" aria-hidden="true"><use href="#lucide-home"></use></svg>
                 <span>Ana Sayfaya Dön</span>
             </a>
-            <a href="/Account/Logout" class="btn-a btn-a--secondary" style="padding: 10px 24px; font-weight: 600;">
+            <a href="/Account/Logout" class="btn-err-secondary">
                 <svg class="icon icon--sm" aria-hidden="true"><use href="#lucide-log-out"></use></svg>
-                <span>Farklı Hesapla Giriş Yap</span>
+                <span>Farklı Hesapla Giriş</span>
             </a>
         </div>
     </div>
-</div>
+</body>
+</html>
