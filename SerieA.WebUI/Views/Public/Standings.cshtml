@@ -1,0 +1,408 @@
+@using System.Globalization
+@model StandingIndexViewModel
+
+@{
+    ViewData["Title"] = "Puan Durumu";
+
+    const int championsZone = 4;   // 1-4: Şampiyonlar Ligi
+    const int europeZone = 6;      // 5-6: Avrupa Ligi / Konferans Ligi
+    const int relegationZone = 3;  // son 3: Serie B'ye düşme
+    const int formSlots = 5;
+
+    var tr = CultureInfo.GetCultureInfo("tr-TR");
+    var standings = Model.Standings;
+    var total = standings.Count;
+    var started = standings.Any(r => r.Played > 0);
+
+    string ZoneOf(int position) =>
+        position <= championsZone ? "ucl"
+        : position <= europeZone ? "europe"
+        : position > total - relegationZone ? "rel"
+        : "mid";
+
+    (string Name, string Range) ZoneInfo(string zone) => zone switch
+    {
+        "ucl" => ("UEFA Şampiyonlar Ligi", $"1–{championsZone}. sıra"),
+        "europe" => ("UEFA Avrupa Ligi ve Konferans Ligi", $"{championsZone + 1}–{europeZone}. sıra"),
+        _ => ("Serie B'ye düşme", $"{total - relegationZone + 1}–{total}. sıra")
+    };
+
+    string PerMatch(int goals, int played) =>
+        played == 0 ? "0" : ((double)goals / played).ToString("0.00", tr);
+
+    string Signed(int n) => n > 0 ? $"+{n}" : n < 0 ? $"−{Math.Abs(n)}" : "0";
+
+    // "Öne çıkanlar" kutusu için veri
+    var picks = new List<(string Label, string Name, string Logo, string Code, string ColorOne, string ColorTwo, string Value, string Unit, string Note)>();
+    if (started)
+    {
+        var leader = standings.First();
+        var attack = standings.OrderByDescending(r => r.GoalsFor).ThenBy(r => r.Played).First();
+        var defence = standings.Where(r => r.Played > 0).OrderBy(r => r.GoalsAgainst).ThenByDescending(r => r.Played).First();
+        var gap = total > 1 ? leader.Points - standings.ElementAt(1).Points : 0;
+        var leaderNote = total < 2 ? "" : gap > 0 ? $"2. sıradakinden {gap} puan önde" : "2. sıradaki ile puanları eşit";
+
+        picks.Add(("Lider", leader.TeamName, leader.TeamLogoUrl, leader.TeamCode, leader.TeamColorOne, leader.TeamColorTwo,
+            leader.Points.ToString(), "puan", leaderNote));
+        picks.Add(("En çok gol atan", attack.TeamName, attack.TeamLogoUrl, attack.TeamCode, attack.TeamColorOne, attack.TeamColorTwo,
+            attack.GoalsFor.ToString(), "gol", $"Maç başına {PerMatch(attack.GoalsFor, attack.Played)}"));
+        picks.Add(("En az gol yiyen", defence.TeamName, defence.TeamLogoUrl, defence.TeamCode, defence.TeamColorOne, defence.TeamColorTwo,
+            defence.GoalsAgainst.ToString(), "gol", $"Maç başına {PerMatch(defence.GoalsAgainst, defence.Played)}"));
+        // Best points haul over the last 5 matches
+        var formLeader = standings
+            .Select(r => (Row: r, Pts: r.Form.Take(formSlots).Sum(x => x == "W" ? 3 : x == "D" ? 1 : 0), Max: Math.Min(formSlots, r.Form.Count) * 3))
+            .Where(x => x.Max > 0)
+            .OrderByDescending(x => x.Pts).ThenBy(x => x.Row.Position)
+            .FirstOrDefault();
+        if (formLeader.Row != null)
+        {
+            picks.Add(("Formda", formLeader.Row.TeamName, formLeader.Row.TeamLogoUrl, formLeader.Row.TeamCode, formLeader.Row.TeamColorOne, formLeader.Row.TeamColorTwo,
+                formLeader.Pts.ToString(), $"/ {formLeader.Max}", "Son 5 maçta toplanan puan"));
+        }
+    }
+
+    // Takım arması: logo varsa logo, yüklenemezse takım renkleriyle rozet
+    void Crest(string logo, string code, string colorOne, string colorTwo)
+    {
+        var a = string.IsNullOrEmpty(colorOne) ? "#1E5BD8" : colorOne;
+        var b = string.IsNullOrEmpty(colorTwo) ? "#FFFFFF" : colorTwo;
+        var hasLogo = !string.IsNullOrEmpty(logo);
+        <span class="st-crest-wrap">
+            @if (hasLogo)
+            {
+                <img class="st-crest" src="@logo" alt="" width="28" height="28" data-crest />
+            }
+            <span class="st-crest st-crest--fallback" style="--crest-a:@a;--crest-b:@b" aria-hidden="true" hidden="@hasLogo">@code</span>
+        </span>
+    }
+
+    // Son 5 maç (soldan sağa: eskiden yeniye)
+    void Form(IEnumerable<string> results)
+    {
+        var list = results.Take(formSlots).ToList();
+        <ol class="st-form" aria-label="Son beş maç, eskiden yeniye">
+            @foreach (var result in list)
+            {
+                var (letter, label, mod) = result switch
+                {
+                    "W" => ("G", "Galibiyet", "w"),
+                    "D" => ("B", "Beraberlik", "d"),
+                    _ => ("M", "Mağlubiyet", "l")
+                };
+                <li class="st-chip st-chip--@mod" title="@label"><span aria-hidden="true">@letter</span><span class="visually-hidden">@label</span></li>
+            }
+            @for (var i = list.Count; i < formSlots; i++)
+            {
+                <li class="st-chip st-chip--none" title="Henüz oynanmadı" aria-hidden="true">–</li>
+            }
+        </ol>
+    }
+
+
+    // Puan Dağılımı (Points Ladder) Hesaplamaları
+    var maxPoints = standings.Any() ? standings.Max(r => r.Points) : 0;
+    var axisMax = Math.Max(maxPoints, 10);
+    var tickStep = axisMax <= 15 ? 3 : axisMax <= 30 ? 5 : 10;
+    var ticks = new List<int>();
+    for (int t = 0; t <= axisMax; t += tickStep)
+    {
+        ticks.Add(t);
+    }
+    if (!ticks.Contains(axisMax))
+    {
+        ticks.Add(axisMax);
+    }
+
+    var pointStacks = new Dictionary<int, int>();
+    var ladderItems = new List<(SerieA.WebUI.DTOs.Standings.ResultStandingRowDto Row, double XPercent, int StackIndex, string Zone)>();
+
+    foreach (var row in standings.OrderBy(r => r.Points).ThenBy(r => r.Position))
+    {
+        var pts = row.Points;
+        var stack = pointStacks.GetValueOrDefault(pts, 0);
+        pointStacks[pts] = stack + 1;
+
+        var xPct = axisMax > 0 ? (double)pts / axisMax * 90.0 + 5.0 : 50.0;
+        var zone = ZoneOf(row.Position);
+        ladderItems.Add((row, Math.Round(xPct, 2), stack, zone));
+    }
+    var maxStack = pointStacks.Values.Any() ? pointStacks.Values.Max() : 1;
+    var trackHeight = Math.Max(120, 56 + (maxStack * 36));
+
+    string lastZone = null;
+}
+
+<link rel="stylesheet" href="~/css/public-standings.css" asp-append-version="true" />
+
+<div class="container standings-shell" data-standings>
+
+    <header class="st-head">
+        <div>
+            <h1 class="st-title">Puan durumu</h1>
+            <p class="st-lede">Tamamlanan maçlara göre güncel sıralama. Galibiyet 3, beraberlik 1, mağlubiyet 0 puan getirir.</p>
+        </div>
+
+        <form method="get" class="st-period">
+            <label for="st-week">Dönem</label>
+            <select id="st-week" name="upToWeek" data-week-select>
+                <option value="">Tüm sezon (güncel)</option>
+                @foreach (var week in Model.AvailableWeeks)
+                {
+                    <option value="@week" selected="@(Model.SelectedWeek == week)">@week. haftaya kadar</option>
+                }
+            </select>
+            <noscript><button type="submit" class="st-link">Göster</button></noscript>
+        </form>
+    </header>
+
+    @if (total == 0)
+    {
+        <div class="st-panel st-blank">
+            <strong>Puan durumu henüz oluşmadı</strong>
+            <p>Seçilen dönemde tamamlanmış maç yok. Maçlar oynandıkça tablo kendiliğinden güncellenir.</p>
+        </div>
+    }
+    else
+    {
+        @if (picks.Count > 0)
+        {
+            <section class="st-tiles" aria-label="Sezonun öne çıkanları">
+                @foreach (var p in picks)
+                {
+                    <button type="button" class="st-tile" data-team="@p.Code" title="Tabloda göster">
+                        <span class="st-tile__label">@p.Label</span>
+                        <span class="st-tile__team">
+                            @{
+                                Crest(p.Logo, p.Code, p.ColorOne, p.ColorTwo);
+                            }
+                            <span class="st-tile__name">@p.Name</span>
+                        </span>
+                        <span class="st-tile__value">@p.Value<small>@p.Unit</small></span>
+                        @if (!string.IsNullOrEmpty(p.Note))
+                        {
+                            <span class="st-tile__note">@p.Note</span>
+                        }
+                    </button>
+                }
+            </section>
+        }
+
+        <!-- Puan Dağılımı ve Kümelenme Grafiği (Points Ladder) -->
+        <section class="st-ladder-card" aria-labelledby="ladder-title">
+            <div class="st-ladder-head">
+                <div class="st-ladder-title-group">
+                    <div class="st-ladder-title-box">
+                        <svg class="st-ladder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <line x1="18" y1="20" x2="18" y2="10" />
+                            <line x1="12" y1="20" x2="12" y2="4" />
+                            <line x1="6" y1="20" x2="6" y2="14" />
+                        </svg>
+                        <h2 class="st-ladder-title" id="ladder-title">Puan Dağılımı ve Kümelenme</h2>
+                    </div>
+                    <p class="st-ladder-hint">
+                        Takımların ligdeki puan mesafesini ve kümelenmesini gösterir. Tabloda vurgulamak ve o satıra gitmek için bir armaya tıklayın.
+                    </p>
+                </div>
+
+                <div class="st-ladder-legend" aria-hidden="true">
+                    <span class="st-legend-pill st-legend-pill--ucl">
+                        <span class="st-legend-dot"></span> Şampiyonlar Ligi
+                    </span>
+                    <span class="st-legend-pill st-legend-pill--europe">
+                        <span class="st-legend-dot"></span> Avrupa Kupaları
+                    </span>
+                    <span class="st-legend-pill st-legend-pill--rel">
+                        <span class="st-legend-dot"></span> Düşme Hattı
+                    </span>
+                </div>
+            </div>
+
+            <div class="st-ladder-scroll" tabindex="0" role="region" aria-label="Puan dağılım grafiği">
+                <div class="st-ladder-track" style="height: @(trackHeight)px;">
+                    <div class="st-ladder-axis" aria-hidden="true"></div>
+
+                    @foreach (var tick in ticks)
+                    {
+                        var tickX = axisMax > 0 ? (double)tick / axisMax * 90.0 + 5.0 : 50.0;
+                        <div class="st-ladder-tick" style="left: @(tickX.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture))%;">
+                            <span class="st-ladder-tick-line" aria-hidden="true"></span>
+                            <span class="st-ladder-tick-label">@tick p</span>
+                        </div>
+                    }
+
+                    @foreach (var item in ladderItems)
+                    {
+                        var r = item.Row;
+                        var zoneClass = item.Zone switch
+                        {
+                            "ucl" => "zone-ucl",
+                            "europe" => "zone-europe",
+                            "rel" => "zone-rel",
+                            _ => "zone-mid"
+                        };
+
+                        <button type="button" 
+                                class="st-ladder-marker @zoneClass" 
+                                style="left: @(item.XPercent.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture))%; --stack: @item.StackIndex;" 
+                                data-ladder-team="@r.TeamCode" 
+                                aria-pressed="false" 
+                                aria-label="@r.Position. @r.TeamName, @r.Points puan"
+                                title="@r.Position. @r.TeamName: @r.Points puan (@r.Played maç)">
+                            @{
+                                Crest(r.TeamLogoUrl, r.TeamCode, r.TeamColorOne, r.TeamColorTwo);
+                            }
+                            <span class="st-marker-badge">@r.Position</span>
+                        </button>
+                    }
+                </div>
+            </div>
+        </section>
+
+        <div class="st-layout">
+
+            <div class="st-main">
+
+                <section class="st-panel" aria-label="Serie A puan durumu">
+                    <div class="st-toolbar">
+                        <div class="st-seg" role="group" aria-label="Bölgeye göre filtrele">
+                            <button type="button" data-zone-filter="all" aria-pressed="true">Tümü</button>
+                            <button type="button" data-zone-filter="ucl" aria-pressed="false">Şampiyonlar Ligi</button>
+                            <button type="button" data-zone-filter="europe" aria-pressed="false">Avrupa kupaları</button>
+                            <button type="button" data-zone-filter="rel" aria-pressed="false">Küme düşme</button>
+                        </div>
+
+                        <div class="st-search">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
+                            <input type="search" data-team-search placeholder="Takım ara" aria-label="Takım ara" autocomplete="off" />
+                        </div>
+                    </div>
+
+                    <table class="st-table">
+                        <caption class="visually-hidden">Serie A puan durumu</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col" class="st-rank"><span class="visually-hidden">Sıra</span></th>
+                                <th scope="col" class="st-team">Takım</th>
+                                <th scope="col" class="st-num" title="Oynanan maç">O</th>
+                                <th scope="col" class="st-num st-hide-sm" title="Galibiyet">G</th>
+                                <th scope="col" class="st-num st-hide-sm" title="Beraberlik">B</th>
+                                <th scope="col" class="st-num st-hide-sm" title="Mağlubiyet">M</th>
+                                <th scope="col" class="st-num st-split st-hide-sm" title="Atılan gol">AG</th>
+                                <th scope="col" class="st-num st-hide-sm" title="Yenilen gol">YG</th>
+                                <th scope="col" class="st-gd" title="Averaj (atılan − yenilen gol)">AV</th>
+                                <th scope="col" class="st-pts">Puan</th>
+                                <th scope="col" class="st-formcol" title="Son 5 maç, soldan sağa eskiden yeniye">Son 5 maç</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var row in standings)
+                            {
+                                var zone = ZoneOf(row.Position);
+                                if (zone != "mid" && zone != lastZone)
+                                {
+                                    var info = ZoneInfo(zone);
+                                    <tr class="st-zone" data-zone-label="@zone">
+                                        <td colspan="11">
+                                            <span class="st-zone-inner">
+                                                <span>@info.Name</span>
+                                                <span class="st-zone-range">@info.Range</span>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                }
+                                lastZone = zone;
+
+                                var gdClass = row.GoalDifference > 0 ? "is-pos" : row.GoalDifference < 0 ? "is-neg" : "is-zero";
+
+                                <tr class="st-row" data-zone="@zone" data-team="@row.TeamCode" data-team-name="@row.TeamName">
+                                    <td class="st-rank">@row.Position</td>
+                                    <td class="st-team">
+                                        <div class="st-team-cell">
+                                            @{
+                                                Crest(row.TeamLogoUrl, row.TeamCode, row.TeamColorOne, row.TeamColorTwo);
+                                            }
+                                            <div class="st-team-text">
+                                                <button type="button" class="st-name" aria-pressed="false" title="Satırı vurgula">@row.TeamName</button>
+                                                <div class="st-form-inline">
+                                                    @{
+                                                        Form(row.Form);
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="st-num">@row.Played</td>
+                                    <td class="st-num st-hide-sm">@row.Won</td>
+                                    <td class="st-num st-hide-sm">@row.Drawn</td>
+                                    <td class="st-num st-hide-sm">@row.Lost</td>
+                                    <td class="st-num st-split st-hide-sm">@row.GoalsFor</td>
+                                    <td class="st-num st-hide-sm">@row.GoalsAgainst</td>
+                                    <td class="st-gd @gdClass">@Signed(row.GoalDifference)</td>
+                                    <td class="st-pts">@row.Points</td>
+                                    <td class="st-formcol">
+                                        @{
+                                            Form(row.Form);
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                            <tr class="st-empty" data-empty-row hidden>
+                                <td colspan="11">
+                                    <strong>Eşleşen takım yok</strong>
+                                    Farklı bir ad deneyin veya <button type="button" class="st-link" data-clear>filtreleri temizleyin</button>.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <footer class="st-foot">
+                        <span aria-live="polite"><strong data-visible-count>@total</strong> / @total takım gösteriliyor</span>
+                        <span>Satırı vurgulamak için takım adına tıklayın.</span>
+                    </footer>
+                </section>
+
+            </div>
+
+            <aside class="st-aside" aria-label="Tablo özeti ve açıklamalar">
+
+                <section class="st-box">
+                    <h2>Tabloyu okuma</h2>
+                    <dl class="st-gloss">
+                        <dt>O</dt>
+                        <dd>Oynanan maç</dd>
+                        <dt>G</dt>
+                        <dd>Galibiyet</dd>
+                        <dt>B</dt>
+                        <dd>Beraberlik</dd>
+                        <dt>M</dt>
+                        <dd>Mağlubiyet</dd>
+                        <dt>AG</dt>
+                        <dd>Atılan gol</dd>
+                        <dt>YG</dt>
+                        <dd>Yenilen gol</dd>
+                        <dt>AV</dt>
+                        <dd>Averaj (atılan − yenilen)</dd>
+                    </dl>
+                    <p class="st-gloss-note">Son 5 maç sütunu soldan sağa eskiden yeniye okunur.</p>
+                    <ul class="st-key">
+                        <li><span class="st-chip st-chip--w" aria-hidden="true">G</span> Galibiyet</li>
+                        <li><span class="st-chip st-chip--d" aria-hidden="true">B</span> Beraberlik</li>
+                        <li><span class="st-chip st-chip--l" aria-hidden="true">M</span> Mağlubiyet</li>
+                    </ul>
+                </section>
+
+                <details class="st-box st-rules">
+                    <summary>Puan eşitliğinde sıralama nasıl belirlenir?</summary>
+                    <ol>
+                        <li>İki takım arasındaki ikili averaj (maç sonuçları)</li>
+                        <li>İkili averajdaki gol farkı</li>
+                        <li>Lig genelindeki genel averaj</li>
+                        <li>Lig genelinde atılan toplam gol sayısı</li>
+                    </ol>
+                </details>
+            </aside>
+        </div>
+    }
+</div>
+
+<script src="~/js/public-standings.js" asp-append-version="true" defer></script>
