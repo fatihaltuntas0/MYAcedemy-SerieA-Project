@@ -475,16 +475,64 @@
 /* search */
 .st-crest-wrap {
     flex: none;
-    display: grid;
-    place-items: center;
-    width: 28px;
-    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    box-sizing: border-box;
 }
 
 .st-crest {
-    width: 100%;
-    height: 100%;
+    max-width: 22px;
+    max-height: 22px;
+    width: auto;
+    height: auto;
     object-fit: contain;
+}
+
+.st-tile .st-crest-wrap {
+    width: 38px;
+    height: 38px;
+    flex: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    padding: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+    box-sizing: border-box;
+}
+
+.st-tile .st-crest {
+    max-width: 28px;
+    max-height: 28px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.3));
+}
+
+.st-ladder-marker .st-crest-wrap {
+    display: block;
+    position: relative;
+    width: 32px;
+    height: 32px;
+}
+
+.st-ladder-marker .st-crest {
+    width: 32px;
+    height: 32px;
+    max-width: 32px;
+    max-height: 32px;
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px var(--st-surface), 0 0 0 4px var(--ring-color), 0 4px 12px rgba(0,0,0,0.5);
+    transition: all .18s ease;
+    display: inline-grid;
+    place-items: center;
+    object-fit: cover;
 }
 
 .st-crest--fallback {
@@ -895,26 +943,6 @@
     min-width: 0;
 }
 
-.st-tile .st-crest-wrap {
-    width: 38px;
-    height: 38px;
-    flex: none;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    padding: 3px;
-    display: grid;
-    place-items: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
-}
-
-.st-tile .st-crest {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.3));
-}
-
 .st-tile__name {
     font-size: 1.15rem;
     font-weight: 700;
@@ -1120,22 +1148,6 @@
     transition: transform .18s cubic-bezier(.2, .8, .2, 1), z-index .18s;
     z-index: 5;
     outline: none;
-}
-
-.st-ladder-marker .st-crest-wrap {
-    display: block;
-    position: relative;
-}
-
-.st-ladder-marker .st-crest {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    box-shadow: 0 0 0 2px var(--st-surface), 0 0 0 4px var(--ring-color), 0 4px 12px rgba(0,0,0,0.5);
-    transition: all .18s ease;
-    display: inline-grid;
-    place-items: center;
-    object-fit: cover;
 }
 
 .st-ladder-marker.zone-ucl { --ring-color: var(--st-ucl); }
