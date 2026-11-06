@@ -1,18 +1,12 @@
 using Microsoft.AspNetCore.WebUtilities;
 using SerieA.WebUI.DTOs.Teams;
 using SerieA.WebUI.Models;
+using System.Collections.Generic;
 
 namespace SerieA.WebUI.Services.Teams
 {
-    public class TeamApiService : ITeamApiService
+    public class TeamApiService(HttpClient _client) : ITeamApiService
     {
-
-        private readonly HttpClient _client;
-
-        public TeamApiService(HttpClient client)
-        {
-            _client = client;
-        }
 
         public async Task<ApiResponse<List<ResultTeamDto>>> GetTeamsAsync(string? q = null, string? region = null, string? status = null, CancellationToken cancellationToken = default)
         {
@@ -26,19 +20,22 @@ namespace SerieA.WebUI.Services.Teams
             var url = QueryHelpers.AddQueryString("teams", queryParams);
 
             // Send the request with the cancellationToken
-            var response = await _client.GetFromJsonAsync<ApiResponse<List<ResultTeamDto>>>(url, cancellationToken);
-            return response ?? ApiResponse<List<ResultTeamDto>>.Fail("Sunucudan yanıt alınamadı.");
+            var response = await _client.GetAsync(url, cancellationToken);
+            var result = await response.Content.ReadFromJsonAsync<ApiResponse<List<ResultTeamDto>>>(cancellationToken:cancellationToken);
+            return result ?? ApiResponse<List<ResultTeamDto>>.Fail("Sunucudan yanıt alınamadı.");
         }
 
         public async Task<ApiResponse<LeagueSummaryDto>> GetLeagueSummaryAsync(CancellationToken cancellationToken = default)
         {
-            var response = await _client.GetFromJsonAsync<ApiResponse<LeagueSummaryDto>>("teams/summary", cancellationToken);
-            return response ?? ApiResponse<LeagueSummaryDto>.Fail("Lig özeti alınamadı!");
+            var response = await _client.GetAsync("teams/summary", cancellationToken);
+            var result = await response.Content.ReadFromJsonAsync<ApiResponse<LeagueSummaryDto>>(cancellationToken: cancellationToken);
+            return result ?? ApiResponse<LeagueSummaryDto>.Fail("Lig özeti alınamadı!");
         }
         public async Task<ApiResponse<ResultTeamDto>> GetTeamByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            var response = await _client.GetFromJsonAsync<ApiResponse<ResultTeamDto>>($"teams/{id}", cancellationToken);
-            return response ?? ApiResponse<ResultTeamDto>.Fail("Takım getirilemedi.");
+            var response = await _client.GetAsync($"teams/{id}", cancellationToken);
+            var result = await response.Content.ReadFromJsonAsync<ApiResponse<ResultTeamDto>>(cancellationToken: cancellationToken);
+            return result ?? ApiResponse<ResultTeamDto>.Fail("Takım getirilemedi.");
         }
         public async Task<ApiResponse<ResultTeamDto>> CreateTeamAsync(TeamUpsertDto createDto, CancellationToken cancellationToken = default)
         {

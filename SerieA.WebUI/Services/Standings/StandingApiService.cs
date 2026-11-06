@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.WebUtilities;
 using SerieA.WebUI.DTOs.Standings;
 using SerieA.WebUI.Models;
+using System.Collections.Generic;
 
 namespace SerieA.WebUI.Services.Standings
 {
@@ -15,9 +16,10 @@ namespace SerieA.WebUI.Services.Standings
             }
 
             var url = QueryHelpers.AddQueryString("standings", queryParams);
-            var response = await _client.GetFromJsonAsync<ApiResponse<List<ResultStandingRowDto>>>(url, cancellationToken);
+            var response = await _client.GetAsync(url, cancellationToken);
+            var result = await response.Content.ReadFromJsonAsync<ApiResponse<List<ResultStandingRowDto>>>(cancellationToken: cancellationToken);
 
-            return response ?? ApiResponse<List<ResultStandingRowDto>>.Fail("Puan durumu alınamadı.");
+            return result ?? ApiResponse<List<ResultStandingRowDto>>.Fail("Puan durumu alınamadı.");
         }
     }
 }

@@ -5,7 +5,7 @@
     </a>
     <p class="sidebar-label">Yönetim</p>
     <ul class="sidebar-nav">
-        <li><a class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" ? "is-active" : "")" href="/"><svg class="icon icon--nav" aria-hidden="true"><use href="#lucide-home" /></svg>Ana Sayfa</a></li>
+        <li><a class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" ? "is-active" : "")" href="/Admin"><svg class="icon icon--nav" aria-hidden="true"><use href="#lucide-home" /></svg>Ana Sayfa</a></li>
         <li><a class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Matches" ? "is-active" : "")" href="/Matches"><svg class="icon icon--nav" aria-hidden="true"><use href="#lucide-trophy" /></svg>Maçlar</a></li>
         <li><a class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Teams" ? "is-active" : "")" href="/Teams"><svg class="icon icon--nav" aria-hidden="true"><use href="#lucide-shield" /></svg>Takımlar</a></li>
         <li><a class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Weeks" ? "is-active" : "")" href="/Weeks"><svg class="icon icon--nav" aria-hidden="true"><use href="#lucide-calendar" /></svg>Haftalar</a></li>

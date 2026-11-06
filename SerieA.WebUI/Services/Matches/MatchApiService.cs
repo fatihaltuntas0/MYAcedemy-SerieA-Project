@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.WebUtilities;
 using SerieA.WebUI.DTOs.Matches;
 using SerieA.WebUI.Models;
+using System.Collections.Generic;
 
 namespace SerieA.WebUI.Services.Matches
 {
@@ -13,21 +14,16 @@ namespace SerieA.WebUI.Services.Matches
             if (!string.IsNullOrWhiteSpace(team)) queryParams["team"] = team;
 
             var url = QueryHelpers.AddQueryString("matches", queryParams);
-            var response = await _client.GetFromJsonAsync<ApiResponse<List<ResultMatchDto>>>(url, cancellationToken);
-            return response ?? ApiResponse<List<ResultMatchDto>>.Fail("Maçlar alınamadı.");
+            var response = await _client.GetAsync(url, cancellationToken);
+            var result = await response.Content.ReadFromJsonAsync<ApiResponse<List<ResultMatchDto>>>(cancellationToken:cancellationToken);
+            return result ?? ApiResponse<List<ResultMatchDto>>.Fail("Maçlar alınamadı.");
         }
 
         public async Task<ApiResponse<ResultMatchDetailDto>> GetMatchByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            try
-            {
-                var response = await _client.GetFromJsonAsync<ApiResponse<ResultMatchDetailDto>>($"matches/{id}", cancellationToken);
-                return response ?? ApiResponse<ResultMatchDetailDto>.Fail("Maç bulunamadı.");
-            }
-            catch (Exception ex)
-            {
-                return ApiResponse<ResultMatchDetailDto>.Fail($"Maç detayları alınırken hata oluştu: {ex.Message}");
-            }
+            var response = await _client.GetAsync($"matches/{id}", cancellationToken);
+            var result = await response.Content.ReadFromJsonAsync<ApiResponse<ResultMatchDetailDto>>(cancellationToken:cancellationToken);
+            return result ?? ApiResponse<ResultMatchDetailDto>.Fail("Maç alınamadı.");
         }
 
         public async Task<ApiResponse<ResultMatchDto>> CreateMatchAsync(MatchUpsertDto createDto, CancellationToken cancellationToken = default)
@@ -53,8 +49,9 @@ namespace SerieA.WebUI.Services.Matches
 
         public async Task<ApiResponse<List<ResultWeekSummaryDto>>> GetWeeksSummaryAsync(CancellationToken cancellationToken = default)
         {
-            var response = await _client.GetFromJsonAsync<ApiResponse<List<ResultWeekSummaryDto>>>("matches/weeks-summary", cancellationToken);
-            return response ?? ApiResponse<List<ResultWeekSummaryDto>>.Fail("Haftalık özet bilgileri alınamadı.");
+            var response = await _client.GetAsync("matches/weeks-summary", cancellationToken);
+            var result = await response.Content.ReadFromJsonAsync<ApiResponse<List<ResultWeekSummaryDto>>>(cancellationToken: cancellationToken);
+            return result ?? ApiResponse<List<ResultWeekSummaryDto>>.Fail("Haftalık özet bilgileri alınamadı.");
         }
     }
 }
