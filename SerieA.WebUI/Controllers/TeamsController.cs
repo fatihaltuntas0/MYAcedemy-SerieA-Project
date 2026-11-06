@@ -11,10 +11,10 @@ namespace SerieA.WebUI.Controllers
     {
 
         [HttpGet]
-        public async Task<IActionResult> Index(string? q, string? region, string? status)
+        public async Task<IActionResult> Index(string? q, string? region, string? status, CancellationToken cancellationToken)
         {
-            var teamsTask = _teamApiService.GetTeamsAsync(q, region, status);
-            var summaryTask = _teamApiService.GetLeagueSummaryAsync();
+            var teamsTask = _teamApiService.GetTeamsAsync(q, region, status, cancellationToken);
+            var summaryTask = _teamApiService.GetLeagueSummaryAsync(cancellationToken);
 
             await Task.WhenAll(teamsTask, summaryTask);
 
@@ -33,23 +33,23 @@ namespace SerieA.WebUI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] TeamUpsertDto createDto)
+        public async Task<IActionResult> Create([FromBody] TeamUpsertDto createDto, CancellationToken cancellationToken)
         {
-            var result = await _teamApiService.CreateTeamAsync(createDto);
+            var result = await _teamApiService.CreateTeamAsync(createDto, cancellationToken);
             return Json(result);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(Guid id, [FromBody] TeamUpsertDto createDto)
+        public async Task<IActionResult> Update(Guid id, [FromBody] TeamUpsertDto updateDto, CancellationToken cancellationToken)
         {
-            var result = await _teamApiService.UpdateTeamAsync(id, createDto);
+            var result = await _teamApiService.UpdateTeamAsync(id, updateDto, cancellationToken);
             return Json(result);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
         {
-            var result = await _teamApiService.DeleteTeamAsync(id);
+            var result = await _teamApiService.DeleteTeamAsync(id, cancellationToken);
             return Json(result);
         }
 

@@ -18,7 +18,9 @@ namespace SerieA.WebUI.Controllers
         public async Task<IActionResult> Index(CancellationToken cancellationToken)
         {
             var result = await _dashboardApiService.GetDashboardSummaryAsync(cancellationToken);
-            var model = result.IsSuccess && result.Data != null ? result.Data : new DashboardViewModel();
+            var model = result.IsSuccess && result.Data != null
+                ? new DashboardViewModel(result.Data)
+                : new DashboardViewModel();
             return View(model);
         }
 

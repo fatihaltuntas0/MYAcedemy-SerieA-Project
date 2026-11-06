@@ -80,7 +80,7 @@ namespace SerieA.WebUI.Controllers
             var result = await _matchApiService.GetMatchByIdAsync(id, cancellationToken);
             if(!result.IsSuccess || result.Data == null)
             {
-                TempData["ErrorMessage"] = result.Message ?? "Ma� bulunamad�.";
+                TempData["ErrorMessage"] = result.Message ?? "Maç bulunamadı.";
                 return RedirectToAction(nameof(Index));
             }
 

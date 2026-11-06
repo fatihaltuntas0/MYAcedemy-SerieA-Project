@@ -4,8 +4,8 @@ namespace SerieA.WebUI.ViewModels
 {
     public class TeamIndexViewModel
     {
-        public List<ResultTeamDto> Teams { get; set; }
-        public LeagueSummaryDto Summary { get; set; }
+        public List<ResultTeamDto> Teams { get; set; } = new();
+        public LeagueSummaryDto Summary { get; set; } = new();
 
         // To display the status of the filters on the screen:
         public string? SearchQuery { get; set; }
