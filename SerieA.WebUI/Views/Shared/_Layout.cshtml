@@ -205,7 +205,7 @@
     <header class="pub-header">
         <nav class="pub-navbar">
             <div class="pub-brand" id="brand-secret-trigger">
-                <span class="pub-brand-logo" aria-hidden="true" title="Serie A">SA</span>
+                @await Html.PartialAsync("_SerieALogo", new ViewDataDictionary(ViewData) { { "Height", "34px" } })
                 <a href="/" style="text-decoration: none; color: inherit;"><span class="pub-brand-text">Serie A TIM</span></a>
             </div>
 

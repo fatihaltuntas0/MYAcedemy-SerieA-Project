@@ -1,48 +1,11 @@
-﻿@using SerieA.WebUI.DTOs.Matches
+@using SerieA.WebUI.ViewModels
 @using SerieA.WebUI.Enums
-@model ResultMatchDetailDto
+@model MatchDetailViewModel
 
 @{
     ViewData["Title"] = $"{Model.HomeTeamName} vs {Model.AwayTeamName} - Maç Detayı";
     ViewData["Crumb"] = "Maçlar / Detay";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
-
-    var homeGoalsCount = Model.Goals.Count(g => g.TeamId == Model.HomeTeamId);
-    var awayGoalsCount = Model.Goals.Count(g => g.TeamId == Model.AwayTeamId);
-    var hasScoreMismatch = Model.Status == MatchStatus.Finished &&
-                          ((Model.HomeScore ?? 0) != homeGoalsCount || (Model.AwayScore ?? 0) != awayGoalsCount);
-
-    int ParseMinute(string min)
-    {
-        if (string.IsNullOrWhiteSpace(min)) return 0;
-        var parts = min.Split('+');
-        if (int.TryParse(parts[0], out var baseMin))
-        {
-            var added = parts.Length > 1 && int.TryParse(parts[1], out var ext) ? ext : 0;
-            return baseMin * 100 + added;
-        }
-        return 0;
-    }
-
-    // Combine and sort events
-    var eventItems = new List<(Guid Id, string Type, Guid TeamId, string TeamName, string Minute, int SortKey, string PlayerName, string PlayerOut, CardType? CardType)>();
-
-    foreach (var g in Model.Goals)
-    {
-        eventItems.Add((g.Id, "goal", g.TeamId, g.TeamName, g.Minute, ParseMinute(g.Minute), g.PlayerName, "", null));
-    }
-
-    foreach (var c in Model.Cards)
-    {
-        eventItems.Add((c.Id, "card", c.TeamId, c.TeamName, c.Minute, ParseMinute(c.Minute), c.PlayerName, "", c.CardType));
-    }
-
-    foreach (var s in Model.Substitutions)
-    {
-        eventItems.Add((s.Id, "sub", s.TeamId, s.TeamName, s.Minute, ParseMinute(s.Minute), s.PlayerIn, s.PlayerOut, null));
-    }
-
-    var sortedEvents = eventItems.OrderBy(e => e.SortKey).ToList();
 }
 
 @section Styles {
@@ -168,14 +131,14 @@
     </section>
 
     <!-- Mismatch Warning Banner -->
-    @if (hasScoreMismatch)
+    @if (Model.HasScoreMismatch)
     {
         <div class="mismatch-banner" role="alert">
             <svg class="icon mismatch-icon" aria-hidden="true"><use href="#lucide-info" /></svg>
             <div class="mismatch-content">
                 <div class="mismatch-title">Skor ve Gol Kaydı Uyuşmazlığı</div>
                 <p class="mismatch-desc">
-                    Maç sonucu resmi olarak <strong>@Model.HomeScore - @Model.AwayScore</strong> olarak tescil edilmiş, ancak kaydedilen gol sayısı <strong>@homeGoalsCount - @awayGoalsCount</strong> olarak görünüyor.
+                    Maç sonucu resmi olarak <strong>@Model.HomeScore - @Model.AwayScore</strong> olarak tescil edilmiş, ancak kaydedilen gol sayısı <strong>@Model.HomeGoalsCount - @Model.AwayGoalsCount</strong> olarak görünüyor.
                     İstatistiklerin ve puan tablosunun tutarlı kalması için lütfen eksik veya fazla gol kayıtlarını düzenleyiniz.
                 </p>
             </div>
@@ -191,11 +154,11 @@
                     <svg class="icon" aria-hidden="true"><use href="#lucide-clock" /></svg>
                     Olay Akışı
                 </h2>
-                <span class="detail-badge-count">@sortedEvents.Count Olay</span>
+                <span class="detail-badge-count">@Model.SortedEvents.Count Olay</span>
             </div>
 
             <div class="tl-container">
-                @if (sortedEvents.Count == 0)
+                @if (Model.SortedEvents.Count == 0)
                 {
                     <div class="empty-state" style="padding: 40px 16px;">
                         <div class="empty-state-icon">
@@ -214,12 +177,11 @@
                     <div class="tl">
                         @{
                             bool htMarkerRendered = false;
-                            bool ftMarkerRendered = false;
                         }
 
-                        @for (int i = 0; i < sortedEvents.Count; i++)
+                        @for (int i = 0; i < Model.SortedEvents.Count; i++)
                         {
-                            var ev = sortedEvents[i];
+                            var ev = Model.SortedEvents[i];
                             bool isHome = ev.TeamId == Model.HomeTeamId;
 
                             // Insert Half-Time separator if transition between first & second half
@@ -277,7 +239,7 @@
                     <svg class="icon" aria-hidden="true"><use href="#lucide-table" /></svg>
                     Olay Kayıtları
                 </h2>
-                <span class="detail-badge-count">@sortedEvents.Count Kayıt</span>
+                <span class="detail-badge-count">@Model.SortedEvents.Count Kayıt</span>
             </div>
 
             <div class="table-scroll">
@@ -292,7 +254,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if (sortedEvents.Count == 0)
+                        @if (Model.SortedEvents.Count == 0)
                         {
                             <tr class="table-empty">
                                 <td colspan="5">
@@ -305,7 +267,7 @@
                         }
                         else
                         {
-                            @foreach (var ev in sortedEvents)
+                            @foreach (var ev in Model.SortedEvents)
                             {
                                 var eventSummary = ev.Type == "goal" ? $"{ev.PlayerName} (Gol)"
                                 : ev.Type == "card" ? $"{(ev.CardType == CardType.Red ? "Kırmızı Kart" : "Sarı Kart")}: {ev.PlayerName}"
@@ -373,7 +335,7 @@
             </div>
 
             <div class="table-foot">
-                <span>@sortedEvents.Count olay listeleniyor</span>
+                <span>@Model.SortedEvents.Count olay listeleniyor</span>
                 <span>Tüm olaylar bu maça bağlıdır</span>
             </div>
         </section>

@@ -1,6 +1,6 @@
 <aside class="admin-sidebar" id="admin-sidebar" aria-label="Yönetim menüsü">
-    <a class="sidebar-brand" href="/">
-        <span class="brand-mark" aria-hidden="true">SA</span>
+    <a class="sidebar-brand" href="/Admin">
+        @await Html.PartialAsync("_SerieALogo", new ViewDataDictionary(ViewData) { { "Height", "38px" } })
         <span class="brand-text">Serie A Admin</span>
     </a>
     <p class="sidebar-label">Yönetim</p>

@@ -215,8 +215,8 @@
 
     <div class="login-shell">
         <div class="login-brand">
-            <div class="login-crest" aria-hidden="true">
-                <span>SA</span>
+            <div style="margin-bottom: 8px;">
+                @await Html.PartialAsync("_SerieALogo", new ViewDataDictionary(ViewData) { { "Height", "84px" } })
             </div>
             <h1 class="login-title">Serie A Yönetim Paneli</h1>
             <p class="login-subtitle">Lütfen yetkili hesabınızla oturum açın</p>

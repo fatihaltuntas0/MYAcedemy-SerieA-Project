@@ -6,11 +6,6 @@
     Layout = "_AdminLayout";
     ViewData["Title"] = "Haftalar & Fikstür";
     ViewData["Crumb"] = "Haftalar";
-
-    var totalWeeks = Model.Weeks.Count;
-    var completedWeeks = Model.Weeks.Count(w => w.Status == MatchStatus.Finished);
-    var liveOrPlannedWeeks = totalWeeks - completedWeeks;
-    var validWeeksCount = Model.Weeks.Count(w => w.IsValidFixture);
 }
 
 <link rel="stylesheet" href="~/css/weeks.css" asp-append-version="true" />
@@ -33,7 +28,7 @@
             </div>
             <div>
                 <span class="weeks-kpi-label">Toplam Hafta</span>
-                <span class="weeks-kpi-val">@totalWeeks <small>/ 38</small></span>
+                <span class="weeks-kpi-val">@Model.TotalWeeks <small>/ 38</small></span>
             </div>
         </div>
 
@@ -43,7 +38,7 @@
             </div>
             <div>
                 <span class="weeks-kpi-label">Tamamlanan</span>
-                <span class="weeks-kpi-val">@completedWeeks <small>Hafta</small></span>
+                <span class="weeks-kpi-val">@Model.CompletedWeeks <small>Hafta</small></span>
             </div>
         </div>
 
@@ -53,7 +48,7 @@
             </div>
             <div>
                 <span class="weeks-kpi-label">Kalan / Planlanan</span>
-                <span class="weeks-kpi-val">@liveOrPlannedWeeks <small>Hafta</small></span>
+                <span class="weeks-kpi-val">@Model.LiveOrPlannedWeeks <small>Hafta</small></span>
             </div>
         </div>
 
@@ -63,7 +58,7 @@
             </div>
             <div>
                 <span class="weeks-kpi-label">Kural Uyumluluğu</span>
-                <span class="weeks-kpi-val">@(totalWeeks > 0 ? $"%{(int)((double)validWeeksCount / totalWeeks * 100)}" : "-") <small>Geçerli</small></span>
+                <span class="weeks-kpi-val">@(Model.TotalWeeks > 0 ? $"%{(int)((double)Model.ValidWeeksCount / Model.TotalWeeks * 100)}" : "-") <small>Geçerli</small></span>
             </div>
         </div>
     </section>
