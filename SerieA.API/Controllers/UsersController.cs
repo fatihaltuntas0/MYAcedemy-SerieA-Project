@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SerieA.API.Common;
 using SerieA.API.DTOs.Users;
 using SerieA.API.Enums;
 using SerieA.API.Services.Users;
@@ -49,12 +50,7 @@ namespace SerieA.API.Controllers
         {
             var result = await _userService.UpdateUserAsync(id, updateUserDto);
 
-            if(!result.IsSuccess)
-            {
-                return BadRequest(result);
-            }
-
-            return Ok(result);
+            return this.ToActionResult(result);
         }
 
         [HttpDelete("{id:guid}")]
@@ -62,12 +58,7 @@ namespace SerieA.API.Controllers
         {
             var result = await _userService.DeleteUserAsync(id);
 
-            if(!result.IsSuccess)
-            {
-                return BadRequest(result);
-            }
-
-            return Ok(result);
+            return this.ToActionResult(result);
         }
     }
 }

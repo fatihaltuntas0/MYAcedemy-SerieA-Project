@@ -27,7 +27,7 @@ namespace SerieA.API.Services.MatchEvents
             var match = await _context.Matches.AsNoTracking().FirstOrDefaultAsync(m => m.Id == matchId);
             if (match is null)
             {
-                return ApiResponse<Guid>.Fail("Olay eklenecek karşılaşma bulunamadı.");
+                return ApiResponse<Guid>.NotFound("Olay eklenecek karşılaşma bulunamadı.");
             }
 
             if (createCardDto.TeamId != match.HomeTeamId && createCardDto.TeamId != match.AwayTeamId)
@@ -85,7 +85,7 @@ namespace SerieA.API.Services.MatchEvents
             var match = await _context.Matches.AsNoTracking().FirstOrDefaultAsync(m => m.Id == matchId);
             if (match is null)
             {
-                return ApiResponse<Guid>.Fail("Olay eklenecek karşılaşma bulunamadı.");
+                return ApiResponse<Guid>.NotFound("Olay eklenecek karşılaşma bulunamadı.");
             }
 
             if (createGoalDto.TeamId != match.HomeTeamId && createGoalDto.TeamId != match.AwayTeamId)
@@ -141,7 +141,7 @@ namespace SerieA.API.Services.MatchEvents
 
             if (match is null)
             {
-                return ApiResponse<Guid>.Fail("Olay eklenecek karşılaşma bulunamadı.");
+                return ApiResponse<Guid>.NotFound("Olay eklenecek karşılaşma bulunamadı.");
             }
 
             if (createSubstitutionDto.TeamId != match.HomeTeamId && createSubstitutionDto.TeamId != match.AwayTeamId)
@@ -212,13 +212,13 @@ namespace SerieA.API.Services.MatchEvents
             var card = await _context.MatchCards.FindAsync(cardId);
             if (card is null)
             {
-                return ApiResponse<Guid>.Fail("Silinecek kart kaydı bulunamadı.");
+                return ApiResponse.NotFound("Silinecek kart kaydı bulunamadı.");
             }
 
             _context.MatchCards.Remove(card);
             await _context.SaveChangesAsync();
 
-            return ApiResponse<Guid>.Success("Kart kaydı başarıyla silindi.");
+            return ApiResponse.Success("Kart kaydı başarıyla silindi.");
         }
 
         public async Task<ApiResponse> DeleteGoalAsync(Guid goalId)
@@ -227,13 +227,13 @@ namespace SerieA.API.Services.MatchEvents
 
             if (goal is null)
             {
-                return ApiResponse<Guid>.Fail("Silinecek gol kaydı bulunamadı.");
+                return ApiResponse.NotFound("Silinecek gol kaydı bulunamadı.");
             }
 
             _context.MatchGoals.Remove(goal);
             await _context.SaveChangesAsync();
 
-            return ApiResponse<Guid>.Success("Gol kaydı başarıyla silindi.");
+            return ApiResponse.Success("Gol kaydı başarıyla silindi.");
         }
 
         public async Task<ApiResponse> DeleteSubstitutionAsync(Guid subId)
@@ -242,13 +242,13 @@ namespace SerieA.API.Services.MatchEvents
 
             if (subs is null)
             {
-                return ApiResponse<Guid>.Fail("Silinecek değişiklik kaydı bulunamadı.");
+                return ApiResponse.NotFound("Silinecek değişiklik kaydı bulunamadı.");
             }
 
             _context.Substitutions.Remove(subs);
             await _context.SaveChangesAsync();
 
-            return ApiResponse<Guid>.Success("Değişiklik kaydı başarıyla silindi.");
+            return ApiResponse.Success("Değişiklik kaydı başarıyla silindi.");
         }
     }
 }

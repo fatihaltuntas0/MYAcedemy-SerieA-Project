@@ -13,7 +13,7 @@ namespace SerieA.API.Services.Users
     {
         public async Task<ApiResponse<ResultUserDto>> CreateUserAsync(CreateUserDto createDto)
         {
-            var emailExists = await _context.Users.AnyAsync(u => u.Email == createDto.Email);
+            var emailExists = await _context.Users.AnyAsync(u => u.Email.ToLower().Trim() == createDto.Email.ToLower().Trim());
 
             if(emailExists)
             {
@@ -37,7 +37,7 @@ namespace SerieA.API.Services.Users
 
             if(user is null)
             {
-                return ApiResponse.Fail("Silinecek kullanıcı bulunamadı.");
+                return ApiResponse.NotFound("Silinecek kullanıcı bulunamadı.");
             }
 
             _context.Users.Remove(user);
@@ -51,7 +51,7 @@ namespace SerieA.API.Services.Users
             var user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id);
             if(user is null)
             {
-                return ApiResponse<ResultUserDto>.Fail("Kullanıcı bulunamadı.");
+                return ApiResponse<ResultUserDto>.NotFound("Kullanıcı bulunamadı.");
             }
 
             var dtoUser = _mapper.Map<ResultUserDto>(user);
@@ -89,7 +89,7 @@ namespace SerieA.API.Services.Users
 
             if(user is null)
             {
-                return ApiResponse.Fail("Güncellenecek kullanıcı bulunamadı");
+                return ApiResponse.NotFound("Güncellenecek kullanıcı bulunamadı");
             }
 
             var emailExists = await _context.Users.AnyAsync(u => u.Id != id && u.Email.ToLower() == updateDto.Email.Trim().ToLower());

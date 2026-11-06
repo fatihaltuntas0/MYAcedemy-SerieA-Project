@@ -1,5 +1,6 @@
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SerieA.API.Common;
 using SerieA.API.DTOs.Matches;
 using SerieA.API.Services.Matches;
 using System.Threading.Tasks;
@@ -36,7 +37,7 @@ namespace SerieA.API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("{id}")]
+        [HttpGet("{id:guid}")]
         public async Task<IActionResult> GetMatchByIdAsync(Guid id)
         {
             var result = await _matchService.GetMatchByIdAsync(id);
@@ -56,25 +57,17 @@ namespace SerieA.API.Controllers
             }
             return StatusCode(StatusCodes.Status201Created, result);
         }
-        [HttpPut("{id}")]
+        [HttpPut("{id:guid}")]
         public async Task<IActionResult> UpdateMatchAsync(Guid id, [FromBody] MatchUpsertDto updateDto)
         {
             var result = await _matchService.UpdateMatchAsync(id, updateDto);
-            if (!result.IsSuccess)
-            {
-                return BadRequest(result);
-            }
-            return Ok(result);
+            return this.ToActionResult(result);
         }
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:guid}")]
         public async Task<IActionResult> DeleteMatchAsync(Guid id)
         {
             var result = await _matchService.DeleteMatchAsync(id);
-            if (!result.IsSuccess)
-            {
-                return NotFound(result);
-            }
-            return Ok(result);
+            return this.ToActionResult(result);
         }
     }
 }

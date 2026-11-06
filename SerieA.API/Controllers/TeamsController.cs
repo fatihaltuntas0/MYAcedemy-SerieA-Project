@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SerieA.API.Common;
 using SerieA.API.DTOs.Teams;
 using SerieA.API.Services.Teams;
 
@@ -28,7 +29,7 @@ namespace SerieA.API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("{id}")]
+        [HttpGet("{id:guid}")]
         public async Task<IActionResult> GetTeamByIdAsync(Guid id)
         {
             var result = await _teamService.GetTeamByIdAsync(id);
@@ -50,26 +51,18 @@ namespace SerieA.API.Controllers
             return StatusCode(StatusCodes.Status201Created, result);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id:guid}")]
         public async Task<IActionResult> UpdateTeamAsync(Guid id, [FromBody] TeamUpsertDto updateDto)
         {
             var result = await _teamService.UpdateTeamAsync(id, updateDto);
-            if (!result.IsSuccess)
-            {
-                return BadRequest(result);
-            }
-            return Ok(result);
+            return this.ToActionResult(result);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:guid}")]
         public async Task<IActionResult> DeleteTeamAsync(Guid id)
         {
             var result = await _teamService.DeleteTeamAsync(id);
-            if (!result.IsSuccess)
-            {
-                return NotFound(result);
-            }
-            return Ok(result);
+            return this.ToActionResult(result);
         }
     }
 }

@@ -46,7 +46,7 @@ namespace SerieA.API.Services.Matches
 
             if (match is null)
             {
-                return ApiResponse<ResultMatchDetailDto>.Fail("Aradığınız maç bulunamadı.");
+                return ApiResponse<ResultMatchDetailDto>.NotFound("Aradığınız maç bulunamadı.");
             }
 
             var detail = _mapper.Map<ResultMatchDetailDto>(match);
@@ -81,7 +81,7 @@ namespace SerieA.API.Services.Matches
             var match = await _context.Matches.FirstOrDefaultAsync(m => m.Id == id);
             if (match is null)
             {
-                return ApiResponse.Fail("Güncellenmek istenen maç bulunamadı.");
+                return ApiResponse.NotFound("Güncellenmek istenen maç bulunamadı.");
             }
 
             bool isTeamBusy = await IsTeamBusyAsync(updateDto.Week, updateDto.HomeTeamId, updateDto.AwayTeamId, excludeMatchId: id);
@@ -103,7 +103,7 @@ namespace SerieA.API.Services.Matches
             var match = await _context.Matches.FirstOrDefaultAsync(m => m.Id == id);
             if (match is null)
             {
-                return ApiResponse.Fail("Silinmek istenen maç bulunamadı.");
+                return ApiResponse.NotFound("Silinmek istenen maç bulunamadı.");
             }
 
             _context.Matches.Remove(match);

@@ -71,7 +71,7 @@ namespace SerieA.API.Services.Teams
             var team = await _context.Teams.AsNoTracking().FirstOrDefaultAsync(t => t.Id == id);
             if (team is null)
             {
-                return ApiResponse<ResultTeamDto>.Fail("Aradığınız takım bulunamadı.");
+                return ApiResponse<ResultTeamDto>.NotFound("Aradığınız takım bulunamadı.");
             }
 
             var result = _mapper.Map<ResultTeamDto>(team);
@@ -112,7 +112,7 @@ namespace SerieA.API.Services.Teams
             var team = await _context.Teams.FirstOrDefaultAsync(t => t.Id == id);
             if (team is null)
             {
-                return ApiResponse.Fail("Takım güncellenemedi!", new List<string> { "Güncellenmek istenen takım bulunamadı." });
+                return ApiResponse.NotFound("Takım güncellenemedi!", new List<string> { "Güncellenmek istenen takım bulunamadı." });
             }
             _mapper.Map(updateDto, team);
             await _context.SaveChangesAsync();
@@ -123,7 +123,7 @@ namespace SerieA.API.Services.Teams
             var team = await _context.Teams.FirstOrDefaultAsync(t => t.Id == id);
             if (team is null)
             {
-                return ApiResponse.Fail("Takım silinemedi!", new List<string> { "Silinmek istenen takım bulunamadı." });
+                return ApiResponse.NotFound("Takım silinemedi!", new List<string> { "Silinmek istenen takım bulunamadı." });
             }
             team.Status = false;
             await _context.SaveChangesAsync();
