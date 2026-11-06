@@ -1,4 +1,5 @@
-﻿using SerieA.WebUI.DTOs.Standings;
+﻿using SerieA.WebUI.DTOs.Matches;
+using SerieA.WebUI.DTOs.Standings;
 
 namespace SerieA.WebUI.DTOs.Dashboard
 {

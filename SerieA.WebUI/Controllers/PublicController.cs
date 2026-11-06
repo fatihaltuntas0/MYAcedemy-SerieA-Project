@@ -13,6 +13,7 @@ namespace SerieA.WebUI.Controllers
         [AllowAnonymous]
         [HttpGet]
         [Route("")]
+        [Route("Puan-Durumu")]
         [Route("Public/Standings")]
         public async Task<IActionResult> Standings(int? upToWeek, CancellationToken cancellationToken)
         {

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SerieA.WebUI.DTOs.Users;
 using SerieA.WebUI.Enums;
+using SerieA.WebUI.Models;
 using SerieA.WebUI.Services.Users;
 using SerieA.WebUI.ViewModels;
 using System.Threading.Tasks;
@@ -42,6 +43,11 @@ namespace SerieA.WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateUserDto createUserDto, CancellationToken cancellationToken)
         {
+            if (!ModelState.IsValid)
+            {
+                return Json(ApiResponse.Fail("Lütfen form verilerini eksiksiz giriniz."));
+            }
+
             var result = await _userApiService.CreateUserAsync(createUserDto, cancellationToken);
             return Json(result);
         }
@@ -50,6 +56,11 @@ namespace SerieA.WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(Guid id, [FromBody] UpdateUserDto updateUserDto, CancellationToken cancellationToken)
         {
+            if (!ModelState.IsValid)
+            {
+                return Json(ApiResponse.Fail("Lütfen form verilerini eksiksiz giriniz."));
+            }
+
             var result = await _userApiService.UpdateUserAsync(id, updateUserDto, cancellationToken);
             return Json(result);
         }

@@ -1,10 +1,10 @@
-﻿namespace SerieA.WebUI.Models
+namespace SerieA.WebUI.Models
 {
     public class ApiResponse
     {
         public bool IsSuccess { get; set; }
         public List<string>? Errors { get; set; }
-        public string Message { get; set; }
+        public string Message { get; set; } = string.Empty;
 
         public static ApiResponse Success(string message = "İşlem başarılı.")
         {

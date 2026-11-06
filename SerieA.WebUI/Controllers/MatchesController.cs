@@ -4,6 +4,7 @@ using SerieA.WebUI.DTOs.Matches;
 using SerieA.WebUI.DTOs.Matches.Events;
 using SerieA.WebUI.DTOs.Teams;
 using SerieA.WebUI.Enums;
+using SerieA.WebUI.Extensions;
 using SerieA.WebUI.Services.Matches;
 using SerieA.WebUI.Services.MatchEvents;
 using SerieA.WebUI.Services.Teams;
@@ -84,7 +85,7 @@ namespace SerieA.WebUI.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(result.Data);
+            return View(result.Data.ToViewModel());
         }
 
         [HttpPost]

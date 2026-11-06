@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SerieA.WebUI.DTOs.Teams;
+using SerieA.WebUI.Models;
 using SerieA.WebUI.Services.Teams;
 using SerieA.WebUI.ViewModels;
 
@@ -35,6 +36,11 @@ namespace SerieA.WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] TeamUpsertDto createDto, CancellationToken cancellationToken)
         {
+            if(!ModelState.IsValid)
+            {
+                return Json(ApiResponse.Fail("Lütfen form verilerini eksiksiz giriniz."));
+            }
+
             var result = await _teamApiService.CreateTeamAsync(createDto, cancellationToken);
             return Json(result);
         }
@@ -42,6 +48,11 @@ namespace SerieA.WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(Guid id, [FromBody] TeamUpsertDto updateDto, CancellationToken cancellationToken)
         {
+            if(!ModelState.IsValid)
+            {
+                return Json(ApiResponse.Fail("Lütfen form verilerini eksiksiz giriniz."));
+            }
+
             var result = await _teamApiService.UpdateTeamAsync(id, updateDto, cancellationToken);
             return Json(result);
         }

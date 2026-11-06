@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
-using NuGet.Configuration;
 using SerieA.WebUI.Extensions;
 using SerieA.WebUI.Handlers;
 using SerieA.WebUI.Services.Auth;
@@ -58,7 +57,7 @@ if (!app.Environment.IsDevelopment())
 }
 else
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseDeveloperExceptionPage();
 }
 app.UseStatusCodePagesWithReExecute("/Home/StatusCodeError", "?code={0}");
 
