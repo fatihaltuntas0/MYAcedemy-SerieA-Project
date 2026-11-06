@@ -2,9 +2,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SerieA.WebUI.DTOs.Matches;
 using SerieA.WebUI.Enums;
+using SerieA.WebUI.Extensions;
 using SerieA.WebUI.Services.Matches;
 using SerieA.WebUI.Services.Standings;
 using SerieA.WebUI.ViewModels;
+using System.Threading.Tasks;
 
 namespace SerieA.WebUI.Controllers
 {
@@ -91,6 +93,24 @@ namespace SerieA.WebUI.Controllers
                 Matches = matches,
                 WeeksSummary = weeksSummary
             };
+
+            return View(viewModel);
+        }
+
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("Mac/{id:guid}")]
+        [Route("Public/Match/{id:guid}")]
+        public async Task<IActionResult> MatchDetail(Guid id, CancellationToken cancellationToken)
+        {
+            var result = await _matchApiService.GetMatchByIdAsync(id, cancellationToken);
+            if(!result.IsSuccess || result.Data == null)
+            {
+                return NotFound();
+            }
+
+            var viewModel = result.Data.ToViewModel();
 
             return View(viewModel);
         }

@@ -1,0 +1,444 @@
+@using System.Globalization
+@using SerieA.WebUI.Enums
+@model MatchDetailViewModel
+
+@{
+    ViewData["Title"] = $"{Model.HomeTeamName} vs {Model.AwayTeamName} - Maç Detayı";
+    Layout = "_Layout";
+
+    var tr = CultureInfo.GetCultureInfo("tr-TR");
+    var hasScore = (Model.Status == MatchStatus.Finished || Model.Status == MatchStatus.Live);
+    var homeWon = hasScore && (Model.HomeScore ?? 0) > (Model.AwayScore ?? 0);
+    var awayWon = hasScore && (Model.AwayScore ?? 0) > (Model.HomeScore ?? 0);
+
+    var homeGoals = Model.Goals.Where(g => g.TeamId == Model.HomeTeamId).ToList();
+    var awayGoals = Model.Goals.Where(g => g.TeamId == Model.AwayTeamId).ToList();
+
+    var homeYellowCards = Model.Cards.Count(c => c.TeamId == Model.HomeTeamId && c.CardType == CardType.Yellow);
+    var awayYellowCards = Model.Cards.Count(c => c.TeamId == Model.AwayTeamId && c.CardType == CardType.Yellow);
+    var homeRedCards = Model.Cards.Count(c => c.TeamId == Model.HomeTeamId && c.CardType == CardType.Red);
+    var awayRedCards = Model.Cards.Count(c => c.TeamId == Model.AwayTeamId && c.CardType == CardType.Red);
+    var homeSubs = Model.Substitutions.Count(s => s.TeamId == Model.HomeTeamId);
+    var awaySubs = Model.Substitutions.Count(s => s.TeamId == Model.AwayTeamId);
+
+    int ParseMinuteVal(string minStr)
+    {
+        if (string.IsNullOrWhiteSpace(minStr)) return 0;
+        var clean = minStr.Replace("'", "").Trim();
+        if (clean.Contains('+'))
+        {
+            var parts = clean.Split('+');
+            if (int.TryParse(parts[0], out var p1) && int.TryParse(parts[1], out var p2))
+                return p1 + p2;
+        }
+        return int.TryParse(clean, out var val) ? val : 0;
+    }
+
+    void Crest(string logo, string name, string code, string extraClass = "")
+    {
+        var hasLogo = !string.IsNullOrWhiteSpace(logo);
+        <span class="team-crest-wrap">
+            @if (hasLogo)
+            {
+                <img class="team-crest @extraClass" src="@logo" alt="@name" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-grid';" />
+            }
+            <span class="team-crest team-crest--fallback @extraClass" style="@(hasLogo ? "display:none;" : "")" aria-hidden="true">@code</span>
+        </span>
+    }
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/public-match-detail.css" asp-append-version="true" />
+}
+
+<main class="match-shell container-xl" data-match>
+
+    <!-- ===== Maç Hero Alanı & Skor Tabelası ===== -->
+    <header class="match-hero">
+        <div class="hero-topbar">
+            <ul class="comp-tags" aria-label="Müsabaka">
+                <li class="comp-tag comp-tag--league">Serie A</li>
+                <li class="comp-tag">2026/27</li>
+                <li class="comp-tag">@Model.Week. Hafta</li>
+            </ul>
+
+            @if (Model.Status == MatchStatus.Finished)
+            {
+                <span class="status-pill status-pill--finished">Maç Bitti</span>
+            }
+            else if (Model.Status == MatchStatus.Live)
+            {
+                <span class="status-pill status-pill--live" style="background:var(--green); color:#000; font-weight:700;">Canlı</span>
+            }
+            else if (Model.Status == MatchStatus.Postponed)
+            {
+                <span class="status-pill" style="background:var(--amber); color:#000;">Ertelendi</span>
+            }
+            else
+            {
+                <span class="status-pill">Başlamadı</span>
+            }
+        </div>
+
+        <div class="scoreboard">
+            <!-- Ev Sahibi -->
+            <div class="sb-team sb-team--home @(awayWon ? "is-loser" : "")">
+                @{ Crest(Model.HomeTeamLogoUrl, Model.HomeTeamName, Model.HomeTeamCode, "team-crest--xl"); }
+                <div>
+                    <span class="sb-team__role">Ev Sahibi</span>
+                    <h1 class="sb-team__name">@Model.HomeTeamName</h1>
+                    <ul class="sb-scorers list-unstyled m-0 p-0" aria-label="@Model.HomeTeamName golleri">
+                        @foreach (var g in homeGoals)
+                        {
+                            <li>
+                                <svg class="icon icon--xs" style="color:var(--amber);" aria-hidden="true"><use href="#lucide-trophy" /></svg>
+                                <span>@g.PlayerName @g.Minute'</span>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Skor -->
+            <div class="sb-score">
+                @if (hasScore)
+                {
+                    <p class="sb-score__value" aria-label="Skor: @Model.HomeTeamName @Model.HomeScore, @Model.AwayTeamName @Model.AwayScore">
+                        <span>@Model.HomeScore</span>
+                        <span class="sb-score__sep" aria-hidden="true"></span>
+                        <span>@Model.AwayScore</span>
+                    </p>
+                }
+                else
+                {
+                    <p class="sb-score__value" aria-label="Maç henüz oynanmadı">
+                        <span style="color:var(--dim)">-</span>
+                    </p>
+                }
+                <p class="sb-score__ht">Serie A TIM 2026/27</p>
+            </div>
+
+            <!-- Deplasman -->
+            <div class="sb-team sb-team--away @(homeWon ? "is-loser" : "")">
+                @{ Crest(Model.AwayTeamLogoUrl, Model.AwayTeamName, Model.AwayTeamCode, "team-crest--xl"); }
+                <div>
+                    <span class="sb-team__role">Deplasman</span>
+                    <h2 class="sb-team__name">@Model.AwayTeamName</h2>
+                    <ul class="sb-scorers list-unstyled m-0 p-0" aria-label="@Model.AwayTeamName golleri">
+                        @foreach (var g in awayGoals)
+                        {
+                            <li>
+                                <svg class="icon icon--xs" style="color:var(--amber);" aria-hidden="true"><use href="#lucide-trophy" /></svg>
+                                <span>@g.PlayerName @g.Minute'</span>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <ul class="hero-facts list-unstyled">
+            <li>
+                <svg class="icon icon--sm" aria-hidden="true"><use href="#lucide-calendar" /></svg>
+                <span>@Model.MatchDate.ToString("d MMMM yyyy", tr)</span>
+            </li>
+            <li>
+                <svg class="icon icon--sm" aria-hidden="true"><use href="#lucide-clock" /></svg>
+                <span>@Model.MatchDate.ToString("HH:mm")</span>
+            </li>
+            <li>
+                <svg class="icon icon--sm" aria-hidden="true"><use href="#lucide-map-pin" /></svg>
+                <span>@(string.IsNullOrWhiteSpace(Model.Stadium) ? "Serie A Arenası" : Model.Stadium)</span>
+            </li>
+            <li>
+                <svg class="icon icon--sm" aria-hidden="true"><use href="#lucide-shield" /></svg>
+                <span><strong>Hakem:</strong> Resmi Hakem Heyeti</span>
+            </li>
+        </ul>
+
+        <!-- ===== Maç Akış Şeridi (Flow Strip) ===== -->
+        @if (Model.SortedEvents.Any())
+        {
+            <section class="flow-strip" aria-labelledby="flow-title">
+                <div class="flow-head">
+                    <h2 class="flow-title" id="flow-title">Maç Akışı</h2>
+                    <p class="flow-hint">Ayrıntısını görmek için bir olaya dokunun</p>
+                </div>
+                <div class="flow-scroll">
+                    <div class="flow-track">
+                        <span class="flow-side-label flow-side-label--home">
+                            @{ Crest(Model.HomeTeamLogoUrl, Model.HomeTeamName, Model.HomeTeamCode, "team-crest--xs"); }
+                        </span>
+                        <span class="flow-side-label flow-side-label--away">
+                            @{ Crest(Model.AwayTeamLogoUrl, Model.AwayTeamName, Model.AwayTeamCode, "team-crest--xs"); }
+                        </span>
+
+                        <span class="flow-axis" aria-hidden="true"></span>
+                        <span class="flow-half" aria-hidden="true"><span>Devre Arası</span></span>
+
+                        <span class="flow-tick" style="--x:calc(15 / 95 * 100%)">15'</span>
+                        <span class="flow-tick" style="--x:calc(30 / 95 * 100%)">30'</span>
+                        <span class="flow-tick" style="--x:calc(45 / 95 * 100%)">45'</span>
+                        <span class="flow-tick" style="--x:calc(60 / 95 * 100%)">60'</span>
+                        <span class="flow-tick" style="--x:calc(75 / 95 * 100%)">75'</span>
+                        <span class="flow-tick" style="--x:calc(90 / 95 * 100%)">90'</span>
+
+                        @{
+                            int lastHomeMin = -999;
+                            int homeTier = 0;
+                            int lastAwayMin = -999;
+                            int awayTier = 0;
+                        }
+                        @foreach (var e in Model.SortedEvents)
+                        {
+                            var minuteNum = Math.Min(ParseMinuteVal(e.Minute), 94);
+                            var isHome = (e.TeamId == Model.HomeTeamId);
+                            var sideCls = isHome ? "flow-marker--home" : "flow-marker--away";
+                            int tier = 0;
+
+                            if (isHome)
+                            {
+                                if (Math.Abs(minuteNum - lastHomeMin) < 5)
+                                {
+                                    homeTier = (homeTier + 1) % 3;
+                                }
+                                else
+                                {
+                                    homeTier = 0;
+                                }
+                                tier = homeTier;
+                                lastHomeMin = minuteNum;
+                            }
+                            else
+                            {
+                                if (Math.Abs(minuteNum - lastAwayMin) < 5)
+                                {
+                                    awayTier = (awayTier + 1) % 3;
+                                }
+                                else
+                                {
+                                    awayTier = 0;
+                                }
+                                tier = awayTier;
+                                lastAwayMin = minuteNum;
+                            }
+
+                            if (e.Type == "goal")
+                            {
+                                <button type="button" class="flow-marker @sideCls flow-marker--goal" data-tier="@tier" style="--m:@minuteNum" data-flow-ref="ev-@e.Id" aria-label="@e.Minute. dakika, @e.TeamName golü: @e.PlayerName" title="@e.Minute' Gol: @e.PlayerName">
+                                    <span class="flow-marker__dot">
+                                        <svg class="icon icon--xs" style="color:#000;" aria-hidden="true"><use href="#lucide-trophy" /></svg>
+                                    </span>
+                                </button>
+                            }
+                            else if (e.Type == "card")
+                            {
+                                var isRed = (e.CardType == CardType.Red);
+                                var cardColor = isRed ? "var(--red)" : "var(--amber)";
+                                var cardText = isRed ? "Kırmızı Kart" : "Sarı Kart";
+
+                                <button type="button" class="flow-marker @sideCls flow-marker--card" data-tier="@tier" style="--m:@minuteNum" data-flow-ref="ev-@e.Id" aria-label="@e.Minute. dakika, @cardText: @e.PlayerName" title="@e.Minute' @cardText: @e.PlayerName">
+                                    <span class="flow-marker__dot">
+                                        <svg class="icon icon--xs" style="color:@cardColor;" aria-hidden="true"><use href="#lucide-square" /></svg>
+                                    </span>
+                                </button>
+                            }
+                            else if (e.Type == "sub")
+                            {
+                                <button type="button" class="flow-marker @sideCls flow-marker--sub" data-tier="@tier" style="--m:@minuteNum" data-flow-ref="ev-@e.Id" aria-label="@e.Minute. dakika, @e.TeamName oyuncu değişikliği" title="@e.Minute' Değişiklik: @e.PlayerName girdi">
+                                    <span class="flow-marker__dot">
+                                        <svg class="icon icon--xs" style="color:var(--green);" aria-hidden="true"><use href="#lucide-arrow-left-right" /></svg>
+                                    </span>
+                                </button>
+                            }
+                        }
+                    </div>
+                </div>
+            </section>
+        }
+    </header>
+
+    <div class="match-body">
+        <div class="row g-4">
+            <!-- ===== Sol Kolon: Zaman Çizelgesi (Timeline) ===== -->
+            <div class="col-lg-8">
+                <section class="panel" aria-labelledby="timeline-title">
+                    <div class="panel__head">
+                        <h2 class="panel__title" id="timeline-title">Maç Olayları</h2>
+                        <div class="event-filter" role="group" aria-label="Olay türüne göre filtrele">
+                            <button type="button" class="chip" data-event-filter="all" aria-pressed="true">Tümü</button>
+                            <button type="button" class="chip" data-event-filter="goal" aria-pressed="false">Goller</button>
+                            <button type="button" class="chip" data-event-filter="card" aria-pressed="false">Kartlar</button>
+                            <button type="button" class="chip" data-event-filter="sub" aria-pressed="false">Değişiklikler</button>
+                        </div>
+                    </div>
+
+                    <div class="timeline-legend" aria-hidden="true">
+                        <span>
+                            @{ Crest(Model.HomeTeamLogoUrl, Model.HomeTeamName, Model.HomeTeamCode, "team-crest--xs"); }
+                            @Model.HomeTeamName
+                        </span>
+                        <span></span>
+                        <span>
+                            @Model.AwayTeamName
+                            @{ Crest(Model.AwayTeamLogoUrl, Model.AwayTeamName, Model.AwayTeamCode, "team-crest--xs"); }
+                        </span>
+                    </div>
+
+                    <ol class="timeline list-unstyled m-0 p-0">
+                        <li class="event event--period"><span class="period-mark">Başlama Düdüğü</span></li>
+
+                        @if (!Model.SortedEvents.Any())
+                        {
+                            <li class="text-center p-4 text-muted">Bu karşılaşmada henüz kaydedilmiş bir olay bulunmuyor.</li>
+                        }
+                        else
+                        {
+                            @foreach (var e in Model.SortedEvents)
+                            {
+                                var isHome = (e.TeamId == Model.HomeTeamId);
+                                var sideCls = isHome ? "event--home" : "event--away";
+
+                                if (e.Type == "goal")
+                                {
+                                    <li class="event @sideCls event--goal" id="ev-@e.Id" data-type="goal">
+                                        <span class="event__minute">@e.Minute'</span>
+                                        <div class="event-card">
+                                            <span class="event-card__icon">
+                                                <svg class="icon icon--sm" aria-hidden="true"><use href="#lucide-trophy"/></svg>
+                                            </span>
+                                            <span class="event-card__body">
+                                                <span class="event-card__player">@e.PlayerName</span>
+                                                <span class="event-card__meta">Gol &bull; @e.TeamName</span>
+                                            </span>
+                                        </div>
+                                    </li>
+                                }
+                                else if (e.Type == "card")
+                                {
+                                    var cardTypeCls = e.CardType == CardType.Red ? "event--red" : "event--yellow";
+                                    var isRed = e.CardType == CardType.Red;
+                                    var cardColor = isRed ? "var(--red)" : "var(--amber)";
+                                    var cardText = isRed ? "Kırmızı Kart" : "Sarı Kart";
+
+                                    <li class="event @sideCls @cardTypeCls" id="ev-@e.Id" data-type="card">
+                                        <span class="event__minute">@e.Minute'</span>
+                                        <div class="event-card">
+                                            <span class="event-card__icon">
+                                                <svg class="icon icon--sm" style="color:@cardColor;" aria-hidden="true"><use href="#lucide-square"/></svg>
+                                            </span>
+                                            <span class="event-card__body">
+                                                <span class="event-card__player">@e.PlayerName</span>
+                                                <span class="event-card__meta">@cardText &bull; @e.TeamName</span>
+                                            </span>
+                                        </div>
+                                    </li>
+                                }
+                                else if (e.Type == "sub")
+                                {
+                                    <li class="event @sideCls event--sub" id="ev-@e.Id" data-type="sub">
+                                        <span class="event__minute">@e.Minute'</span>
+                                        <div class="event-card">
+                                            <span class="event-card__icon">
+                                                <svg class="icon icon--sm" style="color:var(--green);" aria-hidden="true"><use href="#lucide-arrow-left-right"/></svg>
+                                            </span>
+                                            <span class="event-card__body">
+                                                <span class="event-card__player sub-in">@e.PlayerName</span>
+                                                <span class="event-card__meta sub-out">@e.PlayerOut</span>
+                                            </span>
+                                        </div>
+                                    </li>
+                                }
+                            }
+                        }
+
+                        <li class="event event--period">
+                            <span class="period-mark">
+                                @(Model.Status == MatchStatus.Finished ? $"Maç Sonu ({Model.HomeScore} - {Model.AwayScore})" : "Maç Sonu")
+                            </span>
+                        </li>
+                    </ol>
+                </section>
+            </div>
+
+            <!-- ===== Sağ Kolon: Maç Özeti & İstatistikler ===== -->
+            <aside class="col-lg-4 side-col" aria-label="Maç özeti ve istatistikler">
+
+                <!-- Periyot Kartları -->
+                <div class="period-cards">
+                    <article class="period-card">
+                        <p class="period-card__label">Ev Sahibi</p>
+                        <p class="period-card__score">@Model.HomeGoalsCount</p>
+                        <p class="period-card__note">@Model.HomeTeamCode</p>
+                    </article>
+                    <article class="period-card">
+                        <p class="period-card__label">Deplasman</p>
+                        <p class="period-card__score">@Model.AwayGoalsCount</p>
+                        <p class="period-card__note">@Model.AwayTeamCode</p>
+                    </article>
+                    <article class="period-card period-card--final">
+                        <p class="period-card__label">Sonuç</p>
+                        <p class="period-card__score">@(hasScore ? $"{Model.HomeScore}-{Model.AwayScore}" : "-")</p>
+                        <p class="period-card__note">
+                            @(homeWon ? $"{Model.HomeTeamName} kazandı" : (awayWon ? $"{Model.AwayTeamName} kazandı" : (hasScore ? "Berabere bitti" : "Oynanmadı")))
+                        </p>
+                    </article>
+                </div>
+
+                <!-- İstatistikler -->
+                <section class="panel" aria-labelledby="stats-title">
+                    <div class="panel__head">
+                        <h2 class="panel__title" id="stats-title">Olay İstatistikleri</h2>
+                        <div class="stats-teams" aria-hidden="true">
+                            <span>
+                                @{ Crest(Model.HomeTeamLogoUrl, Model.HomeTeamName, Model.HomeTeamCode, "team-crest--xs"); }
+                                @Model.HomeTeamCode
+                            </span>
+                            <span>
+                                @Model.AwayTeamCode
+                                @{ Crest(Model.AwayTeamLogoUrl, Model.AwayTeamName, Model.AwayTeamCode, "team-crest--xs"); }
+                            </span>
+                        </div>
+                    </div>
+
+                    <ul class="stat-list list-unstyled m-0">
+                        <li class="stat-row">
+                            <div class="stat-row__values">
+                                <span class="stat-val @(Model.HomeGoalsCount > Model.AwayGoalsCount ? "is-lead" : "")">@Model.HomeGoalsCount</span>
+                                <span class="stat-row__label">Toplam Gol</span>
+                                <span class="stat-val stat-val--away @(Model.AwayGoalsCount > Model.HomeGoalsCount ? "is-lead" : "")">@Model.AwayGoalsCount</span>
+                            </div>
+                        </li>
+                        <li class="stat-row">
+                            <div class="stat-row__values">
+                                <span class="stat-val">@homeYellowCards</span>
+                                <span class="stat-row__label">Sarı Kart</span>
+                                <span class="stat-val stat-val--away">@awayYellowCards</span>
+                            </div>
+                        </li>
+                        <li class="stat-row">
+                            <div class="stat-row__values">
+                                <span class="stat-val">@homeRedCards</span>
+                                <span class="stat-row__label">Kırmızı Kart</span>
+                                <span class="stat-val stat-val--away">@awayRedCards</span>
+                            </div>
+                        </li>
+                        <li class="stat-row">
+                            <div class="stat-row__values">
+                                <span class="stat-val">@homeSubs</span>
+                                <span class="stat-row__label">Oyuncu Değişikliği</span>
+                                <span class="stat-val stat-val--away">@awaySubs</span>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+            </aside>
+        </div>
+    </div>
+
+    <p class="page-note text-center mt-5 mb-4">Serie A TIM &bull; 2026/27 Resmi Maç Detayı</p>
+</main>
+
+@section Scripts {
+    <script src="~/js/public-match-detail.js" asp-append-version="true"></script>
+}
