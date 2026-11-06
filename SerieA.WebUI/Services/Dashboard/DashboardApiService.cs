@@ -9,7 +9,7 @@ namespace SerieA.WebUI.Services.Dashboard
         {
             var response = await _client.GetAsync("dashboard", cancellationToken);
             var result = await response.Content.ReadFromJsonAsync<ApiResponse<DashboardViewModel>>(cancellationToken: cancellationToken);
-            return response ?? ApiResponse<DashboardViewModel>.Fail("Dashboard verileri alınamadı.");
+            return result ?? ApiResponse<DashboardViewModel>.Fail("Dashboard verileri alınamadı.");
         }
     }
 }
