@@ -22,7 +22,15 @@ namespace SerieA.WebUI.Handlers
 
                     if (!isJson || string.IsNullOrWhiteSpace(rawContent))
                     {
-                        var fallbackError = ApiResponse.Fail($"Sunucu hatası oluştu. (HTTP {(int)response.StatusCode})");
+                        string errorMessage = response.StatusCode switch
+                        {
+                            HttpStatusCode.Unauthorized => "Oturum süreniz doldu veya yetkiniz bulunmuyor. Lütfen çıkış yapıp tekrar giriş yapın.",
+                            HttpStatusCode.Forbidden => "Bu işlem için yetkiniz bulunmamaktadır.",
+                            HttpStatusCode.NotFound => "İstenen kaynak bulunamadı.",
+                            _ => $"Sunucu hatası oluştu. (HTTP {(int)response.StatusCode})"
+                        };
+
+                        var fallbackError = ApiResponse.Fail(errorMessage);
                         return new HttpResponseMessage(response.StatusCode)
                         {
                             Content = new StringContent(JsonSerializer.Serialize(fallbackError), Encoding.UTF8, "application/json")

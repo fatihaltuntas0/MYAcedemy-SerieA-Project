@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using SerieA.API.Common;
 using SerieA.API.Entities;
@@ -31,7 +31,7 @@ namespace SerieA.API.Services.Auth
                 issuer: _jwtOptions.Value.Issuer,
                 audience: _jwtOptions.Value.Audience,
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(_jwtOptions.Value.ExpireMinutes),
+                expires: DateTime.UtcNow.AddMinutes(_jwtOptions.Value.ExpireMinutes),
                 signingCredentials: credentials
             );
 

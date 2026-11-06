@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using SerieA.WebUI.Extensions;
 using SerieA.WebUI.Handlers;
@@ -30,10 +31,24 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LoginPath = "/Account/Login";               
         options.LogoutPath = "/Account/Logout";             
         options.AccessDeniedPath = "/Account/AccessDenied"; 
-        options.ExpireTimeSpan = TimeSpan.FromHours(2);    
-        options.SlidingExpiration = true;                 
+        options.ExpireTimeSpan = TimeSpan.FromHours(4);    
+        options.SlidingExpiration = false;                 
         options.Cookie.HttpOnly = true;                   
         options.Cookie.SameSite = SameSiteMode.Lax;
+
+        // Her sayfa isteğinde JWT token süresini kontrol et; dolmuşsa oturumu kapatıp Login'e yönlendir
+        options.Events = new CookieAuthenticationEvents
+        {
+            OnValidatePrincipal = async context =>
+            {
+                var token = context.Properties.GetTokenValue("access_token");
+                if (JwtHelper.IsTokenExpired(token))
+                {
+                    context.RejectPrincipal();
+                    await context.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                }
+            }
+        };
     });
 
 builder.Services.AddTransient<ApiExceptionHandler>();

@@ -54,3 +54,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+// Global 401 Unauthorized Interceptor: Oturum süresi dolduğunda anında Login sayfasına yönlendir
+const originalFetch = window.fetch;
+window.fetch = async function (...args) {
+    const response = await originalFetch.apply(this, args);
+    if (response.status === 401) {
+        window.location.href = '/Account/Login?returnUrl=' + encodeURIComponent(window.location.pathname);
+    }
+    return response;
+};
