@@ -33,7 +33,7 @@
     string Signed(int n) => n > 0 ? $"+{n}" : n < 0 ? $"−{Math.Abs(n)}" : "0";
 
     // Data for the "Öne çıkanlar" box 
-    var picks = new List<(string Label, string Name, string Logo, string Code, string ColorOne, string ColorTwo, string Value, string Unit, string Note)>();
+    var picks = new List<(string Label, string Name, string Logo, string Code, string ColorOne, string ColorTwo, string Value, string Unit, string Note, string Icon, string Mod)>();
     if (started)
     {
         var leader = standings.First();
@@ -43,11 +43,11 @@
         var leaderNote = total < 2 ? "" : gap > 0 ? $"2. sıradakinden {gap} puan önde" : "2. sıradaki ile puanları eşit";
 
         picks.Add(("Lider", leader.TeamName, leader.TeamLogoUrl, leader.TeamCode, leader.TeamColorOne, leader.TeamColorTwo,
-            leader.Points.ToString(), "puan", leaderNote));
+            leader.Points.ToString(), "puan", leaderNote, "trophy", "leader"));
         picks.Add(("En çok gol atan", attack.TeamName, attack.TeamLogoUrl, attack.TeamCode, attack.TeamColorOne, attack.TeamColorTwo,
-            attack.GoalsFor.ToString(), "gol", $"Maç başına {PerMatch(attack.GoalsFor, attack.Played)}"));
+            attack.GoalsFor.ToString(), "gol", $"Maç başına {PerMatch(attack.GoalsFor, attack.Played)}", "trophy", "goals"));
         picks.Add(("En az gol yiyen", defence.TeamName, defence.TeamLogoUrl, defence.TeamCode, defence.TeamColorOne, defence.TeamColorTwo,
-            defence.GoalsAgainst.ToString(), "gol", $"Maç başına {PerMatch(defence.GoalsAgainst, defence.Played)}"));
+            defence.GoalsAgainst.ToString(), "gol", $"Maç başına {PerMatch(defence.GoalsAgainst, defence.Played)}", "shield-check", "defence"));
         // Best points haul over the last 5 matches
         var formLeader = standings
             .Select(r => (Row: r, Pts: r.Form.Take(formSlots).Sum(x => x == "W" ? 3 : x == "D" ? 1 : 0), Max: Math.Min(formSlots, r.Form.Count) * 3))
@@ -57,7 +57,7 @@
         if (formLeader.Row != null)
         {
             picks.Add(("Formda", formLeader.Row.TeamName, formLeader.Row.TeamLogoUrl, formLeader.Row.TeamCode, formLeader.Row.TeamColorOne, formLeader.Row.TeamColorTwo,
-                formLeader.Pts.ToString(), $"/ {formLeader.Max}", "Son 5 maçta toplanan puan"));
+                formLeader.Pts.ToString(), $"/ {formLeader.Max}", "Son 5 maçta toplanan puan", "activity", "form"));
         }
     }
 
@@ -169,15 +169,24 @@
             <section class="st-tiles" aria-label="Sezonun öne çıkanları">
                 @foreach (var p in picks)
                 {
-                    <button type="button" class="st-tile" data-team="@p.Code" title="Tabloda göster">
-                        <span class="st-tile__label">@p.Label</span>
-                        <span class="st-tile__team">
-                            @{
-                                Crest(p.Logo, p.Code, p.ColorOne, p.ColorTwo);
-                            }
-                            <span class="st-tile__name">@p.Name</span>
-                        </span>
-                        <span class="st-tile__value">@p.Value<small>@p.Unit</small></span>
+                    <button type="button" class="st-tile st-tile--@p.Mod" data-team="@p.Code" title="Tabloda göster">
+                        <div class="st-tile__top">
+                            <span class="st-tile__label">
+                                <svg class="icon icon--xs" aria-hidden="true"><use href="#lucide-@p.Icon" /></svg>
+                                <span>@p.Label</span>
+                            </span>
+                        </div>
+                        <div class="st-tile__main">
+                            <div class="st-tile__team">
+                                @{
+                                    Crest(p.Logo, p.Code, p.ColorOne, p.ColorTwo);
+                                }
+                                <span class="st-tile__name">@p.Name</span>
+                            </div>
+                            <div class="st-tile__value">
+                                @p.Value<small>@p.Unit</small>
+                            </div>
+                        </div>
                         @if (!string.IsNullOrEmpty(p.Note))
                         {
                             <span class="st-tile__note">@p.Note</span>
@@ -192,11 +201,7 @@
             <div class="st-ladder-head">
                 <div class="st-ladder-title-group">
                     <div class="st-ladder-title-box">
-                        <svg class="st-ladder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <line x1="18" y1="20" x2="18" y2="10" />
-                            <line x1="12" y1="20" x2="12" y2="4" />
-                            <line x1="6" y1="20" x2="6" y2="14" />
-                        </svg>
+                        <svg class="st-ladder-icon icon icon--sm" aria-hidden="true"><use href="#lucide-bar-chart-2" /></svg>
                         <h2 class="st-ladder-title" id="ladder-title">Puan Dağılımı ve Kümelenme</h2>
                     </div>
                     <p class="st-ladder-hint">
@@ -272,7 +277,7 @@
                         </div>
 
                         <div class="st-search">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
+                            <svg class="icon icon--xs" aria-hidden="true"><use href="#lucide-search" /></svg>
                             <input type="search" data-team-search placeholder="Takım ara" aria-label="Takım ara" autocomplete="off" />
                         </div>
                     </div>

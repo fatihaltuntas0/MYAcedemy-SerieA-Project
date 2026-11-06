@@ -121,7 +121,7 @@
                         <!option value="@w" @(w == selectedWeek ? "selected" : "")>@w. Hafta</!option>
                     }
                 </select>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+                <svg class="icon icon--xs" aria-hidden="true"><use href="#lucide-chevron-down" /></svg>
             </label>
         </div>
         <div class="hero-row">
@@ -142,13 +142,13 @@
         @if (prevWeek.HasValue)
         {
             <a href="/Fikstur?week=@prevWeek.Value" class="week-arrow" aria-label="Önceki hafta">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg>
+                <svg class="icon icon--sm" aria-hidden="true"><use href="#lucide-chevron-left" /></svg>
             </a>
         }
         else
         {
             <button type="button" class="week-arrow" disabled aria-label="Önceki hafta yok">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg>
+                <svg class="icon icon--sm" aria-hidden="true"><use href="#lucide-chevron-left" /></svg>
             </button>
         }
 
@@ -181,13 +181,13 @@
         @if (nextWeek.HasValue)
         {
             <a href="/Fikstur?week=@nextWeek.Value" class="week-arrow" aria-label="Sonraki hafta">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>
+                <svg class="icon icon--sm" aria-hidden="true"><use href="#lucide-chevron-right" /></svg>
             </a>
         }
         else
         {
             <button type="button" class="week-arrow" disabled aria-label="Sonraki hafta yok">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>
+                <svg class="icon icon--sm" aria-hidden="true"><use href="#lucide-chevron-right" /></svg>
             </button>
         }
     </nav>
@@ -309,14 +309,14 @@
                                                         {
                                                             <a class="fx-link" href="/Mac/@f.Id">
                                                                 Maç detayı
-                                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>
+                                                                <svg class="icon icon--xs" aria-hidden="true"><use href="#lucide-chevron-right" /></svg>
                                                             </a>
                                                         }
                                                         else if (f.Status == MatchStatus.Live)
                                                         {
                                                             <a class="fx-link" href="/Mac/@f.Id">
                                                                 Canlı takip
-                                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>
+                                                                <svg class="icon icon--xs" aria-hidden="true"><use href="#lucide-chevron-right" /></svg>
                                                             </a>
                                                         }
                                                         else if (f.Status == MatchStatus.Postponed)
@@ -424,7 +424,7 @@
                                     {
                                         <a class="fx-link" href="/Mac/@featured.Id">
                                             Maç detayı
-                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>
+                                            <svg class="icon icon--xs" aria-hidden="true"><use href="#lucide-chevron-right" /></svg>
                                         </a>
                                     }
                                 </div>

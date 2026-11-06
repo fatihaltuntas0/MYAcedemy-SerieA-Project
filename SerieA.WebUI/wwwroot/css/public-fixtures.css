@@ -207,9 +207,11 @@
     }
     .week-arrow {
       flex: none;
-      display: grid;
-      place-items: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 48px;
+      min-height: 72px;
       border: 1px solid var(--line);
       border-radius: var(--radius-md);
       background: var(--surface);
@@ -224,34 +226,54 @@
       flex: 1;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
+      gap: 12px;
       margin: 0;
       padding: 0;
       list-style: none;
     }
+    .week-list li {
+      display: flex;
+      min-width: 0;
+      overflow: hidden;
+    }
     .week-btn {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       width: 100%;
-      height: 100%;
-      padding: 12px 16px;
+      min-height: 72px;
+      padding: 12px 18px;
       border: 1px solid var(--line);
       border-radius: var(--radius-md);
       background: var(--surface);
       color: var(--muted);
       font: inherit;
       text-align: left;
+      text-decoration: none;
       cursor: pointer;
+      overflow: hidden;
+      box-sizing: border-box;
       transition: border-color .15s var(--ease), background-color .15s ease;
     }
-    .week-btn:hover { border-color: var(--line-hover); background: var(--surface-2); }
-    .week-btn__top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .week-btn:hover { border-color: var(--line-hover); background: var(--surface-2); color: inherit; }
+    .week-btn__top { display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; }
     .week-btn__title {
       color: var(--text-2);
       font-family: var(--font-display);
       font-size: 1.3rem;
       font-weight: 600;
       line-height: 1.1;
+      white-space: nowrap;
     }
-    .week-btn__range { display: block; margin-top: 2px; color: var(--dim); font-size: .82rem; }
+    .week-btn__range {
+      display: block;
+      margin-top: 4px;
+      color: var(--dim);
+      font-size: .84rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
     .week-tag {
       padding: 2px 7px;
       border-radius: 3px;

@@ -226,14 +226,6 @@
 
             <div class="pub-nav-actions">
                 <span class="pub-season-badge">2026/27 SEZONU</span>
-
-                @if (User.Identity?.IsAuthenticated == true)
-                {
-                    <a class="btn-pub-admin" href="/Admin" title="Yönetim Paneline Git">
-                        <svg class="icon icon--xs" aria-hidden="true"><use href="#lucide-shield" /></svg>
-                        <span>Panel</span>
-                    </a>
-                }
             </div>
         </nav>
     </header>
@@ -254,7 +246,7 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     
     <script>
-        // Gizli Yönetici Girişi: Logoya 1 saniye içinde 3 kez tıklandığında Admin panele yönlendirir
+        // Gizli Yönetici Girişi: Logoya 1.2 saniye içinde 3 kez tıklandığında Admin panele (veya oturum kapalıysa Login ekranına) yönlendirir
         (function() {
             let clickCount = 0;
             let clickTimer = null;
@@ -271,7 +263,8 @@
                         e.preventDefault();
                         clearTimeout(clickTimer);
                         clickCount = 0;
-                        window.location.href = '/Admin';
+                        var targetUrl = '@(User.Identity?.IsAuthenticated == true ? "/Admin" : "/Account/Login?returnUrl=%2FAdmin")';
+                        window.location.href = targetUrl;
                     }
                 });
             }
