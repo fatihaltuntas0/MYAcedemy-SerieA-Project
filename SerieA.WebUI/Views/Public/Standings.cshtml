@@ -4,9 +4,9 @@
 @{
     ViewData["Title"] = "Puan Durumu";
 
-    const int championsZone = 4;   // 1-4: Şampiyonlar Ligi
-    const int europeZone = 6;      // 5-6: Avrupa Ligi / Konferans Ligi
-    const int relegationZone = 3;  // son 3: Serie B'ye düşme
+    const int championsZone = 4;   // 1-4: Champions League
+    const int europeZone = 6;      // 5-6: Europe League / Conference League
+    const int relegationZone = 3;  // Last 3: Relegation to Serie B
     const int formSlots = 5;
 
     var tr = CultureInfo.GetCultureInfo("tr-TR");
@@ -32,7 +32,7 @@
 
     string Signed(int n) => n > 0 ? $"+{n}" : n < 0 ? $"−{Math.Abs(n)}" : "0";
 
-    // "Öne çıkanlar" kutusu için veri
+    // Data for the "Öne çıkanlar" box 
     var picks = new List<(string Label, string Name, string Logo, string Code, string ColorOne, string ColorTwo, string Value, string Unit, string Note)>();
     if (started)
     {
@@ -61,7 +61,7 @@
         }
     }
 
-    // Takım arması: logo varsa logo, yüklenemezse takım renkleriyle rozet
+    // Team crest: the logo, if available; otherwise, a badge in the team's colors
     void Crest(string logo, string code, string colorOne, string colorTwo)
     {
         var a = string.IsNullOrEmpty(colorOne) ? "#1E5BD8" : colorOne;
