@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SerieA.WebUI.DTOs.Auth;
+using SerieA.WebUI.Extensions;
 using SerieA.WebUI.Services.Auth;
 using System.Security.Claims;
 
@@ -48,7 +49,7 @@ namespace SerieA.WebUI.Controllers
             // Identification Card (Claims) to Be Stored in a Cookie
             var claims = new List<Claim>
             {
-                new(ClaimTypes.NameIdentifier, authData.Email),
+                new(ClaimTypes.NameIdentifier, authData.Id.ToString()),
                 new(ClaimTypes.Name, authData.Name),
                 new(ClaimTypes.Email, authData.Email),
                 new(ClaimTypes.Role, authData.Role.ToString())
@@ -60,7 +61,7 @@ namespace SerieA.WebUI.Controllers
             var authProperties = new AuthenticationProperties
             {
                 IsPersistent = true,
-                ExpiresUtc = DateTimeOffset.UtcNow.AddHours(2)
+                ExpiresUtc = JwtHelper.GetExpiration(authData.Token) ?? DateTimeOffset.UtcNow.AddHours(1)
             };
 
             authProperties.StoreTokens(new[]
@@ -79,7 +80,8 @@ namespace SerieA.WebUI.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpGet]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             // Logout and delete cookie

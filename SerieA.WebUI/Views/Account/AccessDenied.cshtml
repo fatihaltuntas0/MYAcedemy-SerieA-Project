@@ -208,10 +208,12 @@
                 <svg class="icon icon--sm" aria-hidden="true"><use href="#lucide-home"></use></svg>
                 <span>Ana Sayfaya Dön</span>
             </a>
-            <a href="/Account/Logout" class="btn-err-secondary">
-                <svg class="icon icon--sm" aria-hidden="true"><use href="#lucide-log-out"></use></svg>
-                <span>Farklı Hesapla Giriş</span>
-            </a>
+            <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                <button type="submit" class="btn-err-secondary">
+                    <svg class="icon icon--sm" aria-hidden="true"><use href="#lucide-log-out"></use></svg>
+                    <span>Farklı Hesapla Giriş</span>
+                </button>
+            </form>
         </div>
     </div>
 </body>

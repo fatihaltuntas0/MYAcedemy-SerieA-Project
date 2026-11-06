@@ -18,6 +18,25 @@
  * @param {string} [title=''] - Accessible label/tooltip
  * @returns {string} SVG HTML markup
  */
+(function () {
+    const meta = document.querySelector('meta[name="csrf-token"]');
+    if (!meta) return;
+    const token = meta.content;
+    const originalFetch = window.fetch.bind(window);
+
+    window.fetch = function (input, init = {}) {
+        const isRequest = input instanceof Request;
+        const method = (init.method || (isRequest ? input.method : 'GET')).toUpperCase();
+        const url = new URL(isRequest ? input.url : input, window.location.href);
+
+        if (!['GET', 'HEAD', 'OPTIONS'].includes(method) && url.origin === window.location.origin) {
+            const headers = new Headers(init.headers || (isRequest ? input.headers : undefined));
+            headers.set('X-CSRF-TOKEN', token);
+            init = { ...init, headers };
+        }
+        return originalFetch(input, init);
+    };
+})();
 window.lucideIcon = function (name, extraClass = '', title = '') {
     const cls = extraClass ? `icon ${extraClass}` : 'icon';
     const accessibility = title

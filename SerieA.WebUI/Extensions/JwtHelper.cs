@@ -4,39 +4,27 @@ namespace SerieA.WebUI.Extensions
 {
     public static class JwtHelper
     {
-        public static bool IsTokenExpired(string? token)
-        {
-            if (string.IsNullOrWhiteSpace(token)) return true;
 
+        public static DateTimeOffset? GetExpiration(string? token)
+        {
+            if (string.IsNullOrWhiteSpace(token)) return null;
             try
             {
                 var parts = token.Split('.');
-                if (parts.Length < 2) return true;
+                if (parts.Length < 2) return null;
 
-                var payload = parts[1];
-                payload = payload.Replace('-', '+').Replace('_', '/');
-                switch (payload.Length % 4)
-                {
-                    case 2: payload += "=="; break;
-                    case 3: payload += "="; break;
-                }
+                var payload = parts[1].Replace('-', '+').Replace('_', '/');
+                payload = (payload.Length % 4) switch { 2 => payload + "==", 3 => payload + "=", _ => payload };
 
-                var jsonBytes = Convert.FromBase64String(payload);
-                using var doc = JsonDocument.Parse(jsonBytes);
-                if (doc.RootElement.TryGetProperty("exp", out var expProp))
-                {
-                    var expSeconds = expProp.GetInt64();
-                    var expirationUtc = DateTimeOffset.FromUnixTimeSeconds(expSeconds).UtcDateTime;
-                    return expirationUtc <= DateTime.UtcNow;
-                }
+                using var doc = JsonDocument.Parse(Convert.FromBase64String(payload));
+                if (doc.RootElement.TryGetProperty("exp", out var exp))
+                    return DateTimeOffset.FromUnixTimeSeconds(exp.GetInt64());
             }
-            catch
-            {
-                return true;
-            }
-
-            return true;
+            catch { /* invalid token */ }
+            return null;
         }
+
+        public static bool IsTokenExpired(string? token) => GetExpiration(token) is not { } exp || exp <= DateTimeOffset.UtcNow;
     }
 }
 

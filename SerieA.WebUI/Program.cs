@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 using SerieA.WebUI.Extensions;
 using SerieA.WebUI.Handlers;
 using SerieA.WebUI.Services.Auth;
@@ -13,11 +14,16 @@ using SerieA.WebUI.Services.Users;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews()
+builder.Services.AddControllersWithViews(options =>
+    {
+        options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+    })
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
     });
+
+builder.Services.AddAntiforgery(o => o.HeaderName = "X-CSRF-TOKEN");
 
 builder.Services.AddHttpContextAccessor();
 
@@ -90,3 +96,4 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+

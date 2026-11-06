@@ -17,7 +17,12 @@
     </ul>
     <div class="sidebar-foot">
         <span class="sidebar-season">Sezon 2026/27</span>
-        <a class="sidebar-link sidebar-link--logout" href="/Account/Logout"><svg class="icon icon--nav" aria-hidden="true"><use href="#lucide-log-out" /></svg>Çıkış Yap</a>
+        <form asp-controller="Account" asp-action="Logout" method="post" class="m-0">
+            <button type="submit" class="sidebar-link sidebar-link--logout"
+                    style="background:none;border:0;width:100%;text-align:left;cursor:pointer">
+                <svg class="icon icon--nav" aria-hidden="true"><use href="#lucide-log-out" /></svg>Çıkış Yap
+            </button>
+        </form>
     </div>
 </aside>
 <div class="sidebar-backdrop" data-sidebar-close></div>
