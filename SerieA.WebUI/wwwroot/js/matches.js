@@ -1,4 +1,4 @@
-﻿document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
   const modal = document.getElementById('match-modal');
   const deleteModal = document.getElementById('delete-match-modal');
   const detailModal = document.getElementById('match-detail-modal');
@@ -332,7 +332,7 @@
     const buildIcon = (e) => {
       if (e.type === 'goal') {
         const s = el('span', 'tl-icon');
-        s.innerHTML = window.lucideIcon ? window.lucideIcon('trophy', 'icon--xs') : '<svg class="icon icon--xs"><use href="#lucide-trophy"/></svg>';
+        s.innerHTML = window.lucideIcon ? window.lucideIcon('ball', 'icon--xs') : '<svg class="icon icon--xs"><use href="#lucide-ball"/></svg>';
         return s;
       }
       if (e.type === 'sub') {

@@ -1,7 +1,8 @@
-﻿@model StandingIndexViewModel
+@model StandingIndexViewModel
 
 @{
     const int championsZone = 4;
+    const int europeZone = 6;
     const int relegationZone = 3;
     const int formSlots = 5;
     var total = Model.Standings.Count;
@@ -23,7 +24,8 @@
         </div>
 
         <div class="standings-legend" aria-label="Sıralama bölgeleri">
-            <span class="standings-legend__item"><i class="standings-legend__dot standings-legend__dot--europe"></i> Avrupa kupaları <b>1–4</b></span>
+            <span class="standings-legend__item"><i class="standings-legend__dot standings-legend__dot--ucl"></i> Şampiyonlar Ligi <b>1–4</b></span>
+            <span class="standings-legend__item"><i class="standings-legend__dot standings-legend__dot--europe"></i> Avrupa ve Konferans Ligi <b>5–6</b></span>
             <span class="standings-legend__item"><i class="standings-legend__dot standings-legend__dot--relegation"></i> Küme düşme <b>Son 3</b></span>
         </div>
     </div>
@@ -77,7 +79,8 @@
                 {
                     @foreach (var row in Model.Standings)
                     {
-                        var zoneClass = row.Position <= championsZone ? "st-row--europe"
+                        var zoneClass = row.Position <= championsZone ? "st-row--ucl"
+                        : row.Position <= europeZone ? "st-row--europe"
                         : row.Position > total - relegationZone ? "st-row--relegation"
                         : "";
                         var gdClass = row.GoalDifference > 0 ? "st-positive" : row.GoalDifference < 0 ? "st-negative" : "";

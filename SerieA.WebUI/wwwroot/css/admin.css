@@ -1,4 +1,4 @@
-﻿/* ---- Tokens ---- */
+/* ---- Tokens ---- */
 :root {
     --ink-900: #0E1521;
     --ink-800: #131C2B;
@@ -1881,13 +1881,13 @@ tr.zone-rel td:first-child { box-shadow: inset 3px 0 var(--red); }
 }
 
 .rank-pill--ucl {
-    color: var(--green);
-    background: var(--green-soft);
+    color: var(--blue);
+    background: var(--blue-soft);
 }
 
 .rank-pill--uel {
-    color: var(--blue);
-    background: var(--blue-soft);
+    color: var(--green);
+    background: var(--green-soft);
 }
 
 @media (max-width: 991.98px) {

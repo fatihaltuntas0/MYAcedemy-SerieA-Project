@@ -91,7 +91,7 @@
                         @foreach (var g in homeGoals)
                         {
                             <li>
-                                <svg class="icon icon--xs" style="color:var(--amber);" aria-hidden="true"><use href="#lucide-trophy" /></svg>
+                                <svg class="icon icon--xs" style="color:var(--amber);" aria-hidden="true"><use href="#lucide-ball" /></svg>
                                 <span>@g.PlayerName @g.Minute'</span>
                             </li>
                         }
@@ -128,7 +128,7 @@
                         @foreach (var g in awayGoals)
                         {
                             <li>
-                                <svg class="icon icon--xs" style="color:var(--amber);" aria-hidden="true"><use href="#lucide-trophy" /></svg>
+                                <svg class="icon icon--xs" style="color:var(--amber);" aria-hidden="true"><use href="#lucide-ball" /></svg>
                                 <span>@g.PlayerName @g.Minute'</span>
                             </li>
                         }
@@ -227,7 +227,7 @@
                             {
                                 <button type="button" class="flow-marker @sideCls flow-marker--goal" data-tier="@tier" style="--m:@minuteNum" data-flow-ref="ev-@e.Id" aria-label="@e.Minute. dakika, @e.TeamName golü: @e.PlayerName" title="@e.Minute' Gol: @e.PlayerName">
                                     <span class="flow-marker__dot">
-                                        <svg class="icon icon--xs" style="color:#000;" aria-hidden="true"><use href="#lucide-trophy" /></svg>
+                                        <svg class="icon icon--xs" style="color:#000;" aria-hidden="true"><use href="#lucide-ball" /></svg>
                                     </span>
                                 </button>
                             }
@@ -305,7 +305,7 @@
                                         <span class="event__minute">@e.Minute'</span>
                                         <div class="event-card">
                                             <span class="event-card__icon">
-                                                <svg class="icon icon--sm" aria-hidden="true"><use href="#lucide-trophy"/></svg>
+                                                <svg class="icon icon--sm" aria-hidden="true"><use href="#lucide-ball"/></svg>
                                             </span>
                                             <span class="event-card__body">
                                                 <span class="event-card__player">@e.PlayerName</span>
