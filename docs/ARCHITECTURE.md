@@ -16,6 +16,11 @@ Bu doküman, **Serie A Futbol Ligi Yönetim ve İstatistik Platformu**'nun klas�
 
 ```text
 SerieA.sln
+├── docs/                               # Proje Dokümantasyonu ve Ekran Görüntüleri
+│   ├── images/                         # Ziyaretçi portalı ve yönetim paneli ekran görüntüleri
+│   ├── ARCHITECTURE.md                 # Mimari, proje yapısı ve özellik detayları
+│   └── API-ENDPOINTS.md                # REST API uç noktaları ve veritabanı içeriği
+│
 ├── SerieA.API/                         # RESTful Web API Katmanı (.NET 8.0)
 │   ├── Common/                         # ApiResponse<T>, ApiResponseExtensions, JwtOptions
 │   ├── Context/                        # ApiContext (EF Core DbContext ve Fluent API ayarları)

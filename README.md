@@ -7,10 +7,11 @@ Proje birbirinden ayrık iki katmandan oluşur: RESTful Web API (`SerieA.API`) v
 ## İçindekiler
 
 1. [Neler yapıldı? (Özet)](#neler-yapıldı-özet)
-2. [Detaylı dokümantasyon](#detaylı-dokümantasyon)
-3. [Teknolojiler ve paket sürümleri](#teknolojiler-ve-paket-sürümleri)
-4. [Kurulum](#kurulum)
-5. [Yönetim paneline giriş](#yönetim-paneline-giriş)
+2. [Uygulama ekran görüntüleri](#uygulama-ekran-görüntüleri)
+3. [Detaylı dokümantasyon](#detaylı-dokümantasyon)
+4. [Teknolojiler ve paket sürümleri](#teknolojiler-ve-paket-sürümleri)
+5. [Kurulum](#kurulum)
+6. [Yönetim paneline giriş](#yönetim-paneline-giriş)
 
 ---
 
@@ -19,6 +20,94 @@ Proje birbirinden ayrık iki katmandan oluşur: RESTful Web API (`SerieA.API`) v
 - **Ziyaretçi Portalı (Public):** Oturum açmadan erişilebilen dinamik puan durumu (`upToWeek` ile geçmiş haftalara göre filtreleme), 38 haftalık etkileşimli fikstür ve uzatma dakikası (`45+2` vb.) destekli kronolojik maç merkezi.
 - **Yönetim Paneli (Admin ve Editor):** Lig istatistikleri genel bakışı (Dashboard), 20 aktif takım sınırı ve ortak stadyum tekilleştirmeli (San Siro / Giuseppe Meazza) takım yönetimi, AJAX tabanlı maç/fikstür yönetimi, gerçek takım kadroları (`team-rosters.json`) ile gol/kart/oyuncu değişikliği yönetimi ve rol bazlı kullanıcı yönetimi.
 - **Güvenlik ve Mimari:** EF Core Code-First ilişkisel veritabanı, tek tip `ApiResponse<T>` yanıt yapısı, merkezi hata yakalama (`ExceptionMiddleware` & `ApiExceptionHandler`), JWT + `HttpOnly` Cookie köprüsü (`AuthHeaderHandler`) ve CSRF koruması.
+
+---
+
+## Uygulama ekran görüntüleri
+
+Tüm ekran görüntüleri [`docs/images/`](docs/images/) dizininde yer almaktadır.
+
+### 1. Ziyaretçi Portalı (Public Arayüz)
+
+<details open>
+<summary><b>📊 Puan Durumu ve İstatistikler (4 Görsel)</b></summary>
+<br>
+
+| Puan Durumu — Öne Çıkanlar ve Dağılım | Puan Durumu — Lig Tablosu |
+| :---: | :---: |
+| ![Puan Durumu Genel](docs/images/SerieA-PuanDurumu.png) | ![Puan Durumu Tablo](docs/images/SerieA-PuanDurumu1.png) |
+| **Puan Durumu — Alt Sıralar ve Kurallar** | **Haftaya Göre Filtrelenmiş Görünüm (2. Hafta)** |
+| ![Puan Durumu Alt](docs/images/SerieA-PuanDurumu2.png) | ![Puan Durumu 2. Hafta](docs/images/SerieA-PuanDurumuHafta2.png) |
+
+</details>
+
+<details>
+<summary><b>📅 Haftalık Fikstür ve Maç Merkezi (4 Görsel)</b></summary>
+<br>
+
+| Haftalık Fikstür ve İlerleme Durumu | Günlük Maç Listesi ve Hafta Özeti |
+| :---: | :---: |
+| ![Fikstür Üst](docs/images/SerieA-Fikstur.png) | ![Fikstür Alt](docs/images/SerieA-Fikstur1.png) |
+| **Maç Merkezi — Skor Tabelası ve Akış Şeridi** | **Maç Merkezi — Zaman Çizelgesi ve İstatistikler** |
+| ![Maç Detayı Üst](docs/images/SerieA-MacDetayi.png) | ![Maç Detayı Alt](docs/images/SerieA-MacDetayi1.png) |
+
+</details>
+
+---
+
+### 2. Yönetim Paneli (Admin ve Editor)
+
+<details open>
+<summary><b>🔐 Giriş ve Genel Bakış / Dashboard (2 Görsel)</b></summary>
+<br>
+
+| Yönetici Giriş Ekranı | Genel Bakış (Dashboard) |
+| :---: | :---: |
+| ![Admin Giriş](docs/images/AdminPanel-Giris.png) | ![Admin Genel Bakış](docs/images/AdminPanel-GenelBakis.png) |
+
+</details>
+
+<details>
+<summary><b>🛡️ Takım Yönetimi (3 Görsel)</b></summary>
+<br>
+
+| Takım Listesi ve Lig Özeti Şeridi | Bölge / Arama Filtreli Görünüm |
+| :---: | :---: |
+| ![Admin Takımlar](docs/images/AdminPanel-Takimlar.png) | ![Admin Takımlar Filtreli](docs/images/AdminPanel-TakimlarFiltreli.png) |
+
+| Yeni Takım Ekleme / Düzenleme Modalı |
+| :---: |
+| ![Admin Takım Ekleme](docs/images/AdminPanel-TakimEkleme.png) |
+
+</details>
+
+<details>
+<summary><b>⚽ Maç, Fikstür ve Hafta Yönetimi (6 Görsel)</b></summary>
+<br>
+
+| Maç Listesi | Filtrelenmiş Maç Listesi |
+| :---: | :---: |
+| ![Admin Maçlar](docs/images/AdminPanel-Maclar.png) | ![Admin Maçlar Filtreli](docs/images/AdminPanel-MaclarFiltreli.png) |
+| **Yeni Maç Ekleme (Başlamadı)** | **Canlı / Tamamlanan Maç Skor Girişi** |
+| ![Admin Maç Ekleme Oynanmadı](docs/images/AdminPanel-MacEklemeOynanmadi.png) | ![Admin Maç Ekleme Canlı](docs/images/AdminPanel-MacEklemeCanli.png) |
+| **Haftalar Genel Görünümü** | **Seçili Hafta Maç Detayları** |
+| ![Admin Haftalar](docs/images/AdminPaneli-Haftalar.png) | ![Admin Haftalar Detay](docs/images/AdminPaneli-HaftalarDetay.png) |
+
+</details>
+
+<details>
+<summary><b>🏆 Puan Durumu ve Kullanıcı Yönetimi (3 Görsel)</b></summary>
+<br>
+
+| Yönetim Paneli Puan Durumu | Döneme Göre Filtrelenmiş Puan Durumu |
+| :---: | :---: |
+| ![Admin Puan Durumu](docs/images/AdminPanel-PuanDurumu.png) | ![Admin Puan Durumu Filtreli](docs/images/AdminPanel-PuanDurumuFiltreli.png) |
+
+| Kullanıcı ve Rol Yönetimi (`Admin` Rolü) |
+| :---: |
+| ![Admin Kullanıcılar](docs/images/AdminPanel-Kullanicilar.png) |
+
+</details>
 
 ---
 
