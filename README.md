@@ -1,5 +1,11 @@
 # Serie A Futbol Ligi Yönetim ve İstatistik Platformu
 
+![.NET 8](https://img.shields.io/badge/.NET-8.0-512BD4?logo=dotnet&logoColor=white)
+![ASP.NET Core](https://img.shields.io/badge/ASP.NET%20Core-MVC%20%2B%20Web%20API-512BD4)
+![SQL Server](https://img.shields.io/badge/SQL%20Server-EF%20Core%208-CC2927?logo=microsoftsqlserver&logoColor=white)
+![Auth](https://img.shields.io/badge/Auth-JWT%20%2B%20Cookie-orange)
+![License](https://img.shields.io/badge/License-MIT-green)
+
 Serie A Platformu, İtalya Serie A Futbol Ligi'ndeki takımları, haftalık fikstürleri, canlı ve tamamlanmış maç sonuçlarını, maç içi olayları (goller, sarı/kırmızı kartlar, oyuncu değişiklikleri) ve dinamik puan durumunu yönetmek ve göstermek için **.NET 8.0** ile geliştirilmiş bir full-stack web uygulamasıdır.
 
 Proje birbirinden ayrık iki katmandan oluşur: RESTful Web API (`SerieA.API`) ve bu API'yi tüketen ASP.NET Core MVC web arayüzü (`SerieA.WebUI`). Uygulamanın iki yüzü vardır: futbolseverlere açık bir public istatistik ve fikstür portalı ile yetkili kullanıcılar (`Admin` ve `Editor`) için bir yönetim paneli.
@@ -7,11 +13,16 @@ Proje birbirinden ayrık iki katmandan oluşur: RESTful Web API (`SerieA.API`) v
 ## İçindekiler
 
 1. [Neler yapıldı? (Özet)](#neler-yapıldı-özet)
-2. [Uygulama ekran görüntüleri](#uygulama-ekran-görüntüleri)
-3. [Detaylı dokümantasyon](#detaylı-dokümantasyon)
-4. [Teknolojiler ve paket sürümleri](#teknolojiler-ve-paket-sürümleri)
-5. [Kurulum](#kurulum)
-6. [Yönetim paneline giriş](#yönetim-paneline-giriş)
+2. [Mimari özeti](#mimari-özeti)
+3. [Roller ve yetkiler](#roller-ve-yetkiler)
+4. [Hızlı başlangıç](#hızlı-başlangıç)
+5. [Uygulama ekran görüntüleri](#uygulama-ekran-görüntüleri)
+6. [Detaylı dokümantasyon](#detaylı-dokümantasyon)
+7. [Teknolojiler ve paket sürümleri](#teknolojiler-ve-paket-sürümleri)
+8. [Kurulum](#kurulum)
+9. [Yönetim paneline giriş](#yönetim-paneline-giriş)
+10. [Sorun giderme](#sorun-giderme)
+11. [Yol haritası](#yol-haritası)
 
 ---
 
@@ -21,6 +32,47 @@ Proje birbirinden ayrık iki katmandan oluşur: RESTful Web API (`SerieA.API`) v
 - **Yönetim Paneli (Admin ve Editor):** Lig istatistikleri genel bakışı (Dashboard), 20 aktif takım sınırı ve ortak stadyum tekilleştirmeli (San Siro / Giuseppe Meazza) takım yönetimi, AJAX tabanlı maç/fikstür yönetimi, gerçek takım kadroları (`team-rosters.json`) ile gol/kart/oyuncu değişikliği yönetimi ve rol bazlı kullanıcı yönetimi.
 - **Güvenlik ve Mimari:** EF Core Code-First ilişkisel veritabanı, tek tip `ApiResponse<T>` yanıt yapısı, merkezi hata yakalama (`ExceptionMiddleware` & `ApiExceptionHandler`), JWT + `HttpOnly` Cookie köprüsü (`AuthHeaderHandler`) ve CSRF koruması.
 
+## Mimari özeti
+
+```mermaid
+flowchart LR
+    B[Tarayıcı] -->|HttpOnly Cookie| W[SerieA.WebUI<br/>ASP.NET Core MVC]
+    W -->|Bearer JWT<br/>AuthHeaderHandler| A[SerieA.API<br/>REST Web API]
+    A -->|EF Core| D[(SQL Server)]
+```
+
+WebUI, giriş sonrası API'den aldığı JWT'yi `HttpOnly` cookie içinde saklar ve her API isteğine `Authorization: Bearer` başlığı olarak ekler. Ayrıntılar için [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) dosyasına bakın.
+
+## Roller ve yetkiler
+
+| Özellik | Ziyaretçi | Editor | Admin |
+| :--- | :---: | :---: | :---: |
+| Puan durumu, fikstür, maç detayı (public portal) | ✅ | ✅ | ✅ |
+| Dashboard, takım / maç / hafta / olay yönetimi | ❌ | ✅ | ✅ |
+| Kullanıcı ve rol yönetimi | ❌ | ❌ | ✅ |
+
+---
+
+## Hızlı başlangıç
+
+Ön gereksinimler: .NET 8 SDK ve SQL Server (Express / Developer / LocalDB).
+
+```powershell
+git clone https://github.com/fatihaltuntas0/MYAcedemy-SerieA-Project.git
+cd MYAcedemy-SerieA-Project
+dotnet restore
+
+# 1) Boş veritabanını oluşturun, sonra SerieA.API/Data/seriea-data.sql dosyasını SSMS'te çalıştırın
+# 2) JWT anahtarını tanımlayın (kendi rastgele değerinizle)
+dotnet user-secrets set "Jwt:SecretKey" "<en-az-32-karakterlik-rastgele-deger>" --project SerieA.API
+
+# 3) İki projeyi ayrı terminallerde başlatın
+dotnet run --project SerieA.API --launch-profile https
+dotnet run --project SerieA.WebUI --launch-profile https
+```
+
+Ardından `https://localhost:7015` (public portal) veya `https://localhost:7015/Account/Login` (yönetim paneli) adresini açın. Demo giriş bilgileri: [Yönetim paneline giriş](#yönetim-paneline-giriş). Adımların ayrıntısı [Kurulum](#kurulum) bölümündedir.
+
 ---
 
 ## Uygulama ekran görüntüleri
@@ -29,7 +81,7 @@ Tüm ekran görüntüleri [`docs/images/`](docs/images/) dizininde yer almaktad�
 
 ### 1. Ziyaretçi Portalı (Public Arayüz)
 
-<details open>
+<details>
 <summary><b>📊 Puan Durumu ve İstatistikler (4 Görsel)</b></summary>
 <br>
 
@@ -57,7 +109,7 @@ Tüm ekran görüntüleri [`docs/images/`](docs/images/) dizininde yer almaktad�
 
 ### 2. Yönetim Paneli (Admin ve Editor)
 
-<details open>
+<details>
 <summary><b>🔐 Giriş ve Genel Bakış / Dashboard (2 Görsel)</b></summary>
 <br>
 
@@ -131,6 +183,10 @@ Aşağıdaki sürümler, projeyi derlemek veya paketleri sıfırdan kurmak için
 | Hedef framework | .NET 8.0 (`net8.0`) |
 | Veritabanı | Microsoft SQL Server (Express, Developer veya LocalDB) |
 
+<details>
+<summary><b>📦 NuGet paket listesi</b></summary>
+<br>
+
 ### SerieA.API paketleri
 
 | Paket | Sürüm | Kullanım amacı |
@@ -144,30 +200,15 @@ Aşağıdaki sürümler, projeyi derlemek veya paketleri sıfırdan kurmak için
 | `FluentValidation.AspNetCore` | `11.3.1` | Gelen DTO modellerinin kurallara göre doğrulanması |
 | `Swashbuckle.AspNetCore` | `6.6.2` | Swagger / OpenAPI dokümantasyonu ve test arayüzü |
 
-Paketleri CLI ile tek tek kurmak isterseniz:
-
-```powershell
-dotnet add SerieA.API/SerieA.API.csproj package AutoMapper --version 12.0.1
-dotnet add SerieA.API/SerieA.API.csproj package AutoMapper.Extensions.Microsoft.DependencyInjection --version 12.0.1
-dotnet add SerieA.API/SerieA.API.csproj package FluentValidation.AspNetCore --version 11.3.1
-dotnet add SerieA.API/SerieA.API.csproj package Microsoft.AspNetCore.Authentication.JwtBearer --version 8.0.33
-dotnet add SerieA.API/SerieA.API.csproj package Microsoft.EntityFrameworkCore --version 8.0.32
-dotnet add SerieA.API/SerieA.API.csproj package Microsoft.EntityFrameworkCore.SqlServer --version 8.0.32
-dotnet add SerieA.API/SerieA.API.csproj package Microsoft.EntityFrameworkCore.Tools --version 8.0.32
-dotnet add SerieA.API/SerieA.API.csproj package Swashbuckle.AspNetCore --version 6.6.2
-```
-
 ### SerieA.WebUI paketleri
 
 | Paket | Sürüm | Kullanım amacı |
 | :--- | :---: | :--- |
 | `Microsoft.VisualStudio.Web.CodeGeneration.Design` | `8.0.23` | MVC Controller ve View şablon üretimi (scaffolding) |
 
-```powershell
-dotnet add SerieA.WebUI/SerieA.WebUI.csproj package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 8.0.23
-```
+</details>
 
-Repoyu klonladığınızda paket referansları `.csproj` dosyalarında hazır tanımlıdır. `dotnet restore` çalıştırmanız, tüm paketleri doğru sürümleriyle indirmek için yeterlidir.
+Paket referansları `.csproj` dosyalarında hazır tanımlıdır. `dotnet restore` çalıştırmanız, tüm paketleri doğru sürümleriyle indirmek için yeterlidir.
 
 ---
 
@@ -182,8 +223,8 @@ Repoyu klonladığınızda paket referansları `.csproj` dosyalarında hazır ta
 ### 1. Repoyu klonlama ve paketleri yükleme
 
 ```powershell
-git clone <repo-url>
-cd SerieA.API
+git clone https://github.com/fatihaltuntas0/MYAcedemy-SerieA-Project.git
+cd MYAcedemy-SerieA-Project
 dotnet restore
 ```
 
@@ -235,24 +276,17 @@ Yerel varsayılan SQL Server örneği kullanıyorsanız `Server=.;`, LocalDB kul
 > [!IMPORTANT]
 > Güvenlik nedeniyle `SerieA.API/appsettings.json` içindeki `Jwt:SecretKey` alanı boştur; geliştirme ortamında .NET User Secrets kullanılmıştır. Giriş ve JWT üretiminin çalışması için en az 32 karakterlik bir `SecretKey` tanımlamanız gerekir.
 
-Seçenek 1, User Secrets ile tanımlama (önerilen):
+User Secrets ile tanımlayın. Değeri kendiniz üretin ve paylaşmayın:
 
 ```powershell
-cd SerieA.API
-dotnet user-secrets set "Jwt:SecretKey" "SerieA_Super_Secret_Jwt_Key_2026_Minimum_32_Chars!"
-cd ..
+# Rastgele anahtar üretmek için (PowerShell):
+[Convert]::ToBase64String((1..48 | ForEach-Object { Get-Random -Maximum 256 }) -as [byte[]])
+
+dotnet user-secrets set "Jwt:SecretKey" "<ürettiğiniz-anahtar>" --project SerieA.API
 ```
 
-Seçenek 2, doğrudan `SerieA.API/appsettings.json` içine yazma:
-
-```json
-"Jwt": {
-  "Issuer": "SerieA.API",
-  "Audience": "SerieA.WebUI",
-  "SecretKey": "SerieA_Super_Secret_Jwt_Key_2026_Minimum_32_Chars!",
-  "ExpireMinutes": 240
-}
-```
+> [!WARNING]
+> `SecretKey` değerini `appsettings.json` içine yazıp commit etmeyin. Bu dosya repoda herkese açıktır; gerçek ortamlarda ortam değişkeni (`Jwt__SecretKey`) veya bir secret manager kullanın.
 
 #### API adresi
 
@@ -304,6 +338,36 @@ dotnet run --project SerieA.WebUI --launch-profile https
 
 ## Yönetim paneline giriş
 
-Hazır SQL dosyasında `admin@seriea.com` e-posta adresli bir `Admin` kullanıcısı bulunur.
+Hazır SQL dosyası bir `Admin` kullanıcısı içerir:
 
-Yeni bir yönetici oluşturmak veya mevcut şifreyi sıfırlamak isterseniz, geliştirme ortamında `UsersController` üzerindeki `[Authorize(Roles = "Admin")]` özniteliğini geçici olarak `[AllowAnonymous]` yapın. Ardından Swagger (`https://localhost:7283/swagger`) üzerinden `POST /api/users` uç noktasını kullanarak kendi belirlediğiniz şifreyle (en az 8 karakter) yeni bir `Admin` kullanıcısı oluşturabilirsiniz.
+| Alan | Değer |
+| :--- | :--- |
+| E-posta | `admin@seriea.com` |
+| Şifre | `Admin123` |
+
+> [!NOTE]
+> Bu kullanıcı ve şifre **yalnızca demo / dummy veridir**; geliştirme ve tanıtım amaçlıdır. Herkese açık veya gerçek bir ortama kurulum yapacaksanız ilk girişten sonra **Kullanıcılar** ekranından şifreyi mutlaka değiştirin veya bu kullanıcıyı silin.
+
+Yeni kullanıcı oluşturmak için `Admin` olarak giriş yapıp **Kullanıcılar** ekranını kullanın (API tarafında `POST /api/users`, yalnızca `Admin` rolü).
+
+---
+
+## Sorun giderme
+
+| Belirti | Olası neden / çözüm |
+| :--- | :--- |
+| Veritabanı bağlantı hatası | `ConnectionStrings:Default` içindeki sunucu adını kontrol edin (`.\SQLEXPRESS`, `.`, `(localdb)\MSSQLLocalDB`). SQL Server servisinin çalıştığından emin olun. |
+| `Cannot open database "SerieAProject"` | SQL betiğinden önce `CREATE DATABASE [SerieAProject];` komutunu çalıştırmayı unutmuş olabilirsiniz. |
+| Giriş yaparken 500 hatası | `Jwt:SecretKey` boştur veya 32 karakterden kısadır. User Secrets ile tanımlayın. |
+| WebUI açılıyor ama veri gelmiyor | API çalışmıyor olabilir. API'nin `https://localhost:7283` adresinde açık olduğunu ve `ApiSettings:BaseUrl` değerini kontrol edin. |
+| HTTPS sertifika uyarısı | `dotnet dev-certs https --trust` komutunu çalıştırın. |
+
+---
+
+## Yol haritası
+
+- [ ] Otomatik testler (birim ve entegrasyon testleri) eklemek
+- [ ] İlk Admin kullanıcısı için geliştirme ortamı seed mekanizması
+- [ ] Docker Compose ile tek komutla kurulum
+
+> `SerieA.WebUI/seriea-template/` klasörü, arayüzün tasarım prototipi olan statik HTML şablonlarını içerir; uygulama çalışırken kullanılmaz, referans amaçlı tutulmaktadır.
